@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class Occupation {
 
     private String name;
-    private BigDecimal baseSalary;
 
     public String getName() {
         return name;
@@ -15,11 +14,4 @@ public class Occupation {
         this.name = name;
     }
 
-    public BigDecimal getBaseSalary() {
-        return baseSalary;
-    }
-
-    public void setBaseSalary(BigDecimal baseSalary) {
-        this.baseSalary = baseSalary;
-    }
 }

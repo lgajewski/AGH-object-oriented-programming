@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <SplitPane dividerPositions="0.2508361204013378" focusTraversable="true" layoutX="0.0" layoutY="0.0"
+               prefHeight="400.0" prefWidth="600.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <ImageView fitHeight="80.25" fitWidth="107.0" layoutX="20.0" layoutY="27.0" pickOnBounds="true"
+                       preserveRatio="true">
+                <Image url="@/res/icon.png"/>
+            </ImageView>
+            <ImageView fitHeight="63.75" fitWidth="85.0" layoutX="31.0" layoutY="137.0" pickOnBounds="true"
+                       preserveRatio="true">
+                <Image url="@/res/menu.png"/>
+            </ImageView>
+            <ListView editable="false" layoutX="20.0" layoutY="185.0" prefHeight="186.0"
+                      prefWidth="106.45407104492188"/>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <TabPane layoutX="0.0" layoutY="0.0" prefHeight="398.0" prefWidth="445.0" tabClosingPolicy="UNAVAILABLE">
+                <Tab text="Employees">
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <Pane blendMode="BLUE" layoutX="0.0" layoutY="84.0" prefHeight="284.0" prefWidth="432.0"
+                              style="" visible="true"/>
+                        <TextField layoutX="36.0" layoutY="33.0" prefWidth="164.0" promptText="Type username..."/>
+                        <ComboBox layoutX="360.0" layoutY="33.0" prefHeight="21.999908447265625" prefWidth="85.0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Name"/>
+                                    <String fx:value="Surname"/>
+                                    <String fx:value="Occupation"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        <Label layoutX="312.0" layoutY="36.0" text="Sort by:"/>
+                        <ImageView fitHeight="33.0" fitWidth="14.0" layoutX="14.0" layoutY="37.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <Image url="@/res/search.png"/>
+                        </ImageView>
+                    </AnchorPane>
+                </Tab>
+                <Tab text="Team">
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                </Tab>
+                <Tab text="Projects">
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                </Tab>
+            </TabPane>
+        </AnchorPane>
+    </SplitPane>
+</AnchorPane>
