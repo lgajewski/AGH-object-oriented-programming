@@ -2,7 +2,7 @@ package pl.edu.agh.iet.to2.employees.model;
 
 import java.math.BigDecimal;
 
-public class Employee {
+public class Employee implements IEmployee {
 
     private long id;
 
