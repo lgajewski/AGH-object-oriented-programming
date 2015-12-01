@@ -10,7 +10,6 @@ public class EmployeeDetails {
 
     private BigDecimal salary;
     private Occupation occupation;
-    private JobRank jobRank;
 
     public String getNickname() {
         return nickname;
@@ -44,11 +43,4 @@ public class EmployeeDetails {
         this.occupation = occupation;
     }
 
-    public JobRank getJobRank() {
-        return jobRank;
-    }
-
-    public void setJobRank(JobRank jobRank) {
-        this.jobRank = jobRank;
-    }
 }
