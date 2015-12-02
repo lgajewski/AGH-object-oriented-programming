@@ -2,13 +2,18 @@ package pl.edu.agh.iet.to2.employees.model;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class EmployeeDetails {
 
     private String nickname;
     private URL photoURL;
 
-    private BigDecimal salary;
+    private Salary salary;
+    private List<Salary> salaryHistory = new ArrayList<>();
+
     private Occupation occupation;
 
     public String getNickname() {
@@ -27,12 +32,12 @@ public class EmployeeDetails {
         this.photoURL = photoURL;
     }
 
-    public BigDecimal getSalary() {
-        return salary;
-    }
+    public void setSalary(BigDecimal value) {
+        Salary salary = new Salary();
+        salary.setDate(new Date());
+        salary.setValue(value);
 
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
+        salaryHistory.add(salary);
     }
 
     public Occupation getOccupation() {
