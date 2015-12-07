@@ -4,12 +4,11 @@ package pl.edu.agh.iet.to2.employees.model;
  * Created by Patrycja on 01.12.2015.
  */
 public interface IEmployee {
+    long getId();
 
-    public long getId();
+    String getName();
 
-    public String getName();
+    String getSurname();
 
-    public String getSurname();
-
-    public EmployeeDetails getDetails();
+    EmployeeDetails getDetails();
 }

@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.employees;
+package pl.edu.agh.iet.to2;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

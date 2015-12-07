@@ -1,4 +1,6 @@
-package pl.edu.agh.iet.to2.employees.model;
+package pl.edu.agh.iet.to2.employees;
+
+import pl.edu.agh.iet.to2.employees.model.IEmployee;
 
 import java.math.BigDecimal;
 import java.util.List;

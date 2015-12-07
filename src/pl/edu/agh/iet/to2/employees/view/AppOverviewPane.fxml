@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="pl.edu.agh.iet.to2.employees.controller.AppOverviewController">
-  <SplitPane dividerPositions="0.2508361204013378" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0">
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" fx:id="anc">
-      <ImageView fitHeight="80.25" fitWidth="107.0" layoutX="20.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@/res/icon.png" />
-      </ImageView>
-      <ListView editable="false" layoutX="20.0" layoutY="185.0" prefHeight="186.0" prefWidth="106.45407104492188" />
-      <Label blendMode="SRC_OVER" contentDisplay="BOTTOM" layoutX="39.0" layoutY="142.0" text="MENU" textAlignment="LEFT" textOverrun="LEADING_ELLIPSIS" wrapText="false">
-        <font>
-          <Font size="24.0" />
-        </font>
-      </Label>
-    </AnchorPane>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2"
+            fx:controller="pl.edu.agh.iet.to2.employees.controller.AppOverviewController">
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-      <TabPane layoutX="0.0" layoutY="0.0" prefHeight="600" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
-        <Tab text="Employees">
-            <AnchorPane fx:id="tabEmployees" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-        </Tab>
-        <Tab text="Team">
-          <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </Tab>
-        <Tab text="Projects">
-          <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </Tab>
-      </TabPane>
+        <TabPane layoutX="0.0" layoutY="0.0" prefHeight="600" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Employees">
+                <AnchorPane fx:id="tabEmployees" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </Tab>
+            <Tab text="Team">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </Tab>
+            <Tab text="Projects">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </Tab>
+        </TabPane>
     </AnchorPane>
-  </SplitPane>
 </AnchorPane>

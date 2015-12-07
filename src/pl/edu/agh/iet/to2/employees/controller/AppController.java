@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import pl.edu.agh.iet.to2.employees.Main;
+import pl.edu.agh.iet.to2.Main;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class AppController {
 
     public void initRootLayout() throws IOException {
         // load layout from FXML file
-        AnchorPane rootLayout = FXMLLoader.load(Main.class.getResource("view/AppOverviewPane.fxml"));
+        AnchorPane rootLayout = FXMLLoader.load(Main.class.getResource("employees/view/AppOverviewPane.fxml"));
 
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();

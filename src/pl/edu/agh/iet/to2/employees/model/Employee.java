@@ -47,4 +47,9 @@ public class Employee implements IEmployee {
     public void setDetails(EmployeeDetails details) {
         this.details = details;
     }
+
+    @Override
+    public String toString() {
+        return name + " " + surname;
+    }
 }

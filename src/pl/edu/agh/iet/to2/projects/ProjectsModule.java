@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.employees.model;
+package pl.edu.agh.iet.to2.projects;
 
 import java.util.List;
 
