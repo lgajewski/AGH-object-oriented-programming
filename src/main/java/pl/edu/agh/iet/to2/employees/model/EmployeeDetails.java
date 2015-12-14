@@ -1,11 +1,5 @@
 package pl.edu.agh.iet.to2.employees.model;
 
-import java.math.BigDecimal;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class EmployeeDetails {
 
     private String nickname;
@@ -18,5 +12,9 @@ public class EmployeeDetails {
 
     public String getOccupation() {
         return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
     }
 }

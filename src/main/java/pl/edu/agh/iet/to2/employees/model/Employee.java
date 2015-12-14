@@ -38,7 +38,7 @@ public class Employee implements IEmployee {
 
     @Override
     public String getOccupation() {
-        return details.get().getOccupation();
+        return details.get().getOccupation() == null ? "Occupation" : details.get().getOccupation();
     }
 
     @Override

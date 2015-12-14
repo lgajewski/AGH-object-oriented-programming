@@ -8,8 +8,7 @@
 <?import java.lang.String?>
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="600.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/2.2"
-            fx:controller="pl.edu.agh.iet.to2.employees.controller.AppOverviewController">
+            xmlns="http://javafx.com/javafx/2.2">
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
         <TabPane layoutX="0.0" layoutY="0.0" prefHeight="600" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
             <Tab text="Employees">
@@ -21,7 +20,7 @@
                                 vbarPolicy="AS_NEEDED">
                         <ListView fx:id="employeeListView" prefHeight="295.0" prefWidth="645.0"/>
                     </ScrollPane>
-                    <TextField fx:id="searchField" layoutX="39.0" layoutY="26.0" onKeyTyped="#handleSearchEvent"
+                    <TextField fx:id="searchField" layoutX="39.0" layoutY="26.0"
                                prefWidth="264.0"
                                promptText="Type filter..."/>
                     <ComboBox fx:id="filterComboBox" layoutX="540.0" layoutY="26.0" prefHeight="27.0" prefWidth="149.0">
