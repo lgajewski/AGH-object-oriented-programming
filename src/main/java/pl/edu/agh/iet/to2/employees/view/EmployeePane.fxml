@@ -16,7 +16,7 @@
     </ScrollPane>
     <TextField fx:id="searchField" layoutX="39.0" layoutY="26.0" onKeyTyped="#handleSearchEvent" prefWidth="264.0"
                promptText="Type filter..."/>
-    <ComboBox layoutX="540.0" layoutY="26.0" prefHeight="27.0" prefWidth="149.0">
+    <ComboBox fx:id="filterComboBox" layoutX="540.0" layoutY="26.0" prefHeight="27.0" prefWidth="149.0">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Name"/>
