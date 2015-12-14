@@ -3,8 +3,15 @@ package pl.edu.agh.iet.to2.employees.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import pl.edu.agh.iet.to2.employees.model.IEmployee;
 
 public class EmployeeCellController {
+
+    private final IEmployee employee;
+
+    public EmployeeCellController(IEmployee employee) {
+        this.employee = employee;
+    }
 
     @FXML
     private Label employeeName;
@@ -15,24 +22,11 @@ public class EmployeeCellController {
     @FXML
     private CheckBox employeeCheckBox;
 
-    public String getEmployeeName() {
-        return employeeName.getText();
+    @FXML
+    private void initialize() {
+        employeeName.setText(employee.getName() + " " + employee.getSurname());
+        employeeOccupation.setText(employee.getOccupation());
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName.setText(employeeName);
-    }
-
-    public String getEmployeeOccupation() {
-        return employeeOccupation.getText();
-    }
-
-    public void setEmployeeOccupation(String employeeOccupation) {
-        this.employeeOccupation.setText(employeeOccupation);
-    }
-
-    public boolean isSelected() {
-        return employeeCheckBox.isSelected();
-    }
 
 }

@@ -9,43 +9,14 @@ import java.util.List;
 public class EmployeeDetails {
 
     private String nickname;
-    private URL photoURL;
+//    private URL photoURL;
 
-    private Salary salary;
-    private List<Salary> salaryHistory = new ArrayList<>();
+//    private Salary salary;
+//    private List<Salary> salaryHistory = new ArrayList<>();
 
-    private Occupation occupation;
+    private String occupation;
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public URL getPhotoURL() {
-        return photoURL;
-    }
-
-    public void setPhotoURL(URL photoURL) {
-        this.photoURL = photoURL;
-    }
-
-    public void setSalary(BigDecimal value) {
-        Salary salary = new Salary();
-        salary.setDate(new Date());
-        salary.setValue(value);
-
-        salaryHistory.add(salary);
-    }
-
-    public Occupation getOccupation() {
+    public String getOccupation() {
         return occupation;
     }
-
-    public void setOccupation(Occupation occupation) {
-        this.occupation = occupation;
-    }
-
 }

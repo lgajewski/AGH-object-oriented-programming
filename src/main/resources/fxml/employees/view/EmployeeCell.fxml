@@ -9,8 +9,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="150.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/2.2"
-            fx:controller="pl.edu.agh.iet.to2.employees.controller.EmployeeCellController">
+            xmlns="http://javafx.com/javafx/2.2">
     <ImageView fitHeight="83.0" fitWidth="83.0" layoutX="26.0" layoutY="24.0" pickOnBounds="true"
                preserveRatio="true">
         <Image url="@/person.png"/>
