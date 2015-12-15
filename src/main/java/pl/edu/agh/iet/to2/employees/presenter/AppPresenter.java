@@ -3,9 +3,12 @@ package pl.edu.agh.iet.to2.employees.presenter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pl.edu.agh.iet.to2.employees.controller.AppOverviewController;
+import pl.edu.agh.iet.to2.employees.controller.EmployeeDetailsController;
 import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
+import pl.edu.agh.iet.to2.employees.model.IEmployee;
 
 import java.io.IOException;
 
@@ -33,6 +36,26 @@ public class AppPresenter {
 
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();
+    }
+
+    public void showEmployeeDetails(IEmployee employee) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/employees/view/EmployeeDetails.fxml"));
+        loader.setController(new EmployeeDetailsController());
+
+        AnchorPane rootLayout = loader.load();
+
+        // create new stage
+        Stage stage = new Stage();
+        stage.setTitle("Employee - " + employee);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(primaryStage);
+
+        // set scene for a new stage
+        Scene scene = new Scene(rootLayout);
+        stage.setScene(scene);
+
+        stage.showAndWait();
     }
 
 }

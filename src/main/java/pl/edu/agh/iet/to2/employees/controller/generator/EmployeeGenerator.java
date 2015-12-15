@@ -10,19 +10,19 @@ import java.util.Random;
 public class EmployeeGenerator {
 
     private Random random = new Random();
-    
+
     private static String[] names = {
-        "Anne", "Arthur", "Lawrence", "Mildred", "Joseph", "Susan", "Louise", "Jean", "Terry", "Peter", "Fred", "Steve", "Todd", "Billy", "Kevin"
+            "Anne", "Arthur", "Lawrence", "Mildred", "Joseph", "Susan", "Louise", "Jean", "Terry", "Peter", "Fred", "Steve", "Todd", "Billy", "Kevin"
     };
 
     private static String[] surnames = {
-        "Alexander", "Cruz", "Wood", "Gilbert", "Andrews", "Stevens", "Jenkins", "Cunningham", "Jackson", "Bennett", "Burns", "Ward", "Day", "Armstrong", "Crawford"
+            "Alexander", "Cruz", "Wood", "Gilbert", "Andrews", "Stevens", "Jenkins", "Cunningham", "Jackson", "Bennett", "Burns", "Ward", "Day", "Armstrong", "Crawford"
     };
 
     public List<IEmployee> generate(int amount) {
         List<IEmployee> employeeList = new ArrayList<>();
 
-        for(int i=0; i<amount; i++) {
+        for (int i = 0; i < amount; i++) {
             String name = getRandomValue(names);
             String surname = getRandomValue(surnames);
 

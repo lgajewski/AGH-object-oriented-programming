@@ -24,7 +24,7 @@ public class EmployeeCellController {
 
     @FXML
     private void initialize() {
-        employeeName.setText(employee.getName() + " " + employee.getSurname());
+        employeeName.setText(employee.toString());
         employeeOccupation.setText(employee.getOccupation());
     }
 
