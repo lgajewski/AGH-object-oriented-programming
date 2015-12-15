@@ -14,6 +14,7 @@ import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
 import pl.edu.agh.iet.to2.employees.model.IEmployee;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class AppOverviewController {
@@ -58,10 +59,24 @@ public class AppOverviewController {
 
     private void handleSortEvent(String newValue) {
         System.out.println("Selected: " + newValue);
-        // TODO sort entire list here
+        Comparator<IEmployee> comparator = getComparatorForField(newValue);
+        employeeList.sort(comparator);
     }
 
-    public void handleSearchEvent(String pattern) {
+    private Comparator<IEmployee> getComparatorForField(String field) {
+        switch (field) {
+            case "Name":
+                return (o1, o2) -> o1.getName().compareTo(o2.getName());
+            case "Surname":
+                return (o1, o2) -> o1.getSurname().compareTo(o2.getSurname());
+            case "Occupation":
+                return (o1, o2) -> o1.getOccupation().compareTo(o2.getOccupation());
+            default:
+                return ((o1, o2) -> 0);
+        }
+    }
+
+    private void handleSearchEvent(String pattern) {
         if ("".equals(pattern)) {
             // search field is empty
             employeeListView.setItems(employeeList);

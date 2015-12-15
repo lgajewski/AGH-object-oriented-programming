@@ -32,7 +32,7 @@
                             </FXCollections>
                         </items>
                         <value>
-                            <String fx:value="Name"/>
+                            <String fx:value="---"/>
                         </value>
                     </ComboBox>
                     <ImageView fitHeight="33.0" fitWidth="14.0" layoutX="14.0" layoutY="30.0" pickOnBounds="true"
