@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
 import pl.edu.agh.iet.to2.employees.model.IEmployee;
+import pl.edu.agh.iet.to2.employees.presenter.AppPresenter;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -22,6 +23,7 @@ public class AppOverviewController {
     private static final int AMOUNT_OF_EMPLOYEES = 5;
 
     private final EmployeeGenerator generator;
+    private final AppPresenter presenter;
 
     private ObservableList<IEmployee> employeeList;
 
@@ -34,7 +36,8 @@ public class AppOverviewController {
     @FXML
     public ComboBox<String> filterComboBox;
 
-    public AppOverviewController(EmployeeGenerator generator) {
+    public AppOverviewController(AppPresenter appPresenter, EmployeeGenerator generator) {
+        this.presenter = appPresenter;
         this.generator = generator;
     }
 
@@ -124,7 +127,7 @@ public class AppOverviewController {
                 loader.setLocation(getClass().getResource("/fxml/employees/view/EmployeeCell.fxml"));
 
                 // update employee details for controller
-                loader.setController(new EmployeeCellController(item));
+                loader.setController(new EmployeeCellController(presenter, item));
 
                 try {
                     AnchorPane employeeCell = loader.load();

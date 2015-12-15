@@ -27,7 +27,7 @@ public class AppPresenter {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/employees/view/AppOverview.fxml"));
 
-        loader.setController(new AppOverviewController(generator));
+        loader.setController(new AppOverviewController(this, generator));
 
         AnchorPane rootLayout = loader.load();
 
@@ -38,24 +38,29 @@ public class AppPresenter {
         primaryStage.show();
     }
 
-    public void showEmployeeDetails(IEmployee employee) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/employees/view/EmployeeDetails.fxml"));
-        loader.setController(new EmployeeDetailsController());
+    public void showEmployeeDetails(IEmployee employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/employees/view/EmployeeDetails.fxml"));
+            loader.setController(new EmployeeDetailsController(employee));
+            AnchorPane rootLayout = loader.load();
 
-        AnchorPane rootLayout = loader.load();
+            // create new stage
+            Stage stage = new Stage();
+            stage.setTitle("Employee - " + employee);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(primaryStage);
 
-        // create new stage
-        Stage stage = new Stage();
-        stage.setTitle("Employee - " + employee);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(primaryStage);
+            // set scene for a new stage
+            Scene scene = new Scene(rootLayout);
+            stage.setScene(scene);
 
-        // set scene for a new stage
-        Scene scene = new Scene(rootLayout);
-        stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        stage.showAndWait();
+
     }
 
 }

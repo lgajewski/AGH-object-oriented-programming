@@ -3,15 +3,13 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="150.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1"
+            prefHeight="150.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/2.2">
-    <ImageView fitHeight="83.0" fitWidth="83.0" layoutX="26.0" layoutY="24.0" pickOnBounds="true"
-               preserveRatio="true">
+    <ImageView fitHeight="83.0" fitWidth="83.0" layoutX="26.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@/person.png"/>
     </ImageView>
     <Separator layoutX="130.0" layoutY="0.0" orientation="VERTICAL" prefHeight="150.0"/>
@@ -28,6 +26,10 @@
             <Font size="12.0"/>
         </font>
     </Label>
-    <CheckBox fx:id="employeeCheckBox" graphicTextGap="0.0" layoutX="5.0" layoutY="4.0" mnemonicParsing="false"
-              text="" underline="false"/>
+    <CheckBox fx:id="employeeCheckBox" graphicTextGap="0.0" layoutX="5.0" layoutY="4.0" mnemonicParsing="false" text=""
+              underline="false"/>
+    <ImageView fx:id="showDetails" fitHeight="32.0" fitWidth="32.0" layoutX="504.0" layoutY="14.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@/info.png"/>
+    </ImageView>
 </AnchorPane>

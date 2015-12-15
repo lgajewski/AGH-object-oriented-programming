@@ -48,7 +48,7 @@ public class Employee implements IEmployee {
 
     @Override
     public String toString() {
-        return name + " " + surname;
+        return getName() + " " + getSurname();
     }
 
 }
