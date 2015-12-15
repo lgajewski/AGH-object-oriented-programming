@@ -3,20 +3,27 @@ package pl.edu.agh.iet.to2.employees.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import pl.edu.agh.iet.to2.Main;
 import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
+import pl.edu.agh.iet.to2.employees.model.Employee;
 import pl.edu.agh.iet.to2.employees.model.IEmployee;
+import pl.edu.agh.iet.to2.employees.presenter.AppPresenter;
 
 import java.io.IOException;
 import java.util.function.Predicate;
 
 public class AppOverviewController {
+
+    private AppPresenter presenter;
 
     private static final int AMOUNT_OF_EMPLOYEES = 5;
 
@@ -32,6 +39,9 @@ public class AppOverviewController {
 
     @FXML
     public ComboBox<String> filterComboBox;
+
+    @FXML
+    private Button addButton;
 
     public AppOverviewController(EmployeeGenerator generator) {
         this.generator = generator;
@@ -72,6 +82,11 @@ public class AppOverviewController {
             // update listView to filtered items
             employeeListView.setItems(filteredList);
         }
+    }
+
+    @FXML
+    private void handleAddAction(ActionEvent event) {
+        presenter.showEmployeeAddDialog();
     }
 
     class EmployeePredicate implements Predicate<IEmployee> {
