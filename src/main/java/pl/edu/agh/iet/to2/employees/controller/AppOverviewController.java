@@ -12,18 +12,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
 import pl.edu.agh.iet.to2.employees.model.IEmployee;
-import pl.edu.agh.iet.to2.employees.presenter.AppPresenter;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class AppOverviewController {
 
+    private AppPresenter presenter;
+
     private static final int AMOUNT_OF_EMPLOYEES = 5;
 
     private final EmployeeGenerator generator;
-    private final AppPresenter presenter;
 
     private ObservableList<IEmployee> employeeList;
 
@@ -38,7 +37,12 @@ public class AppOverviewController {
 
     public AppOverviewController(AppPresenter appPresenter, EmployeeGenerator generator) {
         this.presenter = appPresenter;
+    @FXML
+    private Button addButton;
+
+    public AppOverviewController(EmployeeGenerator generator, AppPresenter presenter) {
         this.generator = generator;
+        this.presenter = presenter;
     }
 
     @FXML
@@ -57,6 +61,9 @@ public class AppOverviewController {
         });
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearchEvent(newValue);
+        });
+        addButton.setOnMouseClicked(event -> {
+            presenter.showEmployeeAddDialog();
         });
     }
 

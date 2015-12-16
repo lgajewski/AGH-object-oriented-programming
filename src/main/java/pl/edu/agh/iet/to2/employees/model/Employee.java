@@ -31,14 +31,26 @@ public class Employee implements IEmployee {
         return name.get();
     }
 
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
     @Override
     public String getSurname() {
         return surname.get();
     }
 
+    public void setSurname(String surname) {
+        this.surname.set(surname);
+    }
+
     @Override
     public String getOccupation() {
         return details.get().getOccupation();
+    }
+
+    public void setDetails(EmployeeDetails details) {
+        this.details.set(details);
     }
 
     @Override

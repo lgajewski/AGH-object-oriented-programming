@@ -32,13 +32,14 @@
                             </FXCollections>
                         </items>
                         <value>
-                            <String fx:value="---"/>
+                            <String fx:value="Name"/>
                         </value>
                     </ComboBox>
                     <ImageView fitHeight="33.0" fitWidth="14.0" layoutX="14.0" layoutY="30.0" pickOnBounds="true"
                                preserveRatio="true">
                         <Image url="@/search.png"/>
                     </ImageView>
+                    <Button fx:id="addButton" layoutX="39.0" layoutY="388.0" mnemonicParsing="false" text="Add"/>
                 </AnchorPane>
             </Tab>
             <Tab text="Team">
