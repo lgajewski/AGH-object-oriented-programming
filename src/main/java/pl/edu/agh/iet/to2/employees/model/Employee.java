@@ -63,14 +63,6 @@ public class Employee implements IEmployee {
         return getName() + " " + getSurname();
     }
 
-    public void setName(String name) {
-        this.name.set(name);
-    }
-
-    public void setSurname(String surname) {
-        this.surname.set(surname);
-    }
-
     public void setSalary(BigDecimal salary) {
         details.get().setSalary(salary);
     }

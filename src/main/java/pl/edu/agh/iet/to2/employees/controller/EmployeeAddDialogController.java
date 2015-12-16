@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import pl.edu.agh.iet.to2.employees.model.Employee;
 import pl.edu.agh.iet.to2.employees.model.EmployeeDetails;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Patrycja on 15.12.2015.
  */
@@ -64,7 +66,7 @@ public class EmployeeAddDialogController {
 //        employee.setName(nameTextField.getText());
 //        employee.setSurname(surnameTextField.getText());
         employee = new Employee(nameTextField.getText(), surnameTextField.getText());
-        details = new EmployeeDetails();
+        details = new EmployeeDetails("developer", new BigDecimal(1000));
         details.setOccupation(occupationTextField.getText());
         employee.setDetails(details);
     }

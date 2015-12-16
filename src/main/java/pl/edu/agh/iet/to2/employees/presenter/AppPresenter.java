@@ -3,9 +3,15 @@ package pl.edu.agh.iet.to2.employees.presenter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pl.edu.agh.iet.to2.Main;
 import pl.edu.agh.iet.to2.employees.controller.AppOverviewController;
+import pl.edu.agh.iet.to2.employees.controller.EmployeeAddDialogController;
+import pl.edu.agh.iet.to2.employees.controller.EmployeeDetailsController;
 import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
+import pl.edu.agh.iet.to2.employees.model.IEmployee;
 
 import java.io.IOException;
 
@@ -24,7 +30,7 @@ public class AppPresenter {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/employees/view/AppOverview.fxml"));
 
-        loader.setController(new AppOverviewController(this, generator));
+        loader.setController(new AppOverviewController(generator, this));
 
         AnchorPane rootLayout = loader.load();
 

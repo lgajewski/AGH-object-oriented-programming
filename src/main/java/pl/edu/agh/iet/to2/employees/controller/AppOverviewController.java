@@ -5,15 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
 import pl.edu.agh.iet.to2.employees.model.IEmployee;
+import pl.edu.agh.iet.to2.employees.presenter.AppPresenter;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class AppOverviewController {
@@ -35,8 +34,6 @@ public class AppOverviewController {
     @FXML
     public ComboBox<String> filterComboBox;
 
-    public AppOverviewController(AppPresenter appPresenter, EmployeeGenerator generator) {
-        this.presenter = appPresenter;
     @FXML
     private Button addButton;
 
