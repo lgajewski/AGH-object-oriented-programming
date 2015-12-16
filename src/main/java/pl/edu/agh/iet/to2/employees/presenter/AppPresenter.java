@@ -34,6 +34,8 @@ public class AppPresenter {
 
         // get controller from loaded layout
         AppOverviewController controller = loader.getController();
+        controller.setPresenter(this);
+
 
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();

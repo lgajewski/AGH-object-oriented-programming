@@ -44,7 +44,7 @@
                                           <Image url="@/search.png" />
                                       </image>
                                    </ImageView>
-                              <Button fx:id="addButton" layoutX="39.0" layoutY="388.0" mnemonicParsing="false" text="Add" onAction="#handleAddEvent"/>
+                              <Button fx:id="addButton" layoutX="39.0" layoutY="388.0" mnemonicParsing="false" text="Add"/>
                                </children>
                             </AnchorPane>
                         </content>

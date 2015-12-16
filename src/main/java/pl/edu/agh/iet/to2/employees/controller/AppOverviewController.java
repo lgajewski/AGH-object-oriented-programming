@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +20,7 @@ import pl.edu.agh.iet.to2.employees.model.Employee;
 import pl.edu.agh.iet.to2.employees.model.IEmployee;
 import pl.edu.agh.iet.to2.employees.presenter.AppPresenter;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.function.Predicate;
 
@@ -64,6 +67,11 @@ public class AppOverviewController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearchEvent(newValue);
         });
+        addButton.setOnAction(addHandler);
+    }
+
+    public void setPresenter(AppPresenter presenter) {
+        this.presenter = presenter;
     }
 
     private void handleSortEvent(String newValue) {
@@ -84,10 +92,17 @@ public class AppOverviewController {
         }
     }
 
-    @FXML
-    private void handleAddAction(ActionEvent event) {
-        presenter.showEmployeeAddDialog();
-    }
+    EventHandler addHandler = new EventHandler() {
+        @Override
+        public void handle(Event event) {}{
+
+            presenter.showEmployeeAddDialog();
+        }
+    };
+//    @FXML
+//    private void handleAddEvent(ActionEvent event) {
+//        presenter.showEmployeeAddDialog();
+//    }
 
     class EmployeePredicate implements Predicate<IEmployee> {
 
