@@ -28,14 +28,12 @@ public class AppPresenter {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/employees/view/AppOverview.fxml"));
 
-        loader.setController(new AppOverviewController(generator));
+        loader.setController(new AppOverviewController(generator, this));
 
         AnchorPane rootLayout = loader.load();
 
         // get controller from loaded layout
         AppOverviewController controller = loader.getController();
-        controller.setPresenter(this);
-
 
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();
@@ -45,7 +43,7 @@ public class AppPresenter {
         try {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("resources/fxml/employees/view/AddEmployeeDialog.fxml"));
+            loader.setLocation(Main.class.getResource("/fxml/employees/view/AddEmployeeDialog.fxml"));
             BorderPane page = (BorderPane) loader.load();
 
             // Create the dialog Stage.

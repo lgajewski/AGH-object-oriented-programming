@@ -46,8 +46,9 @@ public class AppOverviewController {
     @FXML
     private Button addButton;
 
-    public AppOverviewController(EmployeeGenerator generator) {
+    public AppOverviewController(EmployeeGenerator generator, AppPresenter presenter) {
         this.generator = generator;
+        this.presenter = presenter;
     }
 
     @FXML
@@ -67,11 +68,9 @@ public class AppOverviewController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearchEvent(newValue);
         });
-        addButton.setOnAction(addHandler);
-    }
-
-    public void setPresenter(AppPresenter presenter) {
-        this.presenter = presenter;
+        addButton.setOnMouseClicked(event -> {
+            presenter.showEmployeeAddDialog();
+        });
     }
 
     private void handleSortEvent(String newValue) {
@@ -91,18 +90,6 @@ public class AppOverviewController {
             employeeListView.setItems(filteredList);
         }
     }
-
-    EventHandler addHandler = new EventHandler() {
-        @Override
-        public void handle(Event event) {}{
-
-            presenter.showEmployeeAddDialog();
-        }
-    };
-//    @FXML
-//    private void handleAddEvent(ActionEvent event) {
-//        presenter.showEmployeeAddDialog();
-//    }
 
     class EmployeePredicate implements Predicate<IEmployee> {
 

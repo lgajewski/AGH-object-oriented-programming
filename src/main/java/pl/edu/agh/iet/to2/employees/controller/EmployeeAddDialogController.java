@@ -61,8 +61,10 @@ public class EmployeeAddDialogController {
     }
 
     private void updateModel() {
-        employee.setName(nameTextField.getText());
-        employee.setSurname(surnameTextField.getText());
+//        employee.setName(nameTextField.getText());
+//        employee.setSurname(surnameTextField.getText());
+        employee = new Employee(nameTextField.getText(), surnameTextField.getText());
+        details = new EmployeeDetails();
         details.setOccupation(occupationTextField.getText());
         employee.setDetails(details);
     }
