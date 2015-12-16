@@ -5,5 +5,5 @@ package pl.edu.agh.iet.to2.teams;
  */
 public interface TeamsModule {
 
-    public String getTeamForEmployee(long id);
+    String getTeamForEmployeeId(long id);
 }

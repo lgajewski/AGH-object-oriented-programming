@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
-  <Separator layoutX="367.0" layoutY="0.0" orientation="VERTICAL" prefHeight="400.0" />
-  <ToggleButton fx:id="editDetails" layoutX="251.0" layoutY="30.0" mnemonicParsing="false" text="Edit details" />
-  <ImageView fx:id="avatarImageView" fitHeight="128.0" fitWidth="128.0" layoutX="418.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" visible="true">
-    <Image url="@/person.png" />
-  </ImageView>
-  <Button fx:id="changeAvatar" layoutX="421.0" layoutY="230.0" mnemonicParsing="false" text="Change avatar" />
-  <Label layoutX="26.0" layoutY="119.0" text="Name" />
-  <TextField fx:id="nameField" layoutX="94.0" layoutY="116.0" prefWidth="200.0" />
-  <Label layoutX="17.0" layoutY="164.0" text="Surname" />
-  <TextField fx:id="surnameField" layoutX="94.0" layoutY="161.0" prefWidth="200.0" />
-  <Label layoutX="26.0" layoutY="213.0" text="Salary" />
-  <TextField fx:id="salaryField" layoutX="94.0" layoutY="210.0" prefWidth="157.0" />
-  <ImageView fx:id="salaryImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true" />
-  <Label layoutX="8.0" layoutY="260.0" text="Occupation" />
-  <TextField fx:id="occupationField" layoutX="94.0" layoutY="257.0" prefWidth="157.0" />
-  <ImageView fx:id="occupationImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" />
-  <ImageView fx:id="saveImage" fitHeight="48.0" fitWidth="48.0" layoutX="28.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@/save.png"/>
-          </ImageView>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="346.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <Separator layoutX="367.0" layoutY="0.0" orientation="VERTICAL" prefHeight="400.0"/>
+    <ToggleButton fx:id="editDetails" layoutX="251.0" layoutY="30.0" mnemonicParsing="false" text="Edit details"/>
+    <ImageView fx:id="avatarImageView" fitHeight="128.0" fitWidth="128.0" layoutX="418.0" layoutY="72.0"
+               pickOnBounds="true" preserveRatio="true" visible="true">
+        <Image url="@/person.png"/>
+    </ImageView>
+    <Button fx:id="changeAvatar" layoutX="421.0" layoutY="230.0" mnemonicParsing="false" text="Change avatar"/>
+    <Label layoutX="26.0" layoutY="119.0" text="Name"/>
+    <TextField fx:id="nameField" layoutX="94.0" layoutY="116.0" prefWidth="200.0"/>
+    <Label layoutX="17.0" layoutY="164.0" text="Surname"/>
+    <TextField fx:id="surnameField" layoutX="94.0" layoutY="161.0" prefWidth="200.0"/>
+    <Label layoutX="26.0" layoutY="213.0" text="Salary"/>
+    <TextField fx:id="salaryField" layoutX="94.0" layoutY="210.0" prefWidth="157.0"/>
+    <ImageView fx:id="salaryImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="208.0" pickOnBounds="true"
+               preserveRatio="true"/>
+    <Label layoutX="8.0" layoutY="260.0" text="Occupation"/>
+    <TextField fx:id="occupationField" layoutX="94.0" layoutY="257.0" prefWidth="157.0"/>
+    <ImageView fx:id="occupationImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="255.0"
+               pickOnBounds="true" preserveRatio="true"/>
+    <ImageView fx:id="saveImage" fitHeight="48.0" fitWidth="48.0" layoutX="28.0" layoutY="20.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@/save.png"/>
+    </ImageView>
 </AnchorPane>

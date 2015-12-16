@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface ProjectsModule {
 
-    List<String> getProjectsForEmployee(long id);
+    List<String> getProjectsForEmployeeId(long id);
 }

@@ -58,7 +58,6 @@ public class EmployeeDetailsController {
 
         // set listeners
         editDetails.setOnMouseClicked(event -> updateFieldsAvailability());
-
         saveImage.setOnMouseClicked(event -> save());
 
         updateFieldsAvailability();

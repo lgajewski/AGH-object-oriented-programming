@@ -31,9 +31,6 @@ public class AppPresenter {
 
         AnchorPane rootLayout = loader.load();
 
-        // get controller from loaded layout
-        AppOverviewController controller = loader.getController();
-
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();
     }
