@@ -1,20 +1,35 @@
 package pl.edu.agh.iet.to2.employees.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+import java.math.BigDecimal;
+
 public class EmployeeDetails {
 
-    private String nickname;
-//    private URL photoURL;
+    private StringProperty occupation;
+    private ObjectProperty<BigDecimal> salary;
 
-//    private Salary salary;
-//    private List<Salary> salaryHistory = new ArrayList<>();
+    public EmployeeDetails(String occupation, BigDecimal salary) {
+        this.occupation = new SimpleStringProperty(occupation);
+        this.salary = new SimpleObjectProperty<>(salary);
+    }
 
-    private String occupation;
+    public BigDecimal getSalary() {
+        return salary.get();
+    }
 
     public String getOccupation() {
-        return occupation;
+        return occupation.get();
     }
 
     public void setOccupation(String occupation) {
-        this.occupation = occupation;
+        this.occupation.setValue(occupation);
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary.set(salary);
     }
 }

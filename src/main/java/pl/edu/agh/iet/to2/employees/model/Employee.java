@@ -19,7 +19,7 @@ public class Employee implements IEmployee {
     public Employee(String name, String surname) {
         this.name = new SimpleStringProperty(name);
         this.surname = new SimpleStringProperty(surname);
-        this.details = new SimpleObjectProperty<>(new EmployeeDetails());
+        this.details = new SimpleObjectProperty<>(new EmployeeDetails("Occupation", new BigDecimal(1000)));
     }
 
     public long getId() {
@@ -38,12 +38,12 @@ public class Employee implements IEmployee {
 
     @Override
     public String getOccupation() {
-        return details.get().getOccupation() == null ? "Occupation" : details.get().getOccupation();
+        return details.get().getOccupation();
     }
 
     @Override
     public BigDecimal getSalary() {
-        return null;
+        return details.get().getSalary();
     }
 
     @Override
@@ -51,4 +51,19 @@ public class Employee implements IEmployee {
         return getName() + " " + getSurname();
     }
 
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public void setSurname(String surname) {
+        this.surname.set(surname);
+    }
+
+    public void setSalary(BigDecimal salary) {
+        details.get().setSalary(salary);
+    }
+
+    public void setOccupation(String occupation) {
+        details.get().setOccupation(occupation);
+    }
 }

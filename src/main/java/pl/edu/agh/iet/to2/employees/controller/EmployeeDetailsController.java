@@ -1,12 +1,14 @@
 package pl.edu.agh.iet.to2.employees.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
+import pl.edu.agh.iet.to2.employees.model.Employee;
 import pl.edu.agh.iet.to2.employees.model.IEmployee;
+
+import java.math.BigDecimal;
 
 public class EmployeeDetailsController {
 
@@ -44,16 +46,45 @@ public class EmployeeDetailsController {
     private ImageView occupationImage;
 
     @FXML
+    private ImageView saveImage;
+
+    @FXML
     private void initialize() {
         nameField.setText(employee.getName());
         surnameField.setText(employee.getSurname());
 
-        salaryField.setText(employee.getSalary() + " $");
+        salaryField.setText(employee.getSalary().toString());
         occupationField.setText(employee.getOccupation());
+
+        // set listeners
+        editDetails.setOnMouseClicked(event -> updateFieldsAvailability());
+
+        saveImage.setOnMouseClicked(event -> save());
+
+        updateFieldsAvailability();
     }
 
+    private void save() {
+        Employee mutableEmployee = (Employee) employee;
 
-    public void handler(ActionEvent actionEvent) {
-
+        mutableEmployee.setName(nameField.getText());
+        mutableEmployee.setSurname(surnameField.getText());
+        mutableEmployee.setOccupation(occupationField.getText());
+        mutableEmployee.setSalary(new BigDecimal(salaryField.getText()));
     }
+
+    private void updateFieldsAvailability() {
+        if (editDetails.isSelected()) {
+            nameField.setEditable(true);
+            surnameField.setEditable(true);
+            salaryField.setEditable(true);
+            occupationField.setEditable(true);
+        } else {
+            nameField.setEditable(false);
+            surnameField.setEditable(false);
+            salaryField.setEditable(false);
+            occupationField.setEditable(false);
+        }
+    }
+
 }
