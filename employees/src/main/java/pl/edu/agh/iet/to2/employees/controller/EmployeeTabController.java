@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
-import pl.edu.agh.iet.to2.employees.controller.generator.EmployeeGenerator;
+import pl.edu.agh.iet.to2.employees.model.EmployeeGenerator;
 
 import java.io.IOException;
 import java.util.Comparator;

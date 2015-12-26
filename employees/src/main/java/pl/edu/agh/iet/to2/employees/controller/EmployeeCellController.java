@@ -33,8 +33,6 @@ public class EmployeeCellController {
     @FXML
     private ImageView showDetails;
 
-    private Button button;
-
     @FXML
     private void initialize() {
         employeeName.setText(employee.toString());

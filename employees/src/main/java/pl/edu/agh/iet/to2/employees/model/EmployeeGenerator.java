@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.employees.controller.generator;
+package pl.edu.agh.iet.to2.employees.model;
 
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.Employee;
