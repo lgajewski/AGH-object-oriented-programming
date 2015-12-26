@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="150.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <ImageView fitHeight="83.0" fitWidth="83.0" layoutX="26.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@/employees/images/person.png"/>
+    </ImageView>
+    <Separator layoutX="130.0" layoutY="0.0" orientation="VERTICAL" prefHeight="150.0"/>
+    <ImageView fitHeight="20.0" fitWidth="100.0" layoutX="17.0" layoutY="116.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@/employees/images/rating.png"/>
+    </ImageView>
+    <Label fx:id="employeeName" layoutX="150.0" layoutY="22.0" text="Employee"/>
+    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="256.0" layoutY="17.0" pickOnBounds="true"
+               preserveRatio="true"/>
+    <Label fx:id="employeeOccupation" layoutX="148.0" layoutY="75.0" text="Occupation" textFill="#0066ff"
+           textOverrun="WORD_ELLIPSIS" underline="true">
+        <font>
+            <Font size="12.0"/>
+        </font>
+    </Label>
+    <CheckBox fx:id="employeeCheckBox" graphicTextGap="0.0" layoutX="5.0" layoutY="4.0" mnemonicParsing="false" text=""
+              underline="false"/>
+    <ImageView fx:id="showDetails" fitHeight="32.0" fitWidth="32.0" layoutX="504.0" layoutY="14.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@/employees/images/info.png"/>
+    </ImageView>
+</AnchorPane>
