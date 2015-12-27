@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
@@ -129,7 +128,7 @@ public class EmployeeTab {
         }
     }
 
-// TODO create bindings
+    // TODO create bindings
     class EmployeeCell extends ListCell<IEmployee> {
         @Override
         protected void updateItem(IEmployee item, boolean empty) {

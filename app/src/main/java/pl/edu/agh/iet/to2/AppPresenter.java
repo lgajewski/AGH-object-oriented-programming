@@ -14,7 +14,6 @@ public class AppPresenter implements Presenter {
 
     public AppPresenter(Stage primaryStage) {
         this.primaryStage = primaryStage;
-
     }
 
     public void initRootLayout() throws IOException {
@@ -30,6 +29,7 @@ public class AppPresenter implements Presenter {
         primaryStage.show();
     }
 
+    @Override
     public void showAndWait(String title, Scene scene) {
         // create new stage
         Stage stage = new Stage();

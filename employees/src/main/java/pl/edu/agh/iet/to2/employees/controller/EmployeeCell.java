@@ -37,9 +37,7 @@ public class EmployeeCell {
         employeeName.setText(employee.toString());
         employeeOccupation.setText(employee.getOccupation());
 
-        showDetails.setOnMouseClicked(event -> {
-            showEmployeeDetails(employee);
-        });
+        showDetails.setOnMouseClicked(event -> showEmployeeDetails(employee));
     }
 
     private void showEmployeeDetails(IEmployee employee) {
