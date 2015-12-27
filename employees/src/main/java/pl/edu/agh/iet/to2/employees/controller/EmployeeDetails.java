@@ -10,16 +10,13 @@ import pl.edu.agh.iet.to2.employees.model.Employee;
 
 import java.math.BigDecimal;
 
-public class EmployeeDetailsController {
+public class EmployeeDetails {
 
     private IEmployee employee;
 
-    public EmployeeDetailsController(IEmployee employee) {
+    public EmployeeDetails(IEmployee employee) {
         this.employee = employee;
     }
-
-    @FXML
-    private ToggleButton editDetails;
 
     @FXML
     private ImageView avatarImageView;
@@ -56,11 +53,7 @@ public class EmployeeDetailsController {
         salaryField.setText(employee.getSalary().toString());
         occupationField.setText(employee.getOccupation());
 
-        // set listeners
-        editDetails.setOnMouseClicked(event -> updateFieldsAvailability());
         saveImage.setOnMouseClicked(event -> save());
-
-        updateFieldsAvailability();
     }
 
     private void save() {
@@ -70,20 +63,6 @@ public class EmployeeDetailsController {
         mutableEmployee.setSurname(surnameField.getText());
         mutableEmployee.setOccupation(occupationField.getText());
         mutableEmployee.setSalary(new BigDecimal(salaryField.getText()));
-    }
-
-    private void updateFieldsAvailability() {
-        if (editDetails.isSelected()) {
-            nameField.setEditable(true);
-            surnameField.setEditable(true);
-            salaryField.setEditable(true);
-            occupationField.setEditable(true);
-        } else {
-            nameField.setEditable(false);
-            surnameField.setEditable(false);
-            salaryField.setEditable(false);
-            occupationField.setEditable(false);
-        }
     }
 
 }

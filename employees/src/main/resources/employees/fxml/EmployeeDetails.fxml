@@ -7,7 +7,6 @@
             prefHeight="346.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/2.2">
     <Separator layoutX="367.0" layoutY="0.0" orientation="VERTICAL" prefHeight="400.0"/>
-    <ToggleButton fx:id="editDetails" layoutX="251.0" layoutY="30.0" mnemonicParsing="false" text="Edit details"/>
     <ImageView fx:id="avatarImageView" fitHeight="128.0" fitWidth="128.0" layoutX="418.0" layoutY="72.0"
                pickOnBounds="true" preserveRatio="true" visible="true">
         <Image url="@/employees/images/person.png"/>

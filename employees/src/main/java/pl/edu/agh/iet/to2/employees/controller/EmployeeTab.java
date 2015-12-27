@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.EmployeeGenerator;
@@ -17,13 +17,13 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-public class EmployeeTabController {
+public class EmployeeTab {
 
-    private static final int AMOUNT_OF_EMPLOYEES = 5;
+    private static final int AMOUNT_OF_EMPLOYEES = 1;
     private Presenter presenter;
     private ObservableList<IEmployee> employeeList;
 
-    public EmployeeTabController(Presenter presenter) {
+    public EmployeeTab(Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -64,8 +64,8 @@ public class EmployeeTabController {
         try {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/employees/fxml/AddEmployeeDialog.fxml"));
-            BorderPane pane = loader.load();
+            loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
+            Pane pane = loader.load();
 
             // Create the dialog Stage.
             presenter.showAndWait("Add employee", new Scene(pane));
@@ -129,7 +129,7 @@ public class EmployeeTabController {
         }
     }
 
-
+// TODO create bindings
     class EmployeeCell extends ListCell<IEmployee> {
         @Override
         protected void updateItem(IEmployee item, boolean empty) {
@@ -142,10 +142,10 @@ public class EmployeeTabController {
                 loader.setLocation(getClass().getResource("/employees/fxml/EmployeeCell.fxml"));
 
                 // update employee details for controller
-                loader.setController(new EmployeeCellController(presenter, item));
+                loader.setController(new pl.edu.agh.iet.to2.employees.controller.EmployeeCell(presenter, item));
 
                 try {
-                    AnchorPane employeeCell = loader.load();
+                    Pane employeeCell = loader.load();
                     setGraphic(employeeCell);
                 } catch (IOException e) {
                     e.printStackTrace();

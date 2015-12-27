@@ -3,20 +3,19 @@ package pl.edu.agh.iet.to2.employees.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 
-public class EmployeeCellController {
+public class EmployeeCell {
 
     private final IEmployee employee;
     private final Presenter presenter;
 
-    public EmployeeCellController(Presenter presenter, IEmployee employee) {
+    public EmployeeCell(Presenter presenter, IEmployee employee) {
         this.presenter = presenter;
         this.employee = employee;
     }
@@ -47,8 +46,8 @@ public class EmployeeCellController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
-            loader.setController(new EmployeeDetailsController(employee));
-            AnchorPane pane = loader.load();
+            loader.setController(new EmployeeDetails(employee));
+            Pane pane = loader.load();
 
             presenter.showAndWait("Employee - " + employee, new Scene(pane));
         } catch (Exception e) {

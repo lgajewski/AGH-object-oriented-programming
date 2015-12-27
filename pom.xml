@@ -12,7 +12,9 @@
     <modules>
         <module>common</module>
         <module>employees</module>
+        <module>projects</module>
         <module>app</module>
+        <module>teams</module>
     </modules>
 
 
