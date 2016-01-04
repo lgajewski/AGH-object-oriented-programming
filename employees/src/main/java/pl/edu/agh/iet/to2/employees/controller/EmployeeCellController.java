@@ -9,13 +9,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
+import pl.edu.agh.iet.to2.employees.model.Employee;
 
-public class EmployeeCell {
+public class EmployeeCellController {
 
-    private final IEmployee employee;
+    private final Employee employee;
     private final Presenter presenter;
 
-    public EmployeeCell(Presenter presenter, IEmployee employee) {
+    public EmployeeCellController(Presenter presenter, Employee employee) {
         this.presenter = presenter;
         this.employee = employee;
     }
@@ -34,17 +35,17 @@ public class EmployeeCell {
 
     @FXML
     private void initialize() {
-        employeeName.setText(employee.toString());
-        employeeOccupation.setText(employee.getOccupation());
+        employeeName.textProperty().bind(employee.getNameProperty());
+        employeeOccupation.textProperty().bind(employee.getOccupationProperty());
 
         showDetails.setOnMouseClicked(event -> showEmployeeDetails(employee));
     }
 
-    private void showEmployeeDetails(IEmployee employee) {
+    private void showEmployeeDetails(Employee employee) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
-            loader.setController(new EmployeeDetails(employee));
+            loader.setController(new EmployeeDetailsController(employee));
             Pane pane = loader.load();
 
             presenter.showAndWait("Employee - " + employee, new Scene(pane));

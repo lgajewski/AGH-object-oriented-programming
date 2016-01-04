@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="pl.edu.agh.iet.to2.employees.model">
+    <class name="Employee">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="text"/>
+        <property name="surname" type="text"/>
+        <property name="occupation" type="text"/>
+        <property name="salary" type="java.math.BigDecimal"/>
+    </class>
+</hibernate-mapping>

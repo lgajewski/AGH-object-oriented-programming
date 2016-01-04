@@ -8,26 +8,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
+import pl.edu.agh.iet.to2.employees.model.Employee;
 import pl.edu.agh.iet.to2.employees.model.EmployeeGenerator;
+import pl.edu.agh.iet.to2.employees.persistance.HibernateUtils;
 
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-public class EmployeeTab {
+public class EmployeeTabController {
 
     private static final int AMOUNT_OF_EMPLOYEES = 1;
     private Presenter presenter;
-    private ObservableList<IEmployee> employeeList;
+    private ObservableList<Employee> employeeList;
 
-    public EmployeeTab(Presenter presenter) {
+    public EmployeeTabController(Presenter presenter) {
         this.presenter = presenter;
     }
 
     @FXML
-    private ListView<IEmployee> employeeListView;
+    private ListView<Employee> employeeListView;
 
     @FXML
     private TextField searchField;
@@ -62,15 +66,32 @@ public class EmployeeTab {
     private void showEmployeeAddDialog() {
         try {
             // Load the fxml file and create a new stage for the dialog
+            EmployeeDetailsController controller = new EmployeeDetailsController();
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
+            loader.setController(controller);
+
             Pane pane = loader.load();
 
             // Create the dialog Stage.
             presenter.showAndWait("Add employee", new Scene(pane));
+
+            // add created employee to observable list
+            // persist
+            persistEmployee(controller.getEmployee());
+            employeeList.add(controller.getEmployee());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void persistEmployee(Employee employee) {
+        Session session = HibernateUtils.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.persist(employee);
+        transaction.commit();
+        session.close();
     }
 
     private void handleSortEvent(String newValue) {
@@ -98,7 +119,7 @@ public class EmployeeTab {
             employeeListView.setItems(employeeList);
         } else {
             // filter entry employee list
-            FilteredList<IEmployee> filteredList = employeeList.filtered(new EmployeePredicate(pattern));
+            FilteredList<Employee> filteredList = employeeList.filtered(new EmployeePredicate(pattern));
 
             // update listView to filtered items
             employeeListView.setItems(filteredList);
@@ -106,7 +127,7 @@ public class EmployeeTab {
     }
 
 
-    class EmployeePredicate implements Predicate<IEmployee> {
+    class EmployeePredicate implements Predicate<Employee> {
 
         private String pattern;
 
@@ -115,7 +136,7 @@ public class EmployeeTab {
         }
 
         @Override
-        public boolean test(IEmployee iEmployee) {
+        public boolean test(Employee iEmployee) {
             return testOccupation(iEmployee.getOccupation()) || testName(iEmployee.getName(), iEmployee.getSurname());
         }
 
@@ -128,10 +149,9 @@ public class EmployeeTab {
         }
     }
 
-    // TODO create bindings
-    class EmployeeCell extends ListCell<IEmployee> {
+    class EmployeeCell extends ListCell<Employee> {
         @Override
-        protected void updateItem(IEmployee item, boolean empty) {
+        protected void updateItem(Employee item, boolean empty) {
             super.updateItem(item, empty);
 
             if (empty) {
@@ -141,7 +161,7 @@ public class EmployeeTab {
                 loader.setLocation(getClass().getResource("/employees/fxml/EmployeeCell.fxml"));
 
                 // update employee details for controller
-                loader.setController(new pl.edu.agh.iet.to2.employees.controller.EmployeeCell(presenter, item));
+                loader.setController(new EmployeeCellController(presenter, item));
 
                 try {
                     Pane employeeCell = loader.load();

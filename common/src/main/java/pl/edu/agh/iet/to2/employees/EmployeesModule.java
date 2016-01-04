@@ -10,9 +10,7 @@ public interface EmployeesModule {
 
     List<IEmployee> getFilteredEmployees(Predicate predicate);
 
-
     interface Predicate {
         boolean filter(IEmployee employee);
     }
-
 }

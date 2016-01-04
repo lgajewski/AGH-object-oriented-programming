@@ -11,21 +11,19 @@
                pickOnBounds="true" preserveRatio="true" visible="true">
         <Image url="@/employees/images/person.png"/>
     </ImageView>
-    <Button fx:id="changeAvatar" layoutX="421.0" layoutY="230.0" mnemonicParsing="false" text="Change avatar"/>
-    <Label layoutX="26.0" layoutY="119.0" text="Name"/>
-    <TextField fx:id="nameField" layoutX="94.0" layoutY="116.0" prefWidth="200.0"/>
-    <Label layoutX="17.0" layoutY="164.0" text="Surname"/>
-    <TextField fx:id="surnameField" layoutX="94.0" layoutY="161.0" prefWidth="200.0"/>
-    <Label layoutX="26.0" layoutY="213.0" text="Salary"/>
-    <TextField fx:id="salaryField" layoutX="94.0" layoutY="210.0" prefWidth="157.0"/>
-    <ImageView fx:id="salaryImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="208.0" pickOnBounds="true"
+    <Button fx:id="changeAvatar" layoutX="440.0" layoutY="230.0" mnemonicParsing="false" text="Change avatar"/>
+    <Label layoutX="26.0" layoutY="69.0" text="Name"/>
+    <TextField fx:id="nameField" layoutX="94.0" layoutY="66.0" prefWidth="200.0"/>
+    <Label layoutX="17.0" layoutY="114.0" text="Surname"/>
+    <TextField fx:id="surnameField" layoutX="94.0" layoutY="111.0" prefWidth="200.0"/>
+    <Label layoutX="26.0" layoutY="163.0" text="Salary"/>
+    <TextField fx:id="salaryField" layoutX="94.0" layoutY="160.0" prefWidth="157.0"/>
+    <ImageView fx:id="salaryImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="158.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <Label layoutX="8.0" layoutY="260.0" text="Occupation"/>
-    <TextField fx:id="occupationField" layoutX="94.0" layoutY="257.0" prefWidth="157.0"/>
-    <ImageView fx:id="occupationImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="255.0"
-               pickOnBounds="true" preserveRatio="true"/>
-    <ImageView fx:id="saveImage" fitHeight="48.0" fitWidth="48.0" layoutX="28.0" layoutY="20.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="@/employees/images/save.png"/>
+    <Label layoutX="8.0" layoutY="210.0" text="Occupation"/>
+    <TextField fx:id="occupationField" layoutX="94.0" layoutY="207.0" prefWidth="157.0"/>
+    <ImageView fx:id="occupationImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="205.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@/employees/images/info.png"/>
     </ImageView>
 </AnchorPane>

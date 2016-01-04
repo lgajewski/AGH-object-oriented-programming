@@ -17,7 +17,7 @@ public class App extends Application {
             AppPresenter appPresenter = new AppPresenter(primaryStage);
             appPresenter.initRootLayout();
         } catch (Exception e) {
-            // handle all exceptions here and print a trace to debug more easily
+            // handle all exceptions here and print stack trace to debug more easily
             e.printStackTrace();
         }
     }

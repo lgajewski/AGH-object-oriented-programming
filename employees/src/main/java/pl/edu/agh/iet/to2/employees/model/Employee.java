@@ -15,16 +15,23 @@ public class Employee implements IEmployee {
     private StringProperty name;
     private StringProperty surname;
 
-    private final ObjectProperty<EmployeeDetails> details;
+    private StringProperty occupation;
+    private ObjectProperty<BigDecimal> salary;
 
-    public Employee(String name, String surname) {
-        this.name = new SimpleStringProperty(name);
-        this.surname = new SimpleStringProperty(surname);
-        this.details = new SimpleObjectProperty<>(new EmployeeDetails("Occupation", new BigDecimal(1000)));
+    public Employee() {
+        this.name = new SimpleStringProperty("");
+        this.surname = new SimpleStringProperty("");
+        this.occupation = new SimpleStringProperty("");
+        this.salary = new SimpleObjectProperty<>(BigDecimal.ZERO);
     }
 
+    @Override
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
@@ -47,16 +54,12 @@ public class Employee implements IEmployee {
 
     @Override
     public String getOccupation() {
-        return details.get().getOccupation();
-    }
-
-    public void setDetails(EmployeeDetails details) {
-        this.details.set(details);
+        return occupation.get();
     }
 
     @Override
     public BigDecimal getSalary() {
-        return details.get().getSalary();
+        return salary.get();
     }
 
     @Override
@@ -65,10 +68,26 @@ public class Employee implements IEmployee {
     }
 
     public void setSalary(BigDecimal salary) {
-        details.get().setSalary(salary);
+        this.salary.set(salary);
     }
 
     public void setOccupation(String occupation) {
-        details.get().setOccupation(occupation);
+        this.occupation.set(occupation);
+    }
+
+    public StringProperty getNameProperty() {
+        return name;
+    }
+
+    public StringProperty getSurnameProperty() {
+        return surname;
+    }
+
+    public StringProperty getOccupationProperty() {
+        return occupation;
+    }
+
+    public ObjectProperty<BigDecimal> getSalaryProperty() {
+        return salary;
     }
 }

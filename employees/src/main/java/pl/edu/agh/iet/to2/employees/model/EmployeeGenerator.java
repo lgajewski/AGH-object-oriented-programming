@@ -1,8 +1,5 @@
 package pl.edu.agh.iet.to2.employees.model;
 
-import pl.edu.agh.iet.to2.employees.IEmployee;
-import pl.edu.agh.iet.to2.employees.model.Employee;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,15 +16,17 @@ public class EmployeeGenerator {
             "Alexander", "Cruz", "Wood", "Gilbert", "Andrews", "Stevens", "Jenkins", "Cunningham", "Jackson", "Bennett", "Burns", "Ward", "Day", "Armstrong", "Crawford"
     };
 
-    public List<IEmployee> generate(int amount) {
-        List<IEmployee> employeeList = new ArrayList<>();
+    public List<Employee> generate(int amount) {
+        List<Employee> employeeList = new ArrayList<>();
 
         for (int i = 0; i < amount; i++) {
             String name = getRandomValue(names);
             String surname = getRandomValue(surnames);
 
             // create and add employee to the result list
-            IEmployee employee = new Employee(name, surname);
+            Employee employee = new Employee();
+            employee.setName(name);
+            employee.setSurname(surname);
             employeeList.add(employee);
         }
 
