@@ -14,8 +14,8 @@ import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.Employee;
-import pl.edu.agh.iet.to2.employees.module.EmployeeUpdater;
 import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
+import pl.edu.agh.iet.to2.employees.persistence.EmployeeUpdater;
 
 import java.io.IOException;
 import java.util.Comparator;

@@ -1,8 +1,7 @@
-package pl.edu.agh.iet.to2.employees.module;
+package pl.edu.agh.iet.to2.employees.persistence;
 
 import pl.edu.agh.iet.to2.ModuleManager;
 import pl.edu.agh.iet.to2.employees.model.Employee;
-import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
 
 import java.util.List;
 

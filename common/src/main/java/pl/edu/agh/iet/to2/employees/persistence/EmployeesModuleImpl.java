@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.employees.module;
+package pl.edu.agh.iet.to2.employees.persistence;
 
 
 import pl.edu.agh.iet.to2.employees.EmployeesModule;
