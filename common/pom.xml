@@ -11,5 +11,12 @@
     <artifactId>common</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>pl.edu.agh.iet.to2</groupId>
+            <artifactId>persistence</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

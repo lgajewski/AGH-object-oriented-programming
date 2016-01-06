@@ -13,4 +13,5 @@ public interface EmployeesModule {
     interface Predicate {
         boolean filter(IEmployee employee);
     }
+
 }

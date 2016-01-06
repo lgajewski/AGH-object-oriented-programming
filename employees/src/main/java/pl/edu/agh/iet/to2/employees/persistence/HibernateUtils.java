@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.employees.persistance;
+package pl.edu.agh.iet.to2.employees.persistence;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

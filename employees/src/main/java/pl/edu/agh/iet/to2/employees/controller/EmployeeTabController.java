@@ -6,25 +6,25 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.Employee;
-import pl.edu.agh.iet.to2.employees.model.EmployeeGenerator;
-import pl.edu.agh.iet.to2.employees.persistance.HibernateUtils;
+import pl.edu.agh.iet.to2.employees.module.EmployeeUpdater;
+import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
 
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.function.Predicate;
 
 public class EmployeeTabController {
 
-    private static final int AMOUNT_OF_EMPLOYEES = 1;
     private Presenter presenter;
     private ObservableList<Employee> employeeList;
+
 
     public EmployeeTabController(Presenter presenter) {
         this.presenter = presenter;
@@ -44,14 +44,13 @@ public class EmployeeTabController {
 
     @FXML
     private void initialize() {
-        // fill list with custom data
-        EmployeeGenerator generator = new EmployeeGenerator();
+        // create and update employee list
         employeeList = FXCollections.observableArrayList();
-        employeeList.addAll(generator.generate(AMOUNT_OF_EMPLOYEES));
+        updateEmployeeList();
 
         // set custom cell factory and bind to employeeList
         employeeListView.setItems(employeeList);
-        employeeListView.setCellFactory(param -> new EmployeeCell());
+        employeeListView.setCellFactory(param -> new EmployeeCell(presenter));
 
         // register listeners
         filterComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -60,38 +59,44 @@ public class EmployeeTabController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearchEvent(newValue);
         });
-        addButton.setOnMouseClicked(event -> showEmployeeAddDialog());
+        addButton.setOnMouseClicked(event -> {
+            try {
+                Employee employee = showEmployeeAddDialog();
+
+                // persist
+                persistAndUpdate(employee);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
-    private void showEmployeeAddDialog() {
-        try {
-            // Load the fxml file and create a new stage for the dialog
-            EmployeeDetailsController controller = new EmployeeDetailsController();
+    private void persistAndUpdate(Employee employee) {
+        EmployeeDao.saveEmployee(employee);
+        EmployeeUpdater.update();
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
-            loader.setController(controller);
-
-            Pane pane = loader.load();
-
-            // Create the dialog Stage.
-            presenter.showAndWait("Add employee", new Scene(pane));
-
-            // add created employee to observable list
-            // persist
-            persistEmployee(controller.getEmployee());
-            employeeList.add(controller.getEmployee());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        updateEmployeeList();
     }
 
-    private void persistEmployee(Employee employee) {
-        Session session = HibernateUtils.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.persist(employee);
-        transaction.commit();
-        session.close();
+    private void updateEmployeeList() {
+        employeeList.clear();
+        employeeList.addAll(EmployeeDao.getEmployees());
+    }
+
+    private Employee showEmployeeAddDialog() throws IOException {
+        // Load the fxml file and create a new stage for the dialog
+        EmployeeDetailsController controller = new EmployeeDetailsController();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
+        loader.setController(controller);
+
+        Pane pane = loader.load();
+
+        // Create the dialog Stage.
+        presenter.showAndWait("Add employee", new Scene(pane));
+
+        return controller.getEmployee();
     }
 
     private void handleSortEvent(String newValue) {
@@ -127,49 +132,4 @@ public class EmployeeTabController {
     }
 
 
-    class EmployeePredicate implements Predicate<Employee> {
-
-        private String pattern;
-
-        public EmployeePredicate(String pattern) {
-            this.pattern = pattern.toLowerCase();
-        }
-
-        @Override
-        public boolean test(Employee iEmployee) {
-            return testOccupation(iEmployee.getOccupation()) || testName(iEmployee.getName(), iEmployee.getSurname());
-        }
-
-        private boolean testOccupation(String occupation) {
-            return occupation.toLowerCase().contains(pattern);
-        }
-
-        private boolean testName(String name, String surname) {
-            return (name + " " + surname).toLowerCase().contains(pattern);
-        }
-    }
-
-    class EmployeeCell extends ListCell<Employee> {
-        @Override
-        protected void updateItem(Employee item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty) {
-                setGraphic(null);
-            } else {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/employees/fxml/EmployeeCell.fxml"));
-
-                // update employee details for controller
-                loader.setController(new EmployeeCellController(presenter, item));
-
-                try {
-                    Pane employeeCell = loader.load();
-                    setGraphic(employeeCell);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 }
