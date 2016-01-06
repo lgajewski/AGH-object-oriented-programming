@@ -20,12 +20,15 @@ public class AppController {
     @FXML
     private void initialize() throws IOException {
         for (AppTab appTab : AppTab.values()) {
-            TabInitializer initializer = appTab.getTabInitializer();
+            try {
+                TabInitializer initializer = appTab.getTabInitializer();
 
-            // update TabPane with a new tab
-            Tab tab = new Tab(appTab.getName(), initializer.initialize(presenter));
-            tabPane.getTabs().add(tab);
+                // update TabPane with a new tab
+                Tab tab = new Tab(appTab.getName(), initializer.initialize(presenter));
+                tabPane.getTabs().add(tab);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
     }
 }
