@@ -1,13 +1,13 @@
 package pl.edu.agh.iet.to2.projects.dummy;
 
-import interfaces.ITeam;
-import interfaces.modules.ITeamsSource;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import othersmodel.Employee;
-import othersmodel.Salary;
-import othersmodel.Team;
-import othersmodel.TeamMember;
+import pl.edu.agh.iet.to2.projects.model.Employee;
+import pl.edu.agh.iet.to2.projects.model.Salary;
+import pl.edu.agh.iet.to2.projects.model.Team;
+import pl.edu.agh.iet.to2.projects.model.TeamMember;
+import pl.edu.agh.iet.to2.teams.ITeam;
 
 import java.math.BigDecimal;
 

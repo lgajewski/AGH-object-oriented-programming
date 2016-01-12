@@ -1,11 +1,12 @@
 package pl.edu.agh.iet.to2.projects.presenter;
 
-import dummy.DummyProjects;
-import dummy.DummyTeams;
-import interfaces.modules.IProjectsSource;
-import interfaces.modules.ITeamsSource;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+import pl.edu.agh.iet.to2.projects.dummy.DummyProjects;
+import pl.edu.agh.iet.to2.projects.dummy.DummyTeams;
+import pl.edu.agh.iet.to2.projects.dummy.IProjectsSource;
+import pl.edu.agh.iet.to2.projects.dummy.ITeamsSource;
 
 public class App extends Application{
 

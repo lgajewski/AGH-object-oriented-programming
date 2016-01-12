@@ -1,6 +1,6 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
-import interfaces.modules.IProjectsSource;
+
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import presenter.ProjectPresenter;
-import projectsmodel.Project;
+import pl.edu.agh.iet.to2.projects.dummy.IProjectsSource;
+import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.time.LocalDate;
 import java.util.List;

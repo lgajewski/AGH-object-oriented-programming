@@ -12,4 +12,5 @@ public interface IEmployee {
     String getOccupation();
 
     BigDecimal getSalary();
+
 }

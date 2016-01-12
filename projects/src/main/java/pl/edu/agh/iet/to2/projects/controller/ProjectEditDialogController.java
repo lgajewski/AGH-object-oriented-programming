@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
-import projectsmodel.Project;
+import pl.edu.agh.iet.to2.projects.model.Project;
 
 import java.time.format.DateTimeFormatter;
 

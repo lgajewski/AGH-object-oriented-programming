@@ -1,13 +1,9 @@
 package pl.edu.agh.iet.to2.projects.dummy;
 
-import interfaces.modules.IProjectsSource;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import othersmodel.Employee;
-import othersmodel.Salary;
-import othersmodel.Team;
-import othersmodel.TeamMember;
-import projectsmodel.Project;
+import pl.edu.agh.iet.to2.projects.model.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

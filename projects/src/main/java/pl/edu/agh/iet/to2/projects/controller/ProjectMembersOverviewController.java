@@ -1,17 +1,18 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
 
-import interfaces.ITeam;
-import interfaces.ITeamMember;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import othersmodel.Employee;
-import othersmodel.Team;
-import othersmodel.TeamMember;
-import presenter.ProjectPresenter;
-import projectsmodel.Project;
+import pl.edu.agh.iet.to2.projects.model.Employee;
+import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.model.Team;
+import pl.edu.agh.iet.to2.projects.model.TeamMember;
+import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
+import pl.edu.agh.iet.to2.teams.ITeam;
+import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.util.List;
 
@@ -57,11 +58,11 @@ public class ProjectMembersOverviewController {
         membersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         firstNameColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<ITeamMember, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getEmployee().getFirstName())
+                        new ReadOnlyStringWrapper(param.getValue().getValue().getEmployee().getName())
         );
         lastNameColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<ITeamMember, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getEmployee().getLastName())
+                        new ReadOnlyStringWrapper(param.getValue().getValue().getEmployee().getSurname())
         );
         occupationColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<ITeamMember, String> param) ->
@@ -92,7 +93,7 @@ public class ProjectMembersOverviewController {
 
     public void loadTreeItems(List<ITeam> rootItems) {
         Employee emp = new Employee();
-        emp.setFirstName("Teams");
+        emp.setName("Teams");
 
         root = new TreeItem<>(new TeamMember(new Team(), emp));
         root.setExpanded(true);
@@ -113,7 +114,7 @@ public class ProjectMembersOverviewController {
 
     public TreeItem<ITeamMember> teamAsTreeItem(ITeam team){
         Employee emp = new Employee();
-        emp.setFirstName(team.getName());
+        emp.setName(team.getName());
         return new TreeItem<>(new TeamMember(team, emp));
     }
 

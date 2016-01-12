@@ -1,7 +1,7 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
-import interfaces.ITeam;
-import interfaces.ITeamMember;
+
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,8 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import presenter.ProjectPresenter;
-import projectsmodel.Project;
+import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
+import pl.edu.agh.iet.to2.teams.ITeam;
+import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.math.BigDecimal;
 
@@ -61,10 +63,10 @@ public class ProjectFinancialOverviewController {
         membersTable.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
-        nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().getEmployee().getFullNameProperty());
+        nameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getEmployee().getName()+" "+dataValue.getValue().getEmployee().getSurname()));
         roleColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(project.getMemberRoleMap().get(dataValue.getValue())));
         teamColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getTeam().getName()));
-        salaryColumn.setCellValueFactory(dataValue -> dataValue.getValue().getEmployee().getSalaryProperty());
+        salaryColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<>(dataValue.getValue().getEmployee().getSalary()));
     }
 
     @FXML

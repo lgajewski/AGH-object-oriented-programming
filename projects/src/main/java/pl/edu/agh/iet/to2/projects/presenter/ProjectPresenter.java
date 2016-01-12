@@ -1,14 +1,15 @@
 package pl.edu.agh.iet.to2.projects.presenter;
 
-import controllers.*;
-import interfaces.modules.IProjectsSource;
-import interfaces.modules.ITeamsSource;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import projectsmodel.Project;
+import pl.edu.agh.iet.to2.projects.controller.*;
+import pl.edu.agh.iet.to2.projects.dummy.IProjectsSource;
+import pl.edu.agh.iet.to2.projects.dummy.ITeamsSource;
+import pl.edu.agh.iet.to2.projects.model.Project;
 
 import java.io.IOException;
 

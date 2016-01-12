@@ -1,7 +1,5 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
-import interfaces.ITeam;
-import interfaces.modules.ITeamsSource;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -12,7 +10,9 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import projectsmodel.Project;
+import pl.edu.agh.iet.to2.projects.dummy.ITeamsSource;
+import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.teams.ITeam;
 
 import java.math.BigDecimal;
 import java.util.List;
