@@ -4,14 +4,18 @@ package pl.edu.agh.iet.to2.projects.controller;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
+import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.projects.dummy.IProjectsSource;
 import pl.edu.agh.iet.to2.projects.model.Project;
-import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +23,11 @@ public class ProjectOverviewController {
 
     private List<Project> data;
 
-    private ProjectPresenter presenter;
+    private Presenter presenter;
+
+    public ProjectOverviewController(Presenter presenter){
+        this.presenter = presenter;
+    }
 
     @FXML
     private TableView<Project> projectsTable;
@@ -53,7 +61,7 @@ public class ProjectOverviewController {
         projectsTable.setItems(projects.getProjects());
     }
 
-    public void setPresenter(ProjectPresenter presenter) {
+    public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -62,11 +70,14 @@ public class ProjectOverviewController {
         projectsTable.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
-        nameColumn.setCellValueFactory(dataValue -> dataValue.getValue().getNameProperty());
+        nameColumn.setCellValueFactory(
+                dataValue -> dataValue.getValue().getNameProperty());
 
-        startDateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getStartDateProperty());
+        startDateColumn.setCellValueFactory(
+                dataValue -> dataValue.getValue().getStartDateProperty());
 
-        endDateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getEndDateProperty());
+        endDateColumn.setCellValueFactory(
+                dataValue -> dataValue.getValue().getEndDateProperty());
 
         deleteButton.disableProperty().bind(
                 Bindings.isEmpty(projectsTable.getSelectionModel()
@@ -90,28 +101,56 @@ public class ProjectOverviewController {
     }
 
     @FXML
-    private void handleEditAction(ActionEvent event) {
+    private void handleEditAction(ActionEvent event) throws IOException {
         Project project = projectsTable.getSelectionModel()
                 .getSelectedItem();
-        if (project != null) {
-            presenter.showProjectEditDialog(project);
-        }
+
+        Pane pane = prepareProjectEditDialog(project);
+
+        // Create the dialog Stage.
+        presenter.showAndWait("Edit project", new Scene(pane));
     }
 
     @FXML
-    private void handleAddAction(ActionEvent event) {
+    private void handleAddAction(ActionEvent event) throws IOException {
         Project project = Project.newProject();
 
-        if (presenter.showProjectEditDialog(project)) {
-            data.add(project);
-        }
+
+        Pane pane = prepareProjectEditDialog(project);
+
+        // Create the dialog Stage.
+        presenter.showAndWait("Add project", new Scene(pane));
+
+        data.add(project);
+    }
+
+    private Pane prepareProjectEditDialog(Project project) throws IOException {
+        ProjectEditDialogController controller = new ProjectEditDialogController();
+        controller.setData(project);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/ProjectEditDialog.fxml"));
+        loader.setController(controller);
+
+        return loader.load();
+    }
+
+    private Pane prepareProjectMembersOverview(Project project) throws IOException {
+        ProjectEditDialogController controller = new ProjectEditDialogController();
+        controller.setData(project);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/ProjectEditDialog.fxml"));
+        loader.setController(controller);
+
+        return loader.load();
     }
 
     @FXML
     private void handleProjectMembersAction(ActionEvent event) {
         Project project = projectsTable.getSelectionModel().getSelectedItem();
         if (project != null) {
-            presenter.showProjectMembersOverview(project);
+           // presenter.showProjectMembersOverview(project);
         }
     }
 
@@ -119,7 +158,7 @@ public class ProjectOverviewController {
     private void handleFinancialDetailsAction(ActionEvent event) {
         Project project = projectsTable.getSelectionModel().getSelectedItem();
         if (project != null) {
-            presenter.showFinancialOverview(project);
+           // presenter.showFinancialOverview(project);
         }
     }
 

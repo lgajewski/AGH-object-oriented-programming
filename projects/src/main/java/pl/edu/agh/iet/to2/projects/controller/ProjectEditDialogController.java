@@ -45,7 +45,7 @@ public class ProjectEditDialogController {
 
     public void setData(Project project) {
         this.project = project;
-        updateControls();
+//        updateControls();
     }
 
     public boolean isApproved() {
