@@ -24,6 +24,9 @@ public class EmployeeCellController {
     private Label employeeName;
 
     @FXML
+    private Label employeeSurname;
+
+    @FXML
     private Label employeeOccupation;
 
     @FXML
@@ -35,6 +38,7 @@ public class EmployeeCellController {
     @FXML
     private void initialize() {
         employeeName.textProperty().bind(employee.getNameProperty());
+        employeeSurname.textProperty().bind(employee.getSurnameProperty());
         employeeOccupation.textProperty().bind(employee.getOccupationProperty());
 
         showDetails.setOnMouseClicked(event -> showEmployeeDetails(employee));

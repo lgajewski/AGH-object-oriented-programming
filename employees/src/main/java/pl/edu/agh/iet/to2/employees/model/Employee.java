@@ -4,6 +4,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 
 import java.math.BigDecimal;
@@ -75,6 +76,10 @@ public class Employee implements IEmployee {
         this.occupation.set(occupation);
     }
 
+    public String getFullName() {
+        return getName() + " " + getSurname();
+    }
+
     public StringProperty getNameProperty() {
         return name;
     }
@@ -90,4 +95,5 @@ public class Employee implements IEmployee {
     public ObjectProperty<BigDecimal> getSalaryProperty() {
         return salary;
     }
+
 }
