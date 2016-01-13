@@ -50,7 +50,7 @@ public class EmployeeTabController {
 
         // set custom cell factory and bind to employeeList
         employeeListView.setItems(employeeList);
-        employeeListView.setCellFactory(param -> new EmployeeCell(presenter));
+        employeeListView.setCellFactory(param -> new EmployeeCell(this, presenter));
 
         // register listeners
         filterComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -78,7 +78,7 @@ public class EmployeeTabController {
         updateEmployeeList();
     }
 
-    private void updateEmployeeList() {
+    public void updateEmployeeList() {
         employeeList.clear();
         employeeList.addAll(EmployeeDao.getEmployees());
     }

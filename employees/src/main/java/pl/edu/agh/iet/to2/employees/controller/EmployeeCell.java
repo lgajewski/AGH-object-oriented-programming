@@ -12,7 +12,10 @@ class EmployeeCell extends ListCell<Employee> {
 
     private final Presenter presenter;
 
-    public EmployeeCell(Presenter presenter) {
+    private final EmployeeTabController controller;
+
+    public EmployeeCell(EmployeeTabController controller, Presenter presenter) {
+        this.controller = controller;
         this.presenter = presenter;
     }
 
@@ -27,7 +30,7 @@ class EmployeeCell extends ListCell<Employee> {
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeCell.fxml"));
 
             // update employee details for controller
-            loader.setController(new EmployeeCellController(presenter, employee));
+            loader.setController(new EmployeeCellController(controller, presenter, employee));
 
             try {
                 Pane employeeCell = loader.load();

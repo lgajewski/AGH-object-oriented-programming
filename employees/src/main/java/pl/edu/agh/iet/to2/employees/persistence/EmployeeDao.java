@@ -40,4 +40,11 @@ public class EmployeeDao {
         transaction.commit();
     }
 
+    public static void deleteEmployee(Employee employee){
+        Session session = HibernateUtils.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(employee);
+        transaction.commit();
+    }
+
 }
