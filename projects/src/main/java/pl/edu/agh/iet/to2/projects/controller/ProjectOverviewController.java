@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ProjectOverviewController {
 
-    private ObservableList<Project> data;
+    private ObservableList<Project> data = FXCollections.observableArrayList();
 
     private Presenter presenter;
 
@@ -59,15 +59,10 @@ public class ProjectOverviewController {
     @FXML
     private Button projectFinancialDetailsButton;
 
-    public void setData() {
-        data = FXCollections.observableArrayList();
-        updateData();
-        projectsTable.setItems(data);
-    }
 
     public void updateData() {
         data.clear();
-        data.setAll(ProjectDao.getProjects());
+        //data.setAll(ProjectDao.getProjects());
     }
 
     public void setPresenter(Presenter presenter) {
@@ -100,11 +95,13 @@ public class ProjectOverviewController {
 
         projectFinancialDetailsButton.disableProperty().bind(
                 Bindings.size(projectsTable.getSelectionModel().getSelectedItems()).isNotEqualTo(1));
+        projectsTable.setItems(data);
+        updateData();
     }
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
-        ProjectDao.deleteProjects(projectsTable.getSelectionModel().getSelectedItems());
+        //ProjectDao.deleteProjects(projectsTable.getSelectionModel().getSelectedItems());
         for (Project project : projectsTable.getSelectionModel().getSelectedItems()) {
             data.remove(project);
         }
@@ -119,7 +116,7 @@ public class ProjectOverviewController {
 
         // Create the dialog Stage.
         presenter.showAndWait("Edit project", new Scene(pane));
-        ProjectDao.saveProject(project);
+        //ProjectDao.saveProject(project);
     }
 
     @FXML
@@ -131,13 +128,12 @@ public class ProjectOverviewController {
 
         // Create the dialog Stage.
         presenter.showAndWait("Add project", new Scene(pane));
-
         data.add(project);
-        ProjectDao.saveProject(project);
+        //ProjectDao.saveProject(project);
     }
 
     private Pane prepareProjectEditDialog(Project project) throws IOException {
-        ProjectEditDialogController controller = new ProjectEditDialogController();
+        ProjectEditDialogController controller = new ProjectEditDialogController(presenter);
         controller.setData(project);
 
         FXMLLoader loader = new FXMLLoader();
@@ -148,7 +144,7 @@ public class ProjectOverviewController {
     }
 
     private Pane prepareProjectMembersOverview(Project project) throws IOException {
-        ProjectEditDialogController controller = new ProjectEditDialogController();
+        ProjectEditDialogController controller = new ProjectEditDialogController(presenter);
         controller.setData(project);
 
         FXMLLoader loader = new FXMLLoader();

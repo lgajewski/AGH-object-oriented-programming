@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
+import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.projects.model.Project;
 
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,11 @@ public class ProjectEditDialogController {
 
 
     private Project project;
+    private Presenter presenter;
+
+    public ProjectEditDialogController(Presenter presenter) {
+        this.presenter = presenter;
+    }
 
 
     @FXML
@@ -57,7 +63,7 @@ public class ProjectEditDialogController {
         if (isInputValid()) {
             updateModel();
             approved = true;
-            dialogStage.close();
+            presenter.closeCurrentStage();
         }
     }
 
