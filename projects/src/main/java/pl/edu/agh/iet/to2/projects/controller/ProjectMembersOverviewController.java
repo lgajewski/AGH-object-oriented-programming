@@ -10,6 +10,7 @@ import pl.edu.agh.iet.to2.projects.model.Employee;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.model.Team;
 import pl.edu.agh.iet.to2.projects.model.TeamMember;
+import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 import pl.edu.agh.iet.to2.teams.ITeam;
 import pl.edu.agh.iet.to2.teams.ITeamMember;
@@ -139,6 +140,7 @@ public class ProjectMembersOverviewController {
     @FXML
     private void handleBackAction() {
 
+        ProjectDao.saveProject(project);
         presenter.goBackToMainPage();
 
     }

@@ -47,7 +47,7 @@ public class ProjectPresenter {
             // set initial data into controller
             ProjectOverviewController controller = loader.getController();
             //controller.setPresenter(this);
-            controller.setData(source);
+            //controller.setData(source);
 
             // add layout to a scene and show them all
             primaryScene = new Scene(rootLayout);

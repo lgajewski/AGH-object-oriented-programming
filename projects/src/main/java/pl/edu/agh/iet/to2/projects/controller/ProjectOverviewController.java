@@ -2,6 +2,8 @@ package pl.edu.agh.iet.to2.projects.controller;
 
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.projects.dummy.IProjectsSource;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -21,7 +24,7 @@ import java.util.List;
 
 public class ProjectOverviewController {
 
-    private List<Project> data;
+    private ObservableList<Project> data;
 
     private Presenter presenter;
 
@@ -56,9 +59,15 @@ public class ProjectOverviewController {
     @FXML
     private Button projectFinancialDetailsButton;
 
-    public void setData(IProjectsSource projects) {
-        this.data = projects.getProjects();
-        projectsTable.setItems(projects.getProjects());
+    public void setData() {
+        data = FXCollections.observableArrayList();
+        updateData();
+        projectsTable.setItems(data);
+    }
+
+    public void updateData() {
+        data.clear();
+        data.setAll(ProjectDao.getProjects());
     }
 
     public void setPresenter(Presenter presenter) {
@@ -95,6 +104,7 @@ public class ProjectOverviewController {
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
+        ProjectDao.deleteProjects(projectsTable.getSelectionModel().getSelectedItems());
         for (Project project : projectsTable.getSelectionModel().getSelectedItems()) {
             data.remove(project);
         }
@@ -109,6 +119,7 @@ public class ProjectOverviewController {
 
         // Create the dialog Stage.
         presenter.showAndWait("Edit project", new Scene(pane));
+        ProjectDao.saveProject(project);
     }
 
     @FXML
@@ -122,6 +133,7 @@ public class ProjectOverviewController {
         presenter.showAndWait("Add project", new Scene(pane));
 
         data.add(project);
+        ProjectDao.saveProject(project);
     }
 
     private Pane prepareProjectEditDialog(Project project) throws IOException {
