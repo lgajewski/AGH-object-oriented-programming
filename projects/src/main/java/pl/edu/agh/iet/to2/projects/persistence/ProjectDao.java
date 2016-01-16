@@ -6,9 +6,6 @@ import pl.edu.agh.iet.to2.projects.model.Project;
 
 import java.util.List;
 
-/**
- * Created by Marcin on 2016-01-13.
- */
 public class ProjectDao {
 
     public static Project getProjectById(long id) {
@@ -32,6 +29,7 @@ public class ProjectDao {
         Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
 
+        @SuppressWarnings("unchecked")
         List<Project> projects = session.createQuery(hql).list();
 
         transaction.commit();

@@ -11,6 +11,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class ProjectOverviewController {
 
     public void updateData() {
         data.clear();
-        //data.setAll(ProjectDao.getProjects());
+        data.setAll(ProjectDao.getProjects());
     }
 
     @FXML

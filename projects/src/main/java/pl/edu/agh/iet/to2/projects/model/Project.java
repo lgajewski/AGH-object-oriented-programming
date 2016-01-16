@@ -10,17 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pl.edu.agh.iet.to2.projects.IProject;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Entity
+
 public class Project implements IProject{
 
     private long id;
@@ -32,11 +28,10 @@ public class Project implements IProject{
     private ObjectProperty<BigDecimal> budget;
 
     public Project() {
-        this(0, "", LocalDate.now(), LocalDate.now(), BigDecimal.ZERO);
+        this("", LocalDate.now(), LocalDate.now(), BigDecimal.ZERO);
     }
 
-    public Project(long id, String name, LocalDate startDate, LocalDate endDate, BigDecimal budget) {
-        this.id = id;
+    public Project(String name, LocalDate startDate, LocalDate endDate, BigDecimal budget) {
         this.name = new SimpleStringProperty(name);
         this.teams = FXCollections.observableArrayList();
         this.memberRoleMap = new HashMap<>();
@@ -45,7 +40,7 @@ public class Project implements IProject{
         this.budget = new SimpleObjectProperty<>(budget);
     }
 
-    @Id
+
     public long getId() {
         return id;
     }
@@ -54,7 +49,7 @@ public class Project implements IProject{
         this.id = id;
     }
 
-    @Column(name="name")
+
     public String getName() {
         return name.getValue();
     }
@@ -67,7 +62,7 @@ public class Project implements IProject{
         return name;
     }
 
-    @OneToMany
+
     public List<ITeam> getTeams() {
         return teams;
     }
