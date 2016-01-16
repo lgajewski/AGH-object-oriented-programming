@@ -15,6 +15,7 @@ public class EmployeeDao {
         Transaction transaction = session.beginTransaction();
 
         transaction.commit();
+        session.close();
 
         return (Employee) session.createQuery(hql).uniqueResult();
     }
@@ -29,6 +30,7 @@ public class EmployeeDao {
         List<Employee> employees = session.createQuery(hql).list();
 
         transaction.commit();
+        session.close();
 
         return employees;
     }
@@ -38,6 +40,7 @@ public class EmployeeDao {
         Transaction transaction = session.beginTransaction();
         session.persist(employee);
         transaction.commit();
+        session.close();
     }
 
     public static void deleteEmployee(Employee employee){
@@ -45,6 +48,7 @@ public class EmployeeDao {
         Transaction transaction = session.beginTransaction();
         session.delete(employee);
         transaction.commit();
+        session.close();
     }
 
 }
