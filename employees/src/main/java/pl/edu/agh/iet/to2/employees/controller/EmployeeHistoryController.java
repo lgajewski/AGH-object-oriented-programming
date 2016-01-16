@@ -43,7 +43,7 @@ public class EmployeeHistoryController {
     }
 
     private <T> String createText(Operation<T> operation) {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
         String date = df.format(operation.getDate());
         return date + " ->  '" + operation.getValue() + "'";
     }

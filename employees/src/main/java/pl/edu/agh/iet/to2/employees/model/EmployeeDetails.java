@@ -23,14 +23,8 @@ public class EmployeeDetails {
         this.occupation = new SimpleStringProperty(occupation);
         this.salary = new SimpleObjectProperty<>(salary);
 
-        this.occupationHistory = initHistory(occupation);
-        this.salaryHistory = initHistory(salary);
-    }
-
-    private <T> ObservableList<Operation<T>> initHistory(T value) {
-        ObservableList<Operation<T>> list = FXCollections.observableArrayList();
-        list.add(new Operation<T>(value, new Date()));
-        return list;
+        this.occupationHistory = FXCollections.observableArrayList();
+        this.salaryHistory = FXCollections.observableArrayList();
     }
 
     public BigDecimal getSalary() {
@@ -66,8 +60,12 @@ public class EmployeeDetails {
     }
 
     private <T> void update(List<Operation<T>> operations, T actualValue) {
-        Operation<T> lastOp = operations.get(operations.size() - 1);
-        if (!lastOp.getValue().equals(actualValue)) {
+        if (operations.size() > 0) {
+            Operation<T> lastOp = operations.get(operations.size() - 1);
+            if (!lastOp.getValue().equals(actualValue)) {
+                operations.add(new Operation<>(actualValue, new Date()));
+            }
+        } else {
             operations.add(new Operation<>(actualValue, new Date()));
         }
     }
