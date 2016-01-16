@@ -9,9 +9,10 @@ import pl.edu.agh.iet.to2.employees.model.Employee;
 
 public class EmployeeDetailsController {
 
-    private Employee employee;
+    private final Employee employee;
 
     public EmployeeDetailsController() {
+        this(new Employee());
     }
 
     public EmployeeDetailsController(Employee employee) {
@@ -44,10 +45,6 @@ public class EmployeeDetailsController {
 
     @FXML
     private void initialize() {
-        if (employee == null) {
-            employee = new Employee();
-        }
-
         nameField.textProperty().bindBidirectional(employee.getNameProperty());
         surnameField.textProperty().bindBidirectional(employee.getSurnameProperty());
         salaryField.textProperty().bindBidirectional(employee.getSalaryProperty(), new BigDecimalStringConverter());

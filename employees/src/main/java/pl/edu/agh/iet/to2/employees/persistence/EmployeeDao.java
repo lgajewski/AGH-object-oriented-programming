@@ -21,15 +21,15 @@ public class EmployeeDao {
     }
 
     public Employee getEmployeeById(long id) {
-        String hql = "FROM Employee e where e.id = " + id;
-
         Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
+
+        Employee employee = session.get(Employee.class, id);
 
         transaction.commit();
         session.close();
 
-        return (Employee) session.createQuery(hql).uniqueResult();
+        return employee;
     }
 
     public List<Employee> getEmployees() {
@@ -47,30 +47,42 @@ public class EmployeeDao {
         return employees;
     }
 
-    public void saveEmployee(Employee employee) {
-        Employee oldEmployee = getEmployeeById(employee.getId());
-
+    public void addEmployee(Employee employee) {
         Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
         session.persist(employee);
         transaction.commit();
         session.close();
 
-        if (oldEmployee != null) {
-            updateListeners.forEach(listener -> listener.onUpdate(oldEmployee, employee));
-        } else {
-            addListeners.forEach(listener -> listener.onEvent(employee));
-        }
+        addListeners.forEach(listener -> listener.onEvent(employee));
     }
 
-    public void deleteEmployee(Employee employee) {
+    public void updateEmployee(long id, Employee employee) {
         Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(employee);
+
+        Employee oldEmployee = session.get(Employee.class, id);
+        session.merge(employee);
+
         transaction.commit();
         session.close();
 
-        deleteListeners.forEach(listener -> listener.onEvent(employee));
+        updateListeners.forEach(listener -> listener.onUpdate(oldEmployee, employee));
+    }
+
+    public void deleteEmployee(long id) {
+        Session session = HibernateUtils.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Employee employee = session.get(Employee.class, id);
+
+        if (employee != null) {
+            session.delete(employee);
+            deleteListeners.forEach(listener -> listener.onEvent(employee));
+        }
+
+        transaction.commit();
+        session.close();
     }
 
     public void addOnEmployeeUpdatedListener(IEmployeesModule.OnEmployeeUpdateListener listener) {

@@ -5,6 +5,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.employees.model.Employee;
+import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
 
 import java.io.IOException;
 
@@ -12,11 +13,11 @@ class EmployeeCell extends ListCell<Employee> {
 
     private final Presenter presenter;
 
-    private final EmployeeTabController controller;
+    private EmployeeDao employeeDao;
 
-    public EmployeeCell(EmployeeTabController controller, Presenter presenter) {
-        this.controller = controller;
+    public EmployeeCell(Presenter presenter, EmployeeDao employeeDao) {
         this.presenter = presenter;
+        this.employeeDao = employeeDao;
     }
 
     @Override
@@ -30,7 +31,7 @@ class EmployeeCell extends ListCell<Employee> {
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeCell.fxml"));
 
             // update employee details for controller
-            loader.setController(new EmployeeCellController(controller, presenter, employee));
+            loader.setController(new EmployeeCellController(presenter, employee, employeeDao));
 
             try {
                 Pane employeeCell = loader.load();

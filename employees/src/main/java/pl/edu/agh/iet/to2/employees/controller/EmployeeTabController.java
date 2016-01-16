@@ -13,22 +13,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.app.ModuleManager;
 import pl.edu.agh.iet.to2.app.Presenter;
+import pl.edu.agh.iet.to2.employees.EmployeesModule;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.Employee;
+import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class EmployeeTabController {
 
-    private ModuleManager moduleManager;
+    private EmployeeDao employeeDao;
     private Presenter presenter;
     private ObservableList<Employee> employeeList;
 
 
     public EmployeeTabController(Presenter presenter, ModuleManager moduleManager) {
         this.presenter = presenter;
-        this.moduleManager = moduleManager;
+
+        EmployeesModule employeesModule = (EmployeesModule) moduleManager.getEmployeesModule();
+        this.employeeDao = employeesModule.getEmployeeDao();
     }
 
     @FXML
@@ -47,41 +52,41 @@ public class EmployeeTabController {
     private void initialize() {
         // create and update employee list
         employeeList = FXCollections.observableArrayList();
-        updateEmployeeList();
+        employeeList.addAll(employeeDao.getEmployees());
 
         // set custom cell factory and bind to employeeList
         employeeListView.setItems(employeeList);
-        employeeListView.setCellFactory(param -> new EmployeeCell(this, presenter));
+        employeeListView.setCellFactory(param -> new EmployeeCell(presenter, employeeDao));
 
         // register listeners
         filterComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             handleSortEvent(newValue);
         });
+
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearchEvent(newValue);
         });
+
         addButton.setOnMouseClicked(event -> {
             try {
                 Employee employee = showEmployeeAddDialog();
 
-                // persist
-                persistAndUpdate(employee);
+                // save and update employee list
+                employeeDao.addEmployee(employee);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-    }
 
-    private void persistAndUpdate(Employee employee) {
-//        EmployeeDao.saveEmployee(employee);
-//        EmployeeUpdater.update();
+        // handle add employee event
+        employeeDao.addOnEmployeeAddedListener(employee -> employeeList.add((Employee) employee));
 
-        updateEmployeeList();
-    }
+        // handle remove employee event
+        employeeDao.addOnEmployeeDeletedListener(iEmployee -> employeeList.removeAll(
+                employeeList.stream()
+                        .filter(employee -> employee.getId() == iEmployee.getId())
+                        .collect(Collectors.toList())));
 
-    public void updateEmployeeList() {
-        employeeList.clear();
-//        employeeList.addAll(EmployeeDao.getEmployees());
     }
 
     private Employee showEmployeeAddDialog() throws IOException {
@@ -101,7 +106,6 @@ public class EmployeeTabController {
     }
 
     private void handleSortEvent(String newValue) {
-        System.out.println("Selected: " + newValue);
         Comparator<IEmployee> comparator = getComparatorForField(newValue);
         employeeList.sort(comparator);
     }

@@ -49,4 +49,9 @@ public class EmployeesModule implements IEmployeesModule {
     public void addOnEmployeeDeletedListener(OnEmployeeEventListener listener) {
         employeeDao.addOnEmployeeDeletedListener(listener);
     }
+
+    public EmployeeDao getEmployeeDao() {
+        return employeeDao;
+    }
+
 }
