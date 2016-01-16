@@ -18,7 +18,7 @@ public class EmployeesModule implements IEmployeesModule {
 
     @Override
     public IEmployee getEmployeeId(long id) {
-        return employeeDao.getEmployeeId(id);
+        return employeeDao.getEmployeeById(id);
     }
 
     @Override
@@ -33,5 +33,20 @@ public class EmployeesModule implements IEmployeesModule {
 
         // use filter on each employee and collect results into the list
         return employees.stream().filter(predicate::filter).collect(Collectors.toList());
+    }
+
+    @Override
+    public void addOnEmployeeUpdatedListener(OnEmployeeUpdateListener listener) {
+        employeeDao.addOnEmployeeUpdatedListener(listener);
+    }
+
+    @Override
+    public void addOnEmployeeAddedListener(OnEmployeeEventListener listener) {
+        employeeDao.addOnEmployeeAddedListener(listener);
+    }
+
+    @Override
+    public void addOnEmployeeDeletedListener(OnEmployeeEventListener listener) {
+        employeeDao.addOnEmployeeDeletedListener(listener);
     }
 }
