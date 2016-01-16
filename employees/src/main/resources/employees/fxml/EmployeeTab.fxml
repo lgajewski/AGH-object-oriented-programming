@@ -33,5 +33,8 @@
                preserveRatio="true">
         <Image url="@/employees/images/search.png"/>
     </ImageView>
-    <Button fx:id="addButton" layoutX="39.0" layoutY="388.0" mnemonicParsing="false" text="Add"/>
+    <ImageView fx:id="addButton" fitHeight="100.0" fitWidth="100.0" layoutX="300.0" layoutY="400.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@/employees/images/add.png"/>
+    </ImageView>
 </AnchorPane>

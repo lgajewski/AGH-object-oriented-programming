@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.app.ModuleManager;
 import pl.edu.agh.iet.to2.app.Presenter;
@@ -46,7 +47,7 @@ public class EmployeeTabController {
     private ComboBox<String> filterComboBox;
 
     @FXML
-    private Button addButton;
+    private ImageView addButton;
 
     @FXML
     private void initialize() {
@@ -91,7 +92,7 @@ public class EmployeeTabController {
 
     private Employee showEmployeeAddDialog() throws IOException {
         // Load the fxml file and create a new stage for the dialog
-        EmployeeDetailsController controller = new EmployeeDetailsController();
+        EmployeeDetailsController controller = new EmployeeDetailsController(presenter);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));

@@ -16,8 +16,9 @@ public class AppPresenter implements Presenter {
 
     private List<OnStopListener> onStopListeners;
 
-
     private Stage primaryStage;
+
+    private Stage currentStage;
 
     public AppPresenter(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -40,20 +41,25 @@ public class AppPresenter implements Presenter {
     @Override
     public void showAndWait(String title, Scene scene) {
         // create new stage
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(primaryStage);
+        currentStage = new Stage();
+        currentStage.setTitle(title);
+        currentStage.initModality(Modality.WINDOW_MODAL);
+        currentStage.initOwner(primaryStage);
 
         // set scene for a new stage
-        stage.setScene(scene);
+        currentStage.setScene(scene);
 
-        stage.showAndWait();
+        currentStage.showAndWait();
     }
 
     @Override
     public void addOnStopListener(OnStopListener listener) {
         this.onStopListeners.add(listener);
+    }
+
+    @Override
+    public void closeCurrentStage() {
+        currentStage.close();
     }
 
     public void stop() {

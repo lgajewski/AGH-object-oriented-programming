@@ -56,7 +56,7 @@ public class EmployeeCellController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
-            loader.setController(new EmployeeDetailsController(employee));
+            loader.setController(new EmployeeDetailsController(presenter, employee));
             Pane pane = loader.load();
 
             presenter.showAndWait("Employee - " + employee, new Scene(pane));

@@ -7,6 +7,8 @@ public interface Presenter {
 
     void addOnStopListener(OnStopListener listener);
 
+    void closeCurrentStage();
+
     interface OnStopListener {
         void handle();
     }

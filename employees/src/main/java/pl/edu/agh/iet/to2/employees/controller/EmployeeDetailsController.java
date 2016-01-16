@@ -5,17 +5,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.util.converter.BigDecimalStringConverter;
+import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.employees.model.Employee;
 
 public class EmployeeDetailsController {
 
     private final Employee employee;
+    private final Presenter presenter;
 
-    public EmployeeDetailsController() {
-        this(new Employee());
+    public EmployeeDetailsController(Presenter presenter) {
+        this(presenter, new Employee());
     }
 
-    public EmployeeDetailsController(Employee employee) {
+    public EmployeeDetailsController(Presenter presenter, Employee employee) {
+        this.presenter = presenter;
         this.employee = employee;
     }
 
@@ -44,11 +47,16 @@ public class EmployeeDetailsController {
     private ImageView occupationImage;
 
     @FXML
+    private ImageView submitButton;
+
+    @FXML
     private void initialize() {
         nameField.textProperty().bindBidirectional(employee.getNameProperty());
         surnameField.textProperty().bindBidirectional(employee.getSurnameProperty());
         salaryField.textProperty().bindBidirectional(employee.getSalaryProperty(), new BigDecimalStringConverter());
         occupationField.textProperty().bindBidirectional(employee.getOccupationProperty());
+
+        submitButton.setOnMouseClicked(event -> presenter.closeCurrentStage() );
     }
 
     public Employee getEmployee() {
