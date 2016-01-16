@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class AppPresenter implements Presenter {
 
@@ -18,12 +19,16 @@ public class AppPresenter implements Presenter {
 
     private Stage primaryStage;
 
-    private Stage currentStage;
+    private Stack<Stage> stageStack;
 
     public AppPresenter(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.moduleManager = new AppModuleManager();
         this.onStopListeners = new ArrayList<>();
+
+        // STAGE STACK
+        this.stageStack = new Stack<>();
+        this.stageStack.push(primaryStage);
     }
 
     public void initRootLayout() throws IOException {
@@ -41,15 +46,18 @@ public class AppPresenter implements Presenter {
     @Override
     public void showAndWait(String title, Scene scene) {
         // create new stage
-        currentStage = new Stage();
-        currentStage.setTitle(title);
-        currentStage.initModality(Modality.WINDOW_MODAL);
-        currentStage.initOwner(primaryStage);
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(primaryStage);
 
         // set scene for a new stage
-        currentStage.setScene(scene);
+        stage.setScene(scene);
 
-        currentStage.showAndWait();
+        // push to stack
+        stageStack.push(stage);
+
+        stage.showAndWait();
     }
 
     @Override
@@ -59,7 +67,7 @@ public class AppPresenter implements Presenter {
 
     @Override
     public void closeCurrentStage() {
-        currentStage.close();
+        stageStack.pop().close();
     }
 
     public void stop() {

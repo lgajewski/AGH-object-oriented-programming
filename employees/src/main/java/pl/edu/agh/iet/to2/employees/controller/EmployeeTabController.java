@@ -6,7 +6,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -81,6 +80,12 @@ public class EmployeeTabController {
 
         // handle add employee event
         employeeDao.addOnEmployeeAddedListener(employee -> employeeList.add((Employee) employee));
+
+        // handle update event
+        employeeDao.addOnEmployeeUpdatedListener((oldEmployee, newEmployee) -> {
+            Employee employee = (Employee) newEmployee;
+            employee.update();
+        });
 
         // handle remove employee event
         employeeDao.addOnEmployeeDeletedListener(iEmployee -> employeeList.removeAll(

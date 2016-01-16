@@ -18,11 +18,9 @@
     <TextField fx:id="surnameField" layoutX="94.0" layoutY="91.0" prefWidth="200.0"/>
     <Label layoutX="26.0" layoutY="163.0" text="Salary"/>
     <TextField fx:id="salaryField" layoutX="94.0" layoutY="140.0" prefWidth="157.0"/>
-    <ImageView fx:id="salaryImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="138.0" pickOnBounds="true"
-               preserveRatio="true"/>
     <Label layoutX="8.0" layoutY="210.0" text="Occupation"/>
     <TextField fx:id="occupationField" layoutX="94.0" layoutY="187.0" prefWidth="157.0"/>
-    <ImageView fx:id="occupationImage" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="185.0"
+    <ImageView fx:id="historyButton" fitHeight="24.0" fitWidth="24.0" layoutX="270.0" layoutY="185.0"
                pickOnBounds="true" preserveRatio="true">
         <Image url="@/employees/images/details.png"/>
     </ImageView>

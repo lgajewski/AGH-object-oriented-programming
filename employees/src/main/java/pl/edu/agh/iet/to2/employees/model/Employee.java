@@ -1,10 +1,9 @@
 package pl.edu.agh.iet.to2.employees.model;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 
 import java.math.BigDecimal;
@@ -16,14 +15,12 @@ public class Employee implements IEmployee {
     private StringProperty name;
     private StringProperty surname;
 
-    private StringProperty occupation;
-    private ObjectProperty<BigDecimal> salary;
+    private EmployeeDetails details;
 
     public Employee() {
         this.name = new SimpleStringProperty("");
         this.surname = new SimpleStringProperty("");
-        this.occupation = new SimpleStringProperty("");
-        this.salary = new SimpleObjectProperty<>(BigDecimal.ZERO);
+        this.details = new EmployeeDetails("", BigDecimal.ZERO);
     }
 
     @Override
@@ -55,12 +52,12 @@ public class Employee implements IEmployee {
 
     @Override
     public String getOccupation() {
-        return occupation.get();
+        return details.getOccupation();
     }
 
     @Override
     public BigDecimal getSalary() {
-        return salary.get();
+        return details.getSalary();
     }
 
     @Override
@@ -69,11 +66,11 @@ public class Employee implements IEmployee {
     }
 
     public void setSalary(BigDecimal salary) {
-        this.salary.set(salary);
+        details.setSalary(salary);
     }
 
     public void setOccupation(String occupation) {
-        this.occupation.set(occupation);
+        this.details.setOccupation(occupation);
     }
 
     public String getFullName() {
@@ -89,11 +86,23 @@ public class Employee implements IEmployee {
     }
 
     public StringProperty getOccupationProperty() {
-        return occupation;
+        return details.getOccupationProperty();
     }
 
     public ObjectProperty<BigDecimal> getSalaryProperty() {
-        return salary;
+        return details.getSalaryProperty();
+    }
+
+    public ObservableList<Operation<String>> getOccupationHistory() {
+        return details.getOccupationHistory();
+    }
+
+    public ObservableList<Operation<BigDecimal>> getSalaryHistory() {
+        return details.getSalaryHistory();
+    }
+
+    public void update() {
+        details.update();
     }
 
 }
