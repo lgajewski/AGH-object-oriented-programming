@@ -11,20 +11,31 @@ import java.io.File;
 
 public class HibernateUtils {
 
+    private static Class[] classes = {Employee.class};
+
     private static SessionFactory sessionFactory;
 
-    static {
+    public static synchronized SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            sessionFactory = createSessionFactory();
+        }
+
+        return sessionFactory;
+    }
+
+    private static SessionFactory createSessionFactory() {
         Configuration configuration = new Configuration();
         configuration.configure(new File("employees/hibernate.cfg.xml"));
 
-        configuration.addClass(Employee.class);
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-                configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-    }
+        // add all classes from an array
+        for (Class aClass : classes) {
+            configuration.addClass(aClass);
+        }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                .applySettings(configuration.getProperties())
+                .build();
+        return configuration.buildSessionFactory(serviceRegistry);
     }
 
     public static Session getSession() {
@@ -32,6 +43,9 @@ public class HibernateUtils {
     }
 
     public static void shutdown() {
-        getSessionFactory().close();
+        if (sessionFactory != null) {
+            sessionFactory.close();
+        }
     }
+
 }

@@ -31,6 +31,5 @@ public class App extends Application {
         super.stop();
 
         appPresenter.stop();
-        HibernateUtils.shutdown();
     }
 }
