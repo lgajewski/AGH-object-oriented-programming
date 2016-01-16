@@ -6,31 +6,30 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.projects.model.Employee;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.model.Team;
 import pl.edu.agh.iet.to2.projects.model.TeamMember;
-import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 import pl.edu.agh.iet.to2.teams.ITeam;
 import pl.edu.agh.iet.to2.teams.ITeamMember;
 
+import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Marcin on 2015-12-09.
- */
+
 public class ProjectMembersOverviewController {
 
     private Project project;
-
     private ProjectPresenter presenter;
 
     TreeItem<ITeamMember> root;
 
-    public void setPresenter(ProjectPresenter presenter) {
+    public ProjectMembersOverviewController(ProjectPresenter presenter){
         this.presenter = presenter;
     }
+
 
     @FXML
     private TreeTableView<ITeamMember> membersTable;
@@ -77,15 +76,7 @@ public class ProjectMembersOverviewController {
 
 
     public void setProject(Project project) {
-        /*List<Team> teams = new ArrayList<>();
-        Team team1 = new Team();
-        team1.setName("team1");
-        team1.addTeamMember(new TeamMember(team1, new Employee(0, "Marek", "Marek", new Salary(new BigDecimal(3000)), "Junior Software Engineer")));
-        team1.addTeamMember(new TeamMember(team1, new Employee(1, "Darek", "Marek", new Salary(new BigDecimal(4000)), "Software Engineer")));
-        team1.addTeamMember(new TeamMember(team1, new Employee(2, "Jarek", "Marek", new Salary(new BigDecimal(4000)), "Software Engineer")));
-        Team team2 = new Team();
-        team2.setName("team2");
-        team2.addTeamMember(new TeamMember(team2, new Employee(3, "Jan", "Nowak", new Salary(new BigDecimal(6000)), "Senior Software Engineer")));*/
+
         this.project = project;
         loadTreeItems(project.getTeams());
         //teamsTable.getItems().setAll(project.getTeams());
@@ -130,18 +121,18 @@ public class ProjectMembersOverviewController {
     }
 
     @FXML
-    private void handleAddTeamAction() {
+    private void handleAddTeamAction() throws IOException {
 
-        presenter.showAddTeamDialog(project);
+        presenter.onAddTeam(project);
 
     }
 
 
     @FXML
-    private void handleBackAction() {
+    private void handleBackAction() throws IOException {
 
-        ProjectDao.saveProject(project);
-        presenter.goBackToMainPage();
+        //ProjectDao.saveProject(project);
+       presenter.onProjectOverview();
 
     }
 

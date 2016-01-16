@@ -15,16 +15,19 @@ import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 import pl.edu.agh.iet.to2.teams.ITeam;
 import pl.edu.agh.iet.to2.teams.ITeamMember;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
-/**
- * Created by Marcin on 2015-12-15.
- */
+
 public class ProjectFinancialOverviewController {
 
     private Project project;
     
     private ProjectPresenter presenter;
+
+    public ProjectFinancialOverviewController(ProjectPresenter presenter){
+        this.presenter = presenter;
+    }
     
     @FXML
     private TableView<ITeamMember> membersTable;
@@ -43,10 +46,6 @@ public class ProjectFinancialOverviewController {
 
     @FXML
     private Button backButton;
-
-    public void setPresenter(ProjectPresenter presenter) {
-        this.presenter = presenter;
-    }
 
     public void setProject(Project project) {
         this.project = project;
@@ -70,9 +69,9 @@ public class ProjectFinancialOverviewController {
     }
 
     @FXML
-    private void handleBackAction() {
+    private void handleBackAction() throws IOException {
 
-        presenter.goBackToMainPage();
+        presenter.onProjectOverview();
 
     }
 

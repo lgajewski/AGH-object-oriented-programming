@@ -1,8 +1,5 @@
 package pl.edu.agh.iet.to2.projects.persistence;
 
-/**
- * Created by Marcin on 2016-01-13.
- */
 import java.io.File;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +14,7 @@ public class HibernateUtils {
     static
     {
         Configuration configuration = new Configuration();
-        configuration.configure(new File("hibernate.cfg.xml"));
+        configuration.configure(new File("projects/hibernate.cfg.xml"));
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);

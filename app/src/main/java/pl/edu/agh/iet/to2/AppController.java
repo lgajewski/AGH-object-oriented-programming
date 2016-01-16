@@ -1,8 +1,10 @@
 package pl.edu.agh.iet.to2;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
@@ -30,5 +32,13 @@ public class AppController {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setTabContent(String tabName, Pane content){
+        ObservableList<Tab> tabs = tabPane.getTabs();
+        Tab tab = new Tab(tabName, content);
+        tabs.stream().filter(t -> t.getText().equals(tabName))
+                .forEach(t -> tabs.set(tabs.indexOf(t), tab));
+        tabPane.getSelectionModel().select(tab);
     }
 }

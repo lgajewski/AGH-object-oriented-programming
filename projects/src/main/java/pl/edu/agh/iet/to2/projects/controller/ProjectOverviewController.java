@@ -6,31 +6,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
-import pl.edu.agh.iet.to2.Presenter;
-import pl.edu.agh.iet.to2.projects.dummy.IProjectsSource;
 import pl.edu.agh.iet.to2.projects.model.Project;
-import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
+import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 public class ProjectOverviewController {
 
     private ObservableList<Project> data = FXCollections.observableArrayList();
 
-    private Presenter presenter;
+    private ProjectPresenter presenter;
 
-    public ProjectOverviewController(Presenter presenter){
+    public ProjectOverviewController(ProjectPresenter presenter){
         this.presenter = presenter;
     }
+
 
     @FXML
     private TableView<Project> projectsTable;
@@ -63,10 +58,6 @@ public class ProjectOverviewController {
     public void updateData() {
         data.clear();
         //data.setAll(ProjectDao.getProjects());
-    }
-
-    public void setPresenter(Presenter presenter) {
-        this.presenter = presenter;
     }
 
     @FXML
@@ -111,62 +102,32 @@ public class ProjectOverviewController {
     private void handleEditAction(ActionEvent event) throws IOException {
         Project project = projectsTable.getSelectionModel()
                 .getSelectedItem();
-
-        Pane pane = prepareProjectEditDialog(project);
-
-        // Create the dialog Stage.
-        presenter.showAndWait("Edit project", new Scene(pane));
+        presenter.onProjectEdit(project);
         //ProjectDao.saveProject(project);
     }
 
     @FXML
     private void handleAddAction(ActionEvent event) throws IOException {
         Project project = Project.newProject();
-
-
-        Pane pane = prepareProjectEditDialog(project);
-
-        // Create the dialog Stage.
-        presenter.showAndWait("Add project", new Scene(pane));
+        presenter.onProjectEdit(project);
         data.add(project);
         //ProjectDao.saveProject(project);
     }
 
-    private Pane prepareProjectEditDialog(Project project) throws IOException {
-        ProjectEditDialogController controller = new ProjectEditDialogController(presenter);
-        controller.setData(project);
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/ProjectEditDialog.fxml"));
-        loader.setController(controller);
-
-        return loader.load();
-    }
-
-    private Pane prepareProjectMembersOverview(Project project) throws IOException {
-        ProjectEditDialogController controller = new ProjectEditDialogController(presenter);
-        controller.setData(project);
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/ProjectEditDialog.fxml"));
-        loader.setController(controller);
-
-        return loader.load();
-    }
 
     @FXML
-    private void handleProjectMembersAction(ActionEvent event) {
+    private void handleProjectMembersAction(ActionEvent event) throws IOException {
         Project project = projectsTable.getSelectionModel().getSelectedItem();
         if (project != null) {
-           // presenter.showProjectMembersOverview(project);
+            presenter.onProjectMembersOverview(project);
         }
     }
 
     @FXML
-    private void handleFinancialDetailsAction(ActionEvent event) {
+    private void handleFinancialDetailsAction(ActionEvent event) throws IOException {
         Project project = projectsTable.getSelectionModel().getSelectedItem();
         if (project != null) {
-           // presenter.showFinancialOverview(project);
+            presenter.onProjectFinancialOverview(project);
         }
     }
 

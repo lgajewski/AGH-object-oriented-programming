@@ -2,6 +2,7 @@ package pl.edu.agh.iet.to2;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ public class AppPresenter implements Presenter {
 
     private Stage primaryStage;
     private Stage currentStage;
+    private AppController controller;
 
     public AppPresenter(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -22,7 +24,8 @@ public class AppPresenter implements Presenter {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/App.fxml"));
 
-        loader.setController(new AppController(this));
+        controller = new AppController(this);
+        loader.setController(controller);
 
         Pane rootLayout = loader.load();
 
@@ -47,6 +50,11 @@ public class AppPresenter implements Presenter {
     @Override
     public void closeCurrentStage() {
         currentStage.close();
+    }
+
+    @Override
+    public void setProjectsTabContent(Pane content){
+        controller.setTabContent(AppTab.PROJECTS.getName(), content);
     }
 
 }

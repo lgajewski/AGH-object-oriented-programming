@@ -1,7 +1,9 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,35 +11,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
-import pl.edu.agh.iet.to2.projects.dummy.ITeamsSource;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 import pl.edu.agh.iet.to2.teams.ITeam;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Created by Marcin on 2015-12-16.
- */
 public class TeamAddDialogController {
 
     private Project project;
-    private ITeamsSource data;
+    private List<ITeam> teams;
+    private ProjectPresenter presenter;
 
-    private Stage dialogStage;
+    public TeamAddDialogController(ProjectPresenter presenter){
+        this.presenter = presenter;
+    }
 
     public void setProject(Project project) {
         this.project = project;
     }
 
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    public void setData(ITeamsSource data) {
-        this.data = data;
-        teamsTable.setItems(data.getTeams());
+    public void setTeams(List<ITeam> teams) {
+        this.teams = teams;
     }
 
     @FXML
@@ -63,18 +59,19 @@ public class TeamAddDialogController {
         teamColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
         numberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Long>((long)dataValue.getValue().getTeamMembers().size()));
         costColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<BigDecimal>(dataValue.getValue().getCost()));
+        teamsTable.setItems(FXCollections.observableList(teams));
     }
 
     @FXML
     private void handleOkAction(ActionEvent event) {
         ObservableList<ITeam> selectedTeams = teamsTable.getSelectionModel().getSelectedItems();
         if(selectedTeams != null) updateModel(selectedTeams);
-        dialogStage.close();
+        presenter.onCloseDialog();
     }
 
     @FXML
     private void handleCancelAction(ActionEvent event){
-        dialogStage.close();
+        presenter.onCloseDialog();
     }
 
     public void updateModel(List<ITeam> teams) {

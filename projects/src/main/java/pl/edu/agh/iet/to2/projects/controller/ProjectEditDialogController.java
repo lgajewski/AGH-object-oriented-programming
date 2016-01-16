@@ -3,10 +3,9 @@ package pl.edu.agh.iet.to2.projects.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
-import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.time.format.DateTimeFormatter;
 
@@ -14,9 +13,9 @@ public class ProjectEditDialogController {
 
 
     private Project project;
-    private Presenter presenter;
+    private ProjectPresenter presenter;
 
-    public ProjectEditDialogController(Presenter presenter) {
+    public ProjectEditDialogController(ProjectPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -31,8 +30,6 @@ public class ProjectEditDialogController {
     private TextField endDateTextField;
 
 
-    private Stage dialogStage;
-
     private boolean approved;
 
     private LocalDateStringConverter converter;
@@ -45,14 +42,10 @@ public class ProjectEditDialogController {
 
     }
 
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
+    public void setProject(Project project){
+        this.project = project;
     }
 
-    public void setData(Project project) {
-        this.project = project;
-//        updateControls();
-    }
 
     public boolean isApproved() {
         return approved;
@@ -63,13 +56,13 @@ public class ProjectEditDialogController {
         if (isInputValid()) {
             updateModel();
             approved = true;
-            presenter.closeCurrentStage();
+            presenter.onCloseDialog();
         }
     }
 
     @FXML
     private void handleCancelAction(ActionEvent event) {
-        dialogStage.close();
+        presenter.onCloseDialog();
     }
 
     private boolean isInputValid() {

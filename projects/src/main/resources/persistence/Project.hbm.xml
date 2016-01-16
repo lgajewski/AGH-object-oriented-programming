@@ -9,11 +9,11 @@
             <generator class="native"/>
         </id>
         <property name="name" type="text"/>
-        <list name="teams" table="team">
+        <!--<list name="teams" table="team">
             <key column="id"/>
             <list-index column="idx" />
             <many-to-many column="id" class="pl.edu.agh.iet.to2.teams.ITeam"/>
-        </list>
+        </list>-->
         <property name="startDate" type="date"/>
         <property name="endDate" type="date"/>
         <property name="budget" type="java.math.BigDecimal"/>
