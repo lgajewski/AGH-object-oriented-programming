@@ -1,9 +1,9 @@
-package pl.edu.agh.iet.to2;
+package pl.edu.agh.iet.to2.app;
 
 
-import pl.edu.agh.iet.to2.employees.view.EmployeeTabInitializer;
-import pl.edu.agh.iet.to2.projects.view.ProjectsTabInitializer;
-import teams.view.TeamsTabInitializer;
+import pl.edu.agh.iet.to2.employees.EmployeeTabInitializer;
+import pl.edu.agh.iet.to2.projects.ProjectsTabInitializer;
+import pl.edu.agh.iet.to2.teams.TeamsTabInitializer;
 
 enum AppTab {
     EMPLOYEES(new EmployeeTabInitializer()),

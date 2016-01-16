@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2;
+package pl.edu.agh.iet.to2.app;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,12 +12,16 @@ import java.util.List;
 
 public class AppPresenter implements Presenter {
 
+    private ModuleManager moduleManager;
+
     private List<OnStopListener> onStopListeners;
+
 
     private Stage primaryStage;
 
     public AppPresenter(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        this.moduleManager = new AppModuleManager();
         this.onStopListeners = new ArrayList<>();
     }
 
@@ -25,8 +29,7 @@ public class AppPresenter implements Presenter {
         // load layout from FXML file
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/App.fxml"));
-
-        loader.setController(new AppController(this));
+        loader.setController(new AppController(this, moduleManager));
 
         Pane rootLayout = loader.load();
 

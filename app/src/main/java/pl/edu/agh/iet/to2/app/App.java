@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2;
+package pl.edu.agh.iet.to2.app;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -16,8 +16,9 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Company Management System");
 
+        appPresenter = new AppPresenter(primaryStage);
+
         try {
-            appPresenter = new AppPresenter(primaryStage);
             appPresenter.initRootLayout();
         } catch (Exception e) {
             // handle all exceptions here and print stack trace to debug more easily

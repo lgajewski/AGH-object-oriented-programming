@@ -11,23 +11,24 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import pl.edu.agh.iet.to2.Presenter;
+import pl.edu.agh.iet.to2.app.ModuleManager;
+import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.Employee;
-import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
-import pl.edu.agh.iet.to2.employees.persistence.EmployeeUpdater;
 
 import java.io.IOException;
 import java.util.Comparator;
 
 public class EmployeeTabController {
 
+    private ModuleManager moduleManager;
     private Presenter presenter;
     private ObservableList<Employee> employeeList;
 
 
-    public EmployeeTabController(Presenter presenter) {
+    public EmployeeTabController(Presenter presenter, ModuleManager moduleManager) {
         this.presenter = presenter;
+        this.moduleManager = moduleManager;
     }
 
     @FXML
@@ -72,15 +73,15 @@ public class EmployeeTabController {
     }
 
     private void persistAndUpdate(Employee employee) {
-        EmployeeDao.saveEmployee(employee);
-        EmployeeUpdater.update();
+//        EmployeeDao.saveEmployee(employee);
+//        EmployeeUpdater.update();
 
         updateEmployeeList();
     }
 
     public void updateEmployeeList() {
         employeeList.clear();
-        employeeList.addAll(EmployeeDao.getEmployees());
+//        employeeList.addAll(EmployeeDao.getEmployees());
     }
 
     private Employee showEmployeeAddDialog() throws IOException {

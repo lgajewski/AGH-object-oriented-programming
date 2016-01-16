@@ -3,7 +3,7 @@ package pl.edu.agh.iet.to2.employees.controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
-import pl.edu.agh.iet.to2.Presenter;
+import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.employees.model.Employee;
 
 import java.io.IOException;

@@ -4,16 +4,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import pl.edu.agh.iet.to2.Presenter;
+import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.employees.model.Employee;
-import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
-import pl.edu.agh.iet.to2.employees.persistence.EmployeeUpdater;
 
 public class EmployeeCellController {
 
@@ -56,8 +53,8 @@ public class EmployeeCellController {
         delete.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                EmployeeDao.deleteEmployee(employee);
-                EmployeeUpdater.update();
+//                EmployeeDao.deleteEmployee(employee);
+//                EmployeeUpdater.update();
                 controller.updateEmployeeList();
             }
         });

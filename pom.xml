@@ -30,7 +30,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>pl.edu.agh.iet.to2.App</mainClass>
+                            <mainClass>pl.edu.agh.iet.to2.app.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>

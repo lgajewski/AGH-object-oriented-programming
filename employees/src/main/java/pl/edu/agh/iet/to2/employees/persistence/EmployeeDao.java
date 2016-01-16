@@ -8,7 +8,7 @@ import java.util.List;
 
 public class EmployeeDao {
 
-    public static Employee getEmployeeId(long id) {
+    public Employee getEmployeeId(long id) {
         String hql = "FROM Employee e where e.id = " + id;
 
         Session session = HibernateUtils.getSession();
@@ -20,7 +20,7 @@ public class EmployeeDao {
         return (Employee) session.createQuery(hql).uniqueResult();
     }
 
-    public static List<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         String hql = "FROM Employee";
 
         Session session = HibernateUtils.getSession();
@@ -35,7 +35,7 @@ public class EmployeeDao {
         return employees;
     }
 
-    public static void saveEmployee(Employee employee) {
+    public void saveEmployee(Employee employee) {
         Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
         session.persist(employee);
@@ -43,7 +43,7 @@ public class EmployeeDao {
         session.close();
     }
 
-    public static void deleteEmployee(Employee employee){
+    public void deleteEmployee(Employee employee){
         Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
         session.delete(employee);

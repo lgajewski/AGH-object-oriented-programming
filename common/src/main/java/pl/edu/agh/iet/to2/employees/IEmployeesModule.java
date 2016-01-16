@@ -2,7 +2,7 @@ package pl.edu.agh.iet.to2.employees;
 
 import java.util.List;
 
-public interface EmployeesModule {
+public interface IEmployeesModule {
 
     IEmployee getEmployeeId(long id);
 
