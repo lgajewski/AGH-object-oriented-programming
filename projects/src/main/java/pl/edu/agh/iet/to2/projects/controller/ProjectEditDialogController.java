@@ -7,7 +7,11 @@ import javafx.util.converter.LocalDateStringConverter;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class ProjectEditDialogController {
 
@@ -31,19 +35,24 @@ public class ProjectEditDialogController {
 
 
     private boolean approved;
-
-    private LocalDateStringConverter converter;
+    private SimpleDateFormat format;
 
     @FXML
     public void initialize() {
         String pattern = "yyyy-MM-dd";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        converter = new LocalDateStringConverter(formatter, formatter);
+        format = new SimpleDateFormat(pattern);
+        updateControls();
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        //converter = new LocalDateStringConverter(formatter, formatter);
 
     }
 
     public void setProject(Project project){
         this.project = project;
+    }
+
+    public Project getProject(){
+        return project;
     }
 
 
@@ -72,15 +81,19 @@ public class ProjectEditDialogController {
     }
 
     private void updateModel() {
-        project.setStartDate(converter.fromString(startDateTextField.getText()));
-        project.setEndDate(converter.fromString(endDateTextField.getText()));
-        project.setName(nameTextField.getText());
+        try {
+            project.setStartDate(format.parse(startDateTextField.getText()));
+            project.setEndDate(format.parse(endDateTextField.getText()));
+            project.setName(nameTextField.getText());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateControls() {
         nameTextField.setText(project.getName());
-        startDateTextField.setText(converter.toString(project.getStartDate()));
-        endDateTextField.setText(converter.toString(project.getEndDate()));
+        startDateTextField.setText(project.getStartDate().toString());
+        endDateTextField.setText(project.getEndDate().toString());
     }
 
 }

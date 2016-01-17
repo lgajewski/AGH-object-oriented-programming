@@ -8,6 +8,7 @@ import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.EmployeesModule;
 import pl.edu.agh.iet.to2.projects.controller.*;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.teams.TeamsModule;
 
 import java.io.IOException;
@@ -39,6 +40,9 @@ public class ProjectPresenter {
         loader.setLocation(getClass().getResource("/view/ProjectEditDialog.fxml"));
         loader.setController(controller);
         presenter.showAndWait("Edit project", new Scene(loader.load()));
+
+        if(controller.isApproved())
+            ProjectDao.saveProject(project);
     }
 
     public void onProjectMembersOverview(Project project) throws IOException {

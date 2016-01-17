@@ -4,11 +4,10 @@ import pl.edu.agh.iet.to2.teams.ITeam;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Marcin on 2016-01-12.
- */
+
 public interface IProject {
 
     long getId();
@@ -17,9 +16,9 @@ public interface IProject {
 
     List<ITeam> getTeams();
 
-    LocalDate getStartDate();
+    Date getStartDate();
 
-    LocalDate getEndDate();
+    Date getEndDate();
 
     BigDecimal getBudget();
 

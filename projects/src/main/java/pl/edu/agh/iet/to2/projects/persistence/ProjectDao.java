@@ -42,7 +42,7 @@ public class ProjectDao {
 
         Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(project);
+        session.saveOrUpdate(project);
         transaction.commit();
         session.close();
 

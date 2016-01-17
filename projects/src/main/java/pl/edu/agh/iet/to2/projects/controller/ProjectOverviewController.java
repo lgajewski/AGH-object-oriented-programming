@@ -16,6 +16,7 @@ import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class ProjectOverviewController {
 
@@ -35,10 +36,10 @@ public class ProjectOverviewController {
     private TableColumn<Project, String> nameColumn;
 
     @FXML
-    private TableColumn<Project, LocalDate> startDateColumn;
+    private TableColumn<Project, Date> startDateColumn;
 
     @FXML
-    private TableColumn<Project, LocalDate> endDateColumn;
+    private TableColumn<Project, Date> endDateColumn;
 
     @FXML
     private Button deleteButton;
@@ -93,10 +94,8 @@ public class ProjectOverviewController {
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
-        //ProjectDao.deleteProjects(projectsTable.getSelectionModel().getSelectedItems());
-        for (Project project : projectsTable.getSelectionModel().getSelectedItems()) {
-            data.remove(project);
-        }
+        ProjectDao.deleteProjects(projectsTable.getSelectionModel().getSelectedItems());
+        updateData();
     }
 
     @FXML
@@ -104,15 +103,14 @@ public class ProjectOverviewController {
         Project project = projectsTable.getSelectionModel()
                 .getSelectedItem();
         presenter.onProjectEdit(project);
-        //ProjectDao.saveProject(project);
+        updateData();
     }
 
     @FXML
     private void handleAddAction(ActionEvent event) throws IOException {
         Project project = Project.newProject();
         presenter.onProjectEdit(project);
-        data.add(project);
-        //ProjectDao.saveProject(project);
+        updateData();
     }
 
 

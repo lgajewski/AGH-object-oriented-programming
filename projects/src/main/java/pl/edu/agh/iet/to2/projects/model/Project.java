@@ -11,27 +11,27 @@ import javafx.collections.ObservableList;
 import pl.edu.agh.iet.to2.projects.IProject;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Project implements IProject{
+public class Project implements IProject {
 
     private long id;
     private StringProperty name;
     private ObservableList<ITeam> teams;
     private Map<ITeamMember, String> memberRoleMap;
-    private ObjectProperty<LocalDate> startDate;
-    private ObjectProperty<LocalDate> endDate;
+    private ObjectProperty<Date> startDate;
+    private ObjectProperty<Date> endDate;
     private ObjectProperty<BigDecimal> budget;
 
     public Project() {
-        this("", LocalDate.now(), LocalDate.now(), BigDecimal.ZERO);
+        this("", new Date(), new Date(), BigDecimal.ZERO);
     }
 
-    public Project(String name, LocalDate startDate, LocalDate endDate, BigDecimal budget) {
+    public Project(String name, Date startDate, Date endDate, BigDecimal budget) {
         this.name = new SimpleStringProperty(name);
         this.teams = FXCollections.observableArrayList();
         this.memberRoleMap = new HashMap<>();
@@ -67,8 +67,8 @@ public class Project implements IProject{
         return teams;
     }
 
-    public void setTeams(ObservableList<ITeam> teams) {
-        this.teams = teams;
+    public void setTeams(List<ITeam> teams) {
+        this.teams = FXCollections.observableArrayList(teams);
     }
 
     public Map<ITeamMember, String> getMemberRoleMap() {
@@ -79,27 +79,27 @@ public class Project implements IProject{
         this.memberRoleMap = memberRoleMap;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate.getValue();
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate.setValue(startDate);
     }
 
-    public ObjectProperty<LocalDate> getStartDateProperty(){
+    public ObjectProperty<Date> getStartDateProperty(){
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate.getValue();
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate.setValue(endDate);
     }
 
-    public ObjectProperty<LocalDate> getEndDateProperty(){
+    public ObjectProperty<Date> getEndDateProperty(){
         return endDate;
     }
 
