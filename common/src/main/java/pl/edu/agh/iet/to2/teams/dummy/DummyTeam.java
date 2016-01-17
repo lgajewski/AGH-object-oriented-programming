@@ -14,8 +14,18 @@ public class DummyTeam implements ITeam{
     }
 
     @Override
+    public void setId(long id) {
+
+    }
+
+    @Override
     public String getName() {
         return "";
+    }
+
+    @Override
+    public void setName(String name) {
+
     }
 
     @Override

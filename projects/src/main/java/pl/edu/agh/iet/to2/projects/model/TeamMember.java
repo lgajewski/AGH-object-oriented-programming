@@ -2,8 +2,6 @@ package pl.edu.agh.iet.to2.projects.model;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.teams.ITeam;
 import pl.edu.agh.iet.to2.teams.ITeamMember;

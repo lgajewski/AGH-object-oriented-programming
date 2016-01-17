@@ -1,6 +1,5 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

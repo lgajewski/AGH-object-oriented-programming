@@ -6,7 +6,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.projects.model.Employee;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.model.Team;
