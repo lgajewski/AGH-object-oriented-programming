@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.teams.src.db;
+package pl.edu.agh.iet.to2.teams.db;
 
 import java.sql.*;
 
@@ -8,6 +8,7 @@ import java.sql.*;
 public class SqlHelper {
     private Connection c;
     private Statement stmt;
+    private String path;
 
 
     private static SqlHelper ourInstance = new SqlHelper();
@@ -19,6 +20,7 @@ public class SqlHelper {
     private SqlHelper() {
         c = null;
         stmt = null;
+        path = "jdbc:sqlite:teams\\src\\main\\java\\pl.edu.agh.iet.to2.teams\\db\\db2";
     }
 
     public void executeQuery (String sqlQuery){
@@ -27,7 +29,7 @@ public class SqlHelper {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:db2");
+            c = DriverManager.getConnection(path);
             stmt = c.createStatement();
             stmt.executeUpdate(sqlQuery);
             stmt.close();
@@ -51,7 +53,7 @@ public class SqlHelper {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:db2");
+            c = DriverManager.getConnection(path);
             stmt = c.createStatement();
             return stmt.executeQuery( sqlQuery );
         } catch (Exception e) {
