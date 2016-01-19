@@ -6,7 +6,7 @@ package pl.edu.agh.iet.to2.teams.common;
 public class GetProject {
 
     /*
-    Like in GetTeam but for Projects: what do we need to give for who needs to import Project?
+    Like in TeamData but for Projects: what do we need to give for who needs to import Project?
     Same convention
      */
 }

@@ -12,9 +12,9 @@ import pl.edu.agh.iet.to2.teams.api.project.TeamProject;
 public class Team {
     private long id;
     private String name;
+    private Members members;
 
     private SimpleObjectProperty<TeamManager> manager;
-    private Members members;
     private SimpleObjectProperty<TeamProject> project;
 
     private Team(){
@@ -59,12 +59,19 @@ public class Team {
         return project;
     }
 
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

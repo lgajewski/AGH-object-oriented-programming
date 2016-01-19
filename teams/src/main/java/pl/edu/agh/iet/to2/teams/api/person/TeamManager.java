@@ -22,11 +22,7 @@ public class TeamManager implements Manager {
     public TeamManager(long id, String name, String position, Members subordinates, Manager superior, Set<Team> teams, Set<Manager> managers) {
         this.id = id;
         this.name = name;
-        this.subordinates = subordinates;
         this.superior = superior;
-
-        this.teams = teams;
-        this.managers = managers;
     }
 
     public Set<Manager> getManagers() {
