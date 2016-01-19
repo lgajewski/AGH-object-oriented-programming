@@ -13,11 +13,29 @@ public class TeamManager implements Manager {
     private long id;
     private String name;
     private String position;
-    private String description;
     private Members subordinates;
     private Manager superior;
 
     private Set<Team> teams;
+    private Set<Manager> managers;
+
+    public TeamManager(long id) {
+        this.id = id;
+        this.name = name;
+        this.subordinates = subordinates;
+        this.superior = superior;
+
+        this.teams = teams;
+        this.managers = managers;
+    }
+
+    public Set<Manager> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(Set<Manager> managers) {
+        this.managers = managers;
+    }
 
     @Override
     public long getId() {
@@ -40,14 +58,6 @@ public class TeamManager implements Manager {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setPosition(String position) {
@@ -77,12 +87,6 @@ public class TeamManager implements Manager {
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
-
-    /**
-     operations on teams added here
-     would be better to move them outside the class
-     but "meh" for now
-     */
 
     public void addTeam(Team t){
         teams.add(t);

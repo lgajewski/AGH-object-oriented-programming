@@ -1,16 +1,13 @@
 package pl.edu.agh.iet.to2.teams.common;
 
-import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
-import pl.edu.agh.iet.to2.teams.api.team.Team;
-
-import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by Pan Ciemnosci on 2016-01-11.
  */
 public class GetTeam {
 
-    private Team team;
+/*    private Team team;
     private TeamManager manager;
 
     public GetTeam(Team team, TeamManager leader){
@@ -35,6 +32,11 @@ public class GetTeam {
 
     public String forEmployee(long id){
       return null;
+    }*/
+
+    public TreeMap getAllTeams(){
+
+        return null;
     }
 
 }
