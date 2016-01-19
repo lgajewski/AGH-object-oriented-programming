@@ -2,7 +2,9 @@ package pl.edu.agh.iet.to2.teams.api.person;
 
 import pl.edu.agh.iet.to2.teams.api.team.Members;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -12,16 +14,26 @@ public class TeamManager implements Manager {
 
     private long id;
     private String name;
-    private String position;
+    private String occupation;
     private String description;
     private Members subordinates;
     private Manager superior;
 
     private Set<Team> teams;
 
+    private TeamManager(Person person){
+        this.id = person.getId();
+        this.name = person.getName() + person.getSurname();
+        this.occupation = person.getOccupation();
+    }
+
+    public static TeamManager createTeamManager(Person person){
+        return new TeamManager(person);
+    }
+
     @Override
     public long getId() {
-        return 0;
+        return id;
     }
 
     @Override
@@ -30,8 +42,18 @@ public class TeamManager implements Manager {
     }
 
     @Override
-    public String getPosition() {
-        return position;
+    public String getSurname() {
+        return null;
+    }
+
+    @Override
+    public String getOccupation() {
+        return null;
+    }
+
+    @Override
+    public BigDecimal getSalary() {
+        return null;
     }
 
     public void setId(long id) {
@@ -51,7 +73,7 @@ public class TeamManager implements Manager {
     }
 
     public void setPosition(String position) {
-        this.position = position;
+        this.occupation = occupation;
     }
 
     public Members getSubordinates() {

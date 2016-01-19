@@ -1,18 +1,21 @@
 package pl.edu.agh.iet.to2.teams.api.person;
 
+import java.math.BigDecimal;
+
 public class TesterPerson implements Member {
 
 	private long personID;
-	private String personName;
-	private String personPosition;
+	private String name;
+	private String occupation;
+
 	
 	public TesterPerson(long ID, String name){
 		if(name == null)
 			throw new NullPointerException();
 		
 		this.personID = ID;
-		this.personName = name;
-		this.personPosition = null;
+		this.name = name;
+		this.occupation = null;
 	}
 	
 	public TesterPerson(long ID, String name, String position){
@@ -20,8 +23,8 @@ public class TesterPerson implements Member {
 			throw new NullPointerException();
 		
 		this.personID = ID;
-		this.personName = name;
-		this.personPosition = position;
+		this.name = name;
+		this.name = position;
 	}
 	
 	@Override
@@ -31,12 +34,22 @@ public class TesterPerson implements Member {
 
 	@Override
 	public String getName() {
-		return this.personName;
+		return this.name;
 	}
 
 	@Override
-	public String getPosition() {
-		return this.personPosition;
+	public String getSurname() {
+		return null;
+	}
+
+	@Override
+	public String getOccupation() {
+		return null;
+	}
+
+	@Override
+	public BigDecimal getSalary() {
+		return null;
 	}
 
 
