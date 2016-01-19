@@ -7,6 +7,7 @@
         <groupId>pl.edu.agh.iet.to2</groupId>
         <version>1.0</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common</artifactId>
     <packaging>jar</packaging>
