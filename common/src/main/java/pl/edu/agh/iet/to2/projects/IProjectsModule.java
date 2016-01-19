@@ -5,4 +5,5 @@ import java.util.List;
 public interface IProjectsModule {
 
     List<String> getProjectsForEmployeeId(long id);
+
 }
