@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 public class TeamData {
     Set<Team> teams;
-    Set
+    Set<Manager> managers;
 
 
     public Set<Team> getAllTeamsFromDb(){

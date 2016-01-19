@@ -3,6 +3,7 @@ package pl.edu.agh.iet.to2.teams.api.person;
 import pl.edu.agh.iet.to2.teams.api.team.Members;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -12,7 +13,7 @@ public class TeamManager implements Manager {
 
     private long id;
     private String name;
-    private String position;
+    private String occupation;
     private Members subordinates;
     private Manager superior;
 
@@ -35,7 +36,7 @@ public class TeamManager implements Manager {
 
     @Override
     public long getId() {
-        return 0;
+        return id;
     }
 
     @Override
@@ -44,8 +45,18 @@ public class TeamManager implements Manager {
     }
 
     @Override
-    public String getPosition() {
-        return position;
+    public String getSurname() {
+        return null;
+    }
+
+    @Override
+    public String getOccupation() {
+        return null;
+    }
+
+    @Override
+    public BigDecimal getSalary() {
+        return null;
     }
 
     public void setId(long id) {
@@ -56,8 +67,8 @@ public class TeamManager implements Manager {
         this.name = name;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setOccupation(String position) {
+        this.occupation = occupation;
     }
 
     public Members getSubordinates() {
@@ -83,6 +94,12 @@ public class TeamManager implements Manager {
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
+
+    /**
+     operations on teams added here
+     would be better to move them outside the class
+     but "meh" for now
+     */
 
     public void addTeam(Team t){
         teams.add(t);

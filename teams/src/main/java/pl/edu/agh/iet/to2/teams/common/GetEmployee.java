@@ -5,5 +5,4 @@ package pl.edu.agh.iet.to2.teams.common;
  */
 public class GetEmployee {
 
-
 }
