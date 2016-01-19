@@ -1,8 +1,8 @@
-package pl.edu.agh.iet.to2.teams.src.api.team;
+package pl.edu.agh.iet.to2.teams.api.team;
 
-import api.person.Person;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
+import pl.edu.agh.iet.to2.teams.api.person.Person;
 
 import java.util.Set;
 

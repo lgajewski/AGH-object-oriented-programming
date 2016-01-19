@@ -1,7 +1,7 @@
-package pl.edu.agh.iet.to2.teams.src.api.person;
+package pl.edu.agh.iet.to2.teams.api.person;
 
-import api.team.Members;
-import api.team.Team;
+import pl.edu.agh.iet.to2.teams.api.team.Members;
+import pl.edu.agh.iet.to2.teams.api.team.Team;
 
 import java.util.Set;
 

@@ -1,10 +1,10 @@
-package pl.edu.agh.iet.to2.teams.src.api.team;
+package pl.edu.agh.iet.to2.teams.api.team;
 
-import api.person.Manager;
-import api.person.TeamManager;
-import api.project.Project;
-import api.project.TeamProject;
 import javafx.beans.property.SimpleObjectProperty;
+import pl.edu.agh.iet.to2.teams.api.person.Manager;
+import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import pl.edu.agh.iet.to2.teams.api.project.Project;
+import pl.edu.agh.iet.to2.teams.api.project.TeamProject;
 
 /**
  * Created by Pan Ciemnosci on 2015-12-15.

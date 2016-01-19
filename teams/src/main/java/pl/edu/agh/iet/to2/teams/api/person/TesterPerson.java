@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.teams.src.api.person;
+package pl.edu.agh.iet.to2.teams.api.person;
 
 public class TesterPerson implements Member {
 

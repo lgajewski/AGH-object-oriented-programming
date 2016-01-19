@@ -1,7 +1,7 @@
-package pl.edu.agh.iet.to2.teams.src.common;
+package pl.edu.agh.iet.to2.teams.common;
 
-import api.person.TeamManager;
-import api.team.Team;
+import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import pl.edu.agh.iet.to2.teams.api.team.Team;
 
 import java.util.List;
 

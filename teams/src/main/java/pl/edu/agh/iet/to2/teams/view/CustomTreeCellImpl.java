@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.teams.src.view;
+package pl.edu.agh.iet.to2.teams.view;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;

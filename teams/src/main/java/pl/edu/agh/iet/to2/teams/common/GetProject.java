@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2.teams.src.common;
+package pl.edu.agh.iet.to2.teams.common;
 
 /**
  * Created by Pan Ciemnosci on 2016-01-11.

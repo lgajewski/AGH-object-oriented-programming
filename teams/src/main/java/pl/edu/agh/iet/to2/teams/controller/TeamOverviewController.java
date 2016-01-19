@@ -1,7 +1,7 @@
-package pl.edu.agh.iet.to2.teams.src.controller;
+package pl.edu.agh.iet.to2.teams.controller;
 
-import api.team.Team;
-import view.MainView;
+import pl.edu.agh.iet.to2.teams.api.team.Team;
+import pl.edu.agh.iet.to2.teams.view.MainView;
 
 /**
  * Created by Pan Ciemnosci on 2015-12-15.
