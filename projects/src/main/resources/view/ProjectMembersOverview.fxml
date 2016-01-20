@@ -31,13 +31,13 @@
                     </HBox.margin>
                 </Button>
                 <Button fx:id="addMemberButton" alignment="TOP_CENTER" maxWidth="100" mnemonicParsing="false"
-                        onAction="#handleAddMemberAction" text="Add Team">
+                        onAction="#handleAddMemberAction" text="Add Member">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
                 <Button fx:id="removeMemberButton" alignment="TOP_CENTER" maxWidth="150" mnemonicParsing="false"
-                        onAction="#handleRemoveMemberAction" text="Remove Team">
+                        onAction="#handleRemoveMemberAction" text="Remove Member">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
