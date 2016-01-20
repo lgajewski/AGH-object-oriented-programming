@@ -57,7 +57,7 @@ public class EmployeeCellController {
 
         // set employee avatar listener
         updateAvatar(employee.getAvatarName());
-        employee.getAvatarPathProperty().addListener((observable, oldValue, newValue) -> {
+        employee.getAvatarNameProperty().addListener((observable, oldValue, newValue) -> {
             updateAvatar(newValue);
         });
     }

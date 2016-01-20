@@ -12,5 +12,6 @@
         <property name="surname" type="text"/>
         <property name="occupation" type="text"/>
         <property name="salary" type="java.math.BigDecimal"/>
+        <property name="avatarName" type="text"/>
     </class>
 </hibernate-mapping>

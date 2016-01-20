@@ -74,7 +74,7 @@ public class EmployeeDetailsController {
         changeAvatar.setOnMouseClicked(event -> showChangeAvatarStage());
 
         // bind listener to update
-        employee.getAvatarPathProperty().addListener((observable, oldValue, newValue) -> updateAvatar(newValue));
+        employee.getAvatarNameProperty().addListener((observable, oldValue, newValue) -> updateAvatar(newValue));
 
         // update with current value
         updateAvatar(employee.getAvatarName());
@@ -88,7 +88,7 @@ public class EmployeeDetailsController {
 
         if (selectedFile != null) {
             String relativePath = initialDirectory.toURI().relativize(selectedFile.toURI()).getPath();
-            employee.setAvatarPath(relativePath);
+            employee.setAvatarName(relativePath);
         } else {
             System.out.println("File selection cancelled.");
         }

@@ -19,12 +19,12 @@ public class Employee implements IEmployee {
 
     private EmployeeDetails details;
 
-    private StringProperty avatarPath;
+    private StringProperty avatarName;
 
     public Employee() {
         this.name = new SimpleStringProperty("");
         this.surname = new SimpleStringProperty("");
-        this.avatarPath = new SimpleStringProperty("default.png");
+        this.avatarName = new SimpleStringProperty("default.png");
         this.details = new EmployeeDetails("", BigDecimal.ZERO);
     }
 
@@ -71,15 +71,15 @@ public class Employee implements IEmployee {
     }
 
     public String getAvatarName() {
-        return avatarPath.get();
+        return avatarName.get();
     }
 
-    public void setAvatarPath(String avatarPath) {
-        this.avatarPath.set(avatarPath);
+    public void setAvatarName(String avatarName) {
+        this.avatarName.set(avatarName);
     }
 
-    public StringProperty getAvatarPathProperty() {
-        return avatarPath;
+    public StringProperty getAvatarNameProperty() {
+        return avatarName;
     }
 
     public void setSalary(BigDecimal salary) {
