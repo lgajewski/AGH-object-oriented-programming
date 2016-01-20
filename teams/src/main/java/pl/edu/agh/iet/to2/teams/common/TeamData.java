@@ -1,7 +1,6 @@
 package pl.edu.agh.iet.to2.teams.common;
 
 import pl.edu.agh.iet.to2.teams.api.person.Manager;
-import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.db.SqlHelper;
 
@@ -12,7 +11,7 @@ import java.util.TreeMap;
 
 public class TeamData {
     Set<Team> teams;
-    Set<Manager> managers;
+    Set<DBManager> managers;
 
 
     public Set<Team> getAllTeamsFromDb(){
@@ -55,7 +54,7 @@ public class TeamData {
 
             manager = new DBManager((long)row.get(1), //personId
                     (long)row.get(2));//parentManagerId
-
+            managers.add(manager);
         }
 
         // obtain subordinates/superiors

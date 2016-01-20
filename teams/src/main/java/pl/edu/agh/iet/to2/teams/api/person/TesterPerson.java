@@ -52,5 +52,10 @@ public class TesterPerson implements Member {
 		return null;
 	}
 
+    public String toString(){
+        return "Name: " + getName()
+                + "Occupation: " + getOccupation();
+    }
+
 
 }

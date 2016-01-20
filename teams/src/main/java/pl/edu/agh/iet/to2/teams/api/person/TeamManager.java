@@ -109,5 +109,11 @@ public class TeamManager implements Manager {
         teams.remove(t);
     }
 
+    public String toString(){
+        return "Name: " + getName()
+                + "Occupation: " + getOccupation()
+                    + "Superior: " + superior.getName() + " " + superior.getSurname();
+    }
+
 
 }
