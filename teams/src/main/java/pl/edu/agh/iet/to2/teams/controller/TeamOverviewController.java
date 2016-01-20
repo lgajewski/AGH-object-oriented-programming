@@ -55,7 +55,7 @@ public class TeamOverviewController {
         team.getMembers().getMembersProperty().addListener((o, oldVal, newVal) -> {
            // code to describe what happens after Members property has changed
             // (so if some members are added/removed this is invoked)
-            
+
             System.out.print("member changed\n");
             System.out.print(team.hashCode()+"\n");
             System.out.print(oldVal+"\n");
