@@ -26,23 +26,42 @@ public class TeamData {
             team.setId((long) row.get(0));
             team.setName(row.get(1).toString());
             team.setProject(null);
-            team.setManager(getManager((long) row.get(2)));
+            //team.setManager(getManager((long) row.get(2)));
             teams.add(team);
         }
         return teams;
+    }
+
+
+    public class DBManager{
+        long id;
+        long superiorId;
+        // id = person Id, we don't need specific "manager Id"
+
+        public DBManager(long id, long superiodId){
+            this.id = id;
+            this.superiorId = superiodId;
+        }
     }
 
     public Set<Manager> getAllManagersFromDb(){
         String query = "SELECT * FROM Manager";
         List<List> rs = SqlHelper.getResultSet(query, 3);
 
-        for(List row : rs){
-            Manager manager = new TeamManager((int) row.get(0), //managerId
-                    row.get(1), //personId
-                    row.get(2) //parentManagerId
+        DBManager manager;
 
-            );
+        // obtain ids
+        for(List row : rs){
+
+            manager = new DBManager((long)row.get(1), //personId
+                    (long)row.get(2));//parentManagerId
+
         }
+
+        // obtain subordinates/superiors
+
+
+
 
     }
 

@@ -20,10 +20,10 @@ public class TeamManager implements Manager {
     private Set<Team> teams;
     private Set<Manager> managers;
 
-    public TeamManager(long id, String name, String position, Members subordinates, Manager superior, Set<Team> teams, Set<Manager> managers) {
+    public TeamManager(long id, String name, String occupation) {
         this.id = id;
         this.name = name;
-        this.superior = superior;
+        this.occupation = occupation;
     }
 
     public Set<Manager> getManagers() {
