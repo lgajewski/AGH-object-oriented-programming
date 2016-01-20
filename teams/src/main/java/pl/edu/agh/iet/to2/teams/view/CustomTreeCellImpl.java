@@ -8,9 +8,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
-public class CustomTreeCellImpl extends TreeCell<String> {
+public class CustomTreeCellImpl extends TreeCell<CustomTreeObject> {
 	
 	private TextField textField;
+    private int hashcode;
     private ContextMenu addMenu = new ContextMenu();
 
     public CustomTreeCellImpl() {
@@ -34,12 +35,12 @@ public class CustomTreeCellImpl extends TreeCell<String> {
     public void cancelEdit() {
         super.cancelEdit();
 
-        setText((String) getItem());
+        setText((String) getItem().getContent());
         setGraphic(getTreeItem().getGraphic());
     }
 
     @Override
-    public void updateItem(String item, boolean empty) {
+    public void updateItem(CustomTreeObject item, boolean empty) {
         super.updateItem(item, empty);
 
         if (empty) {
@@ -62,7 +63,7 @@ public class CustomTreeCellImpl extends TreeCell<String> {
     
     private void createTextField() {
         textField = new TextField(getString());
-        textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      /*  textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
             @Override
             public void handle(KeyEvent t) {
@@ -72,7 +73,7 @@ public class CustomTreeCellImpl extends TreeCell<String> {
                     cancelEdit();
                 }
             }
-        });  
+        });  */
         
     }
 
