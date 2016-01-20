@@ -10,9 +10,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-/**
- * Created by Marcin on 2015-12-08.
- */
 public class Team implements ITeam {
 
     private LongProperty id;
@@ -20,7 +17,7 @@ public class Team implements ITeam {
     private ObjectProperty<ITeamMember> leader;
     private ObservableList<ITeamMember> teamMembers;
 
-    public Team(){
+    public Team() {
         this.id = new SimpleLongProperty();
         this.name = new SimpleStringProperty();
         this.leader = new SimpleObjectProperty<>();
@@ -80,7 +77,7 @@ public class Team implements ITeam {
 
     public BigDecimal getCost() {
         BigDecimal result = new BigDecimal(0);
-        for(ITeamMember m : teamMembers) {
+        for (ITeamMember m : teamMembers) {
             result.add(m.getEmployee().getSalary());
         }
         return result;

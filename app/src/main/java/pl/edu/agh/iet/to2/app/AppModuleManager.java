@@ -4,14 +4,21 @@ import pl.edu.agh.iet.to2.employees.EmployeesModule;
 import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
 import pl.edu.agh.iet.to2.projects.IProjectsModule;
+import pl.edu.agh.iet.to2.projects.ProjectsModuleImpl;
 import pl.edu.agh.iet.to2.teams.ITeamsModule;
 
 public class AppModuleManager implements ModuleManager {
 
-    private EmployeesModule employeesModule;
+    private IEmployeesModule employeesModule;
+    private IProjectsModule projectsModule;
 
     public AppModuleManager() {
         this.employeesModule = initEmployeesModule();
+        this.projectsModule = initProjectsModule();
+    }
+
+    private IProjectsModule initProjectsModule() {
+        return new ProjectsModuleImpl();
     }
 
     private EmployeesModule initEmployeesModule() {
@@ -26,7 +33,7 @@ public class AppModuleManager implements ModuleManager {
 
     @Override
     public IProjectsModule getProjectsModule() {
-        return null;
+        return projectsModule;
     }
 
     @Override

@@ -15,7 +15,6 @@ import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class ProjectOverviewController {
@@ -24,7 +23,7 @@ public class ProjectOverviewController {
 
     private ProjectPresenter presenter;
 
-    public ProjectOverviewController(ProjectPresenter presenter){
+    public ProjectOverviewController(ProjectPresenter presenter) {
         this.presenter = presenter;
     }
 

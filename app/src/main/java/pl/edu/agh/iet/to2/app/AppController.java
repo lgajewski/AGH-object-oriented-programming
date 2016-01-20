@@ -23,8 +23,6 @@ public class AppController {
 
     @FXML
     private void initialize() throws IOException {
-
-
         for (AppTab appTab : AppTab.values()) {
             try {
                 TabInitializer initializer = appTab.getTabInitializer();
@@ -38,10 +36,10 @@ public class AppController {
         }
     }
 
-    public void setTabContent(String tabName, Pane content){
+    public void setTabContent(AppTab appTab, Pane content) {
         ObservableList<Tab> tabs = tabPane.getTabs();
-        Tab tab = new Tab(tabName, content);
-        tabs.stream().filter(t -> t.getText().equals(tabName))
+        Tab tab = new Tab(appTab.getName(), content);
+        tabs.stream().filter(t -> t.getText().equals(appTab.getName()))
                 .forEach(t -> tabs.set(tabs.indexOf(t), tab));
         tabPane.getSelectionModel().select(tab);
     }

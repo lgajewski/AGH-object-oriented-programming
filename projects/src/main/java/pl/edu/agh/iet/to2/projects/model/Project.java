@@ -1,7 +1,5 @@
 package pl.edu.agh.iet.to2.projects.model;
 
-import pl.edu.agh.iet.to2.teams.ITeam;
-import pl.edu.agh.iet.to2.teams.ITeamMember;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,6 +7,8 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pl.edu.agh.iet.to2.projects.IProject;
+import pl.edu.agh.iet.to2.teams.ITeam;
+import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -58,7 +58,7 @@ public class Project implements IProject {
         this.name.setValue(name);
     }
 
-    public StringProperty getNameProperty(){
+    public StringProperty getNameProperty() {
         return name;
     }
 
@@ -87,7 +87,7 @@ public class Project implements IProject {
         this.startDate.setValue(startDate);
     }
 
-    public ObjectProperty<Date> getStartDateProperty(){
+    public ObjectProperty<Date> getStartDateProperty() {
         return startDate;
     }
 
@@ -99,7 +99,7 @@ public class Project implements IProject {
         this.endDate.setValue(endDate);
     }
 
-    public ObjectProperty<Date> getEndDateProperty(){
+    public ObjectProperty<Date> getEndDateProperty() {
         return endDate;
     }
 
@@ -111,7 +111,7 @@ public class Project implements IProject {
         this.budget.setValue(budget);
     }
 
-    public ObjectProperty<BigDecimal> getBudgetProperty(){
+    public ObjectProperty<BigDecimal> getBudgetProperty() {
         return budget;
     }
 

@@ -11,7 +11,7 @@
         <property name="name" type="text"/>
         <list name="teams" table="team">
             <key column="id"/>
-            <list-index column="idx" />
+            <list-index column="idx"/>
             <many-to-many column="teamId" class="pl.edu.agh.iet.to2.teams.ITeam"/>
         </list>
         <property name="startDate" type="date"/>

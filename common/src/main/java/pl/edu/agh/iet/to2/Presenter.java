@@ -5,6 +5,8 @@ import javafx.scene.layout.Pane;
 
 public interface Presenter {
     void showAndWait(String title, Scene scene);
+
     void closeCurrentStage();
+
     void setProjectsTabContent(Pane content);
 }

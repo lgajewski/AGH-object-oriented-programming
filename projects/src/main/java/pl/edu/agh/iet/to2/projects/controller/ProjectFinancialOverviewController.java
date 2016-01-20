@@ -22,13 +22,13 @@ import java.math.BigDecimal;
 public class ProjectFinancialOverviewController {
 
     private Project project;
-    
+
     private ProjectPresenter presenter;
 
-    public ProjectFinancialOverviewController(ProjectPresenter presenter){
+    public ProjectFinancialOverviewController(ProjectPresenter presenter) {
         this.presenter = presenter;
     }
-    
+
     @FXML
     private TableView<ITeamMember> membersTable;
 
@@ -50,19 +50,19 @@ public class ProjectFinancialOverviewController {
     public void setProject(Project project) {
         this.project = project;
         ObservableList<ITeamMember> teamMembers = FXCollections.observableArrayList();
-        for(ITeam t : project.getTeams()) {
-            for(ITeamMember tm : t.getTeamMembers()) {
+        for (ITeam t : project.getTeams()) {
+            for (ITeamMember tm : t.getTeamMembers()) {
                 teamMembers.add(tm);
             }
         }
         membersTable.setItems(teamMembers);
     }
-    
+
     public void initialize() {
         membersTable.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
-        nameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getEmployee().getName()+" "+dataValue.getValue().getEmployee().getSurname()));
+        nameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getEmployee().getName() + " " + dataValue.getValue().getEmployee().getSurname()));
         roleColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(project.getMemberRoleMap().get(dataValue.getValue())));
         teamColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getTeam().getName()));
         salaryColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<>(dataValue.getValue().getEmployee().getSalary()));

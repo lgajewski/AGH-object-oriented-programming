@@ -3,15 +3,11 @@ package pl.edu.agh.iet.to2.projects.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.util.converter.LocalDateStringConverter;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 public class ProjectEditDialogController {
 
@@ -47,11 +43,11 @@ public class ProjectEditDialogController {
 
     }
 
-    public void setProject(Project project){
+    public void setProject(Project project) {
         this.project = project;
     }
 
-    public Project getProject(){
+    public Project getProject() {
         return project;
     }
 

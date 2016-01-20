@@ -1,7 +1,6 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
 
-
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
@@ -25,7 +24,7 @@ public class ProjectMembersOverviewController {
 
     TreeItem<ITeamMember> root;
 
-    public ProjectMembersOverviewController(ProjectPresenter presenter){
+    public ProjectMembersOverviewController(ProjectPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -89,11 +88,11 @@ public class ProjectMembersOverviewController {
         root = new TreeItem<>(new TeamMember(new Team(), emp));
         root.setExpanded(true);
 
-        for (ITeam team: rootItems) {
+        for (ITeam team : rootItems) {
             TreeItem<ITeamMember> teamNode = teamAsTreeItem(team);
             root.getChildren().add(teamNode);
 
-            for(ITeamMember member: team.getTeamMembers()){
+            for (ITeamMember member : team.getTeamMembers()) {
                 TreeItem<ITeamMember> memberNode = new TreeItem<>(member);
                 teamNode.getChildren().add(memberNode);
             }
@@ -103,7 +102,7 @@ public class ProjectMembersOverviewController {
         membersTable.setRoot(root);
     }
 
-    public TreeItem<ITeamMember> teamAsTreeItem(ITeam team){
+    public TreeItem<ITeamMember> teamAsTreeItem(ITeam team) {
         Employee emp = new Employee();
         emp.setName(team.getName());
         return new TreeItem<>(new TeamMember(team, emp));
@@ -112,7 +111,7 @@ public class ProjectMembersOverviewController {
     @FXML
     private void handleRemoveTeamAction() {
         TreeItem<ITeamMember> item = membersTable.getSelectionModel().getSelectedItem();
-        if(item.getParent().equals(root)) {
+        if (item.getParent().equals(root)) {
             ITeam toDelete = item.getValue().getTeam();
             project.removeTeam(toDelete);
         }
@@ -132,7 +131,7 @@ public class ProjectMembersOverviewController {
     private void handleBackAction() throws IOException {
 
         //ProjectDao.saveProject(project);
-       presenter.onProjectOverview();
+        presenter.onProjectOverview();
 
     }
 

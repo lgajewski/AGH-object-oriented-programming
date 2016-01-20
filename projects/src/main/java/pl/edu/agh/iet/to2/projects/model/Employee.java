@@ -9,6 +9,10 @@ import pl.edu.agh.iet.to2.employees.ISalary;
 
 import java.math.BigDecimal;
 
+
+// TODO don't you need only interface to get id, name and surname?
+// why do you have to re-implement Employee?
+
 public class Employee implements IEmployee {
 
     private long id;
@@ -17,7 +21,7 @@ public class Employee implements IEmployee {
     private ISalary salary;
     private String occupation;
 
-    public Employee(){
+    public Employee() {
 
     }
 

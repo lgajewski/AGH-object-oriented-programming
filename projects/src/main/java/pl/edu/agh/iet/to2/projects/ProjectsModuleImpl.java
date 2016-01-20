@@ -8,10 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Marcin on 2016-01-13.
- */
-public class ProjectsModuleImpl implements ProjectsModule {
+public class ProjectsModuleImpl implements IProjectsModule {
 
     private Map<Long, IProject> projectMap;
 
@@ -38,11 +35,11 @@ public class ProjectsModuleImpl implements ProjectsModule {
     public List<String> getProjectsForEmployeeId(long id) {
 
         List<String> result = new ArrayList<String>();
-        for(Long ID : projectMap.keySet()) {
+        for (Long ID : projectMap.keySet()) {
             IProject p = projectMap.get(ID);
-            for(ITeam t : p.getTeams()) {
-                for(ITeamMember tm : t.getTeamMembers()) {
-                    if(tm.getEmployee().getId() == id) {
+            for (ITeam t : p.getTeams()) {
+                for (ITeamMember tm : t.getTeamMembers()) {
+                    if (tm.getEmployee().getId() == id) {
                         result.add(p.getName());
                     }
                 }
@@ -52,7 +49,6 @@ public class ProjectsModuleImpl implements ProjectsModule {
         return result;
 
     }
-
 
 
 }

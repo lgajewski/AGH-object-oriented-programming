@@ -2,7 +2,6 @@ package pl.edu.agh.iet.to2.app;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import pl.edu.agh.iet.to2.employees.persistence.HibernateUtils;
 
 public class App extends Application {
 

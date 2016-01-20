@@ -6,9 +6,6 @@ import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.teams.ITeam;
 import pl.edu.agh.iet.to2.teams.ITeamMember;
 
-/**
- * Created by Marcin on 2015-12-08.
- */
 public class TeamMember implements ITeamMember {
 
     private ObjectProperty<ITeam> teamProperty;

@@ -1,4 +1,4 @@
-package pl.edu.agh.iet.to2;
+package pl.edu.agh.iet.to2.app;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,12 +7,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class AppPresenter implements Presenter {
 
     private ModuleManager moduleManager;
 
     private List<OnStopListener> onStopListeners;
+
+    private AppController appController;
 
     private Stage primaryStage;
 
@@ -30,11 +35,11 @@ public class AppPresenter implements Presenter {
 
     public void initRootLayout() throws IOException {
         // load layout from FXML file
+        appController = new AppController(this, moduleManager);
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/App.fxml"));
-        loader.setController(new AppController(this, moduleManager));
-
-        loader.setController(new AppController(this));
+        loader.setController(appController);
 
         Pane rootLayout = loader.load();
 
@@ -71,6 +76,10 @@ public class AppPresenter implements Presenter {
 
     public void stop() {
         onStopListeners.forEach(Presenter.OnStopListener::handle);
+    }
+
+    public void setTabContent(AppTab appTab, Pane content) {
+        appController.setTabContent(appTab, content);
     }
 
 }

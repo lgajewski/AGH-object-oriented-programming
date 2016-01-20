@@ -10,11 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import pl.edu.agh.iet.to2.ModuleManager;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 import pl.edu.agh.iet.to2.teams.ITeam;
+import pl.edu.agh.iet.to2.teams.ITeamsModule;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,7 +25,7 @@ public class TeamAddDialogController {
     private List<ITeam> teams;
     private ProjectPresenter presenter;
 
-    public TeamAddDialogController(ProjectPresenter presenter){
+    public TeamAddDialogController(ProjectPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -56,13 +56,14 @@ public class TeamAddDialogController {
     private Button cancelButton;
 
     public void initialize() {
-        if(ModuleManager.getTeamsModule().getTeams().size() == 0) {
-            ModuleManager.getTeamsModule().init();
-            teams = ModuleManager.getTeamsModule().getTeams();
+        ITeamsModule teamsModule = presenter.getModuleManager().getTeamsModule();
+        if (teamsModule.getTeams().size() == 0) {
+            teamsModule.init();
+            teams = teamsModule.getTeams();
         }
         teamsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         teamColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
-        numberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Long>((long)dataValue.getValue().getTeamMembers().size()));
+        numberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Long>((long) dataValue.getValue().getTeamMembers().size()));
         costColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<BigDecimal>(dataValue.getValue().getCost()));
         teamsTable.setItems(FXCollections.observableList(teams));
     }
@@ -70,18 +71,18 @@ public class TeamAddDialogController {
     @FXML
     private void handleOkAction(ActionEvent event) {
         ObservableList<ITeam> selectedTeams = teamsTable.getSelectionModel().getSelectedItems();
-        if(selectedTeams != null) updateModel(selectedTeams);
+        if (selectedTeams != null) updateModel(selectedTeams);
         ProjectDao.saveProject(project);
         presenter.onCloseDialog();
     }
 
     @FXML
-    private void handleCancelAction(ActionEvent event){
+    private void handleCancelAction(ActionEvent event) {
         presenter.onCloseDialog();
     }
 
     public void updateModel(List<ITeam> teams) {
-        for(ITeam t : teams) {
+        for (ITeam t : teams) {
             project.addTeam(t);
         }
     }

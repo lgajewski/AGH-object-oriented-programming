@@ -7,18 +7,20 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DummyTeam implements ITeam{
+public class DummyTeam implements ITeam {
 
     long id;
     String name;
     List<ITeamMember> teamMembers = new ArrayList<ITeamMember>();
     ITeamMember leader = null;
 
-    public DummyTeam() {}
+    public DummyTeam() {
+    }
 
     public DummyTeam(String name) {
         this.name = name;
     }
+
     @Override
     public long getId() {
         return id;
