@@ -1,11 +1,11 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
-
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
@@ -13,28 +13,34 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
-import pl.edu.agh.iet.to2.teams.ITeam;
-import pl.edu.agh.iet.to2.teams.ITeamMember;
+import pl.edu.agh.iet.to2.employees.IEmployee;
+import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 
-import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
-
-public class ProjectFinancialOverviewController {
+public class MemberAddDialogController {
 
     private Project project;
-
+    private List<IEmployee> employees;
     private ProjectPresenter presenter;
 
-    ObservableList<IEmployee> members = FXCollections.observableArrayList();
-
-    public ProjectFinancialOverviewController(ProjectPresenter presenter) {
+    public MemberAddDialogController(ProjectPresenter presenter) {
         this.presenter = presenter;
     }
 
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public void setEmployees(List<IEmployee> employees) {
+        this.employees = employees;
+    }
+
     @FXML
-    private TableView<IEmployee> membersTable;
+    private TableView<IEmployee> employeesTable;
 
     @FXML
     private TableColumn<IEmployee, String> firstNameColumn;
@@ -47,21 +53,16 @@ public class ProjectFinancialOverviewController {
 
     @FXML
     private TableColumn<IEmployee, String> salaryColumn;
+
     @FXML
-    private Button backButton;
+    private Button okButton;
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    private void updateData() {
-        members.clear();
-        members.addAll(project.getMembers());
-        membersTable.setItems(members);
-    }
+    @FXML
+    private Button cancelButton;
 
     public void initialize() {
-        membersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        IEmployeesModule employeesModule = presenter.getModuleManager().getEmployeesModule();
+        employeesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         firstNameColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
         lastNameColumn.setCellValueFactory(
@@ -72,14 +73,27 @@ public class ProjectFinancialOverviewController {
 
         occupationColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getSalary().toString()));
-        updateData();
+
+        employeesTable.setItems(FXCollections.observableList(employees));
     }
 
     @FXML
-    private void handleBackAction() throws IOException {
+    private void handleOkAction(ActionEvent event) {
+        ObservableList<IEmployee> selectedEmployees = employeesTable.getSelectionModel().getSelectedItems();
+        if (selectedEmployees != null) updateModel(selectedEmployees);
+        //ProjectDao.saveProject(project);
+        presenter.onCloseDialog();
+    }
 
-        presenter.onProjectOverview();
+    @FXML
+    private void handleCancelAction(ActionEvent event) {
+        presenter.onCloseDialog();
+    }
 
+    public void updateModel(List<IEmployee> employees) {
+        for (IEmployee t : employees) {
+            project.addMember(t);
+        }
     }
 
 }

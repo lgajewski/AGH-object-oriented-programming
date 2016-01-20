@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -28,6 +29,9 @@ public class ProjectEditDialogController {
 
     @FXML
     private TextField endDateTextField;
+
+    @FXML
+    private TextField budgetTextField;
 
 
     private boolean approved;
@@ -81,6 +85,7 @@ public class ProjectEditDialogController {
             project.setStartDate(format.parse(startDateTextField.getText()));
             project.setEndDate(format.parse(endDateTextField.getText()));
             project.setName(nameTextField.getText());
+            project.setBudget(new BigDecimal(Integer.parseInt(budgetTextField.getText())));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -90,6 +95,7 @@ public class ProjectEditDialogController {
         nameTextField.setText(project.getName());
         startDateTextField.setText(project.getStartDate().toString());
         endDateTextField.setText(project.getEndDate().toString());
+        budgetTextField.setText(project.getBudget().toString());
     }
 
 }

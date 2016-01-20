@@ -87,8 +87,8 @@ public class ProjectOverviewController {
 
         projectFinancialDetailsButton.disableProperty().bind(
                 Bindings.size(projectsTable.getSelectionModel().getSelectedItems()).isNotEqualTo(1));
-        projectsTable.setItems(data);
         updateData();
+        projectsTable.setItems(data);
     }
 
     @FXML

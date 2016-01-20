@@ -14,6 +14,7 @@
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
+                <RowConstraints minHeight="10.0"/>
             </rowConstraints>
             <children>
                 <Label text="Name">
@@ -31,6 +32,11 @@
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
+                <Label text="Budget">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </Label>
                 <TextField fx:id="nameTextField" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
@@ -42,6 +48,11 @@
                     </GridPane.margin>
                 </TextField>
                 <TextField fx:id="endDateTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </TextField>
+                <TextField fx:id="budgetTextField" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>

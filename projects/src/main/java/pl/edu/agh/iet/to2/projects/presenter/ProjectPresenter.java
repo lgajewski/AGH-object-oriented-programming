@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.app.ModuleManager;
 import pl.edu.agh.iet.to2.app.Presenter;
+import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 import pl.edu.agh.iet.to2.projects.controller.*;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
@@ -71,14 +72,14 @@ public class ProjectPresenter {
         controller.setProject(project);
     }
 
-    public void onAddTeam(Project project) throws IOException {
-        ITeamsModule teamsModule = moduleManager.getTeamsModule();
+    public void onAddMember(Project project) throws IOException {
+        IEmployeesModule employeesModule = moduleManager.getEmployeesModule();
 
-        TeamAddDialogController controller = new TeamAddDialogController(this);
+        MemberAddDialogController controller = new MemberAddDialogController(this);
         controller.setProject(project);
-        controller.setTeams(teamsModule.getTeams());
+        controller.setEmployees(employeesModule.getEmployees());
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/TeamAddDialog.fxml"));
+        loader.setLocation(getClass().getResource("/view/MemberAddDialog.fxml"));
         loader.setController(controller);
 
         presenter.showAndWait("Edit project", new Scene(loader.load()));

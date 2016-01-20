@@ -3,15 +3,15 @@ package pl.edu.agh.iet.to2.projects.controller;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.projects.model.Employee;
 import pl.edu.agh.iet.to2.projects.model.Project;
-import pl.edu.agh.iet.to2.projects.model.Team;
-import pl.edu.agh.iet.to2.projects.model.TeamMember;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
-import pl.edu.agh.iet.to2.teams.ITeam;
-import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,8 +21,10 @@ public class ProjectMembersOverviewController {
 
     private Project project;
     private ProjectPresenter presenter;
+    private ObservableList<IEmployee> data = FXCollections.observableArrayList();
 
-    TreeItem<ITeamMember> root;
+
+    //TreeItem<IEmployee> root;
 
     public ProjectMembersOverviewController(ProjectPresenter presenter) {
         this.presenter = presenter;
@@ -30,22 +32,25 @@ public class ProjectMembersOverviewController {
 
 
     @FXML
-    private TreeTableView<ITeamMember> membersTable;
+    private TableView<IEmployee> membersTable;
 
     @FXML
-    private TreeTableColumn<ITeamMember, String> firstNameColumn;
+    private TableColumn<IEmployee, String> firstNameColumn;
 
     @FXML
-    private TreeTableColumn<ITeamMember, String> lastNameColumn;
+    private TableColumn<IEmployee, String> lastNameColumn;
 
     @FXML
-    private TreeTableColumn<ITeamMember, String> occupationColumn;
+    private TableColumn<IEmployee, String> occupationColumn;
+    
+    @FXML
+    private TableColumn<IEmployee, String> salaryColumn;
 
     @FXML
-    private Button removeTeamButton;
+    private Button removeMemberButton;
 
     @FXML
-    private Button addTeamButton;
+    private Button addMemberButton;
 
     @FXML
     private Button backButton;
@@ -55,74 +60,75 @@ public class ProjectMembersOverviewController {
 
         membersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         firstNameColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<ITeamMember, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getEmployee().getName())
-        );
+                dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
         lastNameColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<ITeamMember, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getEmployee().getSurname())
-        );
+                dataValue -> new SimpleStringProperty(dataValue.getValue().getSurname()));
+
         occupationColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<ITeamMember, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getEmployee().getOccupation())
-        );
+                dataValue -> new SimpleStringProperty(dataValue.getValue().getOccupation()));
 
-        removeTeamButton.disableProperty().bind(
+        occupationColumn.setCellValueFactory(
+                dataValue -> new SimpleStringProperty(dataValue.getValue().getSalary().toString()));
+
+        removeMemberButton.disableProperty().bind(
                 Bindings.size(membersTable.getSelectionModel().getSelectedItems()).isNotEqualTo(1));
-
+        updateData();
     }
 
 
     public void setProject(Project project) {
 
         this.project = project;
-        loadTreeItems(project.getTeams());
-        //teamsTable.getItems().setAll(project.getTeams());
+        //loadTreeItems(project.getMembers());
+        //teamsTable.getItems().setAll(project.getMembers());
+    }
+
+    public void updateData() {
+        data.clear();
+        data.addAll(project.getMembers());
+        membersTable.setItems(data);
     }
 
 
-    public void loadTreeItems(List<ITeam> rootItems) {
+    /*public void loadTreeItems(List<IEmployee> items) {
         Employee emp = new Employee();
-        emp.setName("Teams");
+        emp.setName("Members");
 
-        root = new TreeItem<>(new TeamMember(new Team(), emp));
+        root = new TreeItem<>(new MemberMember(new Member(), emp));
         root.setExpanded(true);
 
-        for (ITeam team : rootItems) {
-            TreeItem<ITeamMember> teamNode = teamAsTreeItem(team);
+        for (IMember team : rootItems) {
+            TreeItem<IEmployee> teamNode = teamAsTreeItem(team);
             root.getChildren().add(teamNode);
 
-            for (ITeamMember member : team.getTeamMembers()) {
-                TreeItem<ITeamMember> memberNode = new TreeItem<>(member);
+            for (IEmployeemember : team.getMemberMembers()) {
+                TreeItem<IEmployee> memberNode = new TreeItem<>(member);
                 teamNode.getChildren().add(memberNode);
             }
 
         }
 
         membersTable.setRoot(root);
-    }
+    }*/
 
-    public TreeItem<ITeamMember> teamAsTreeItem(ITeam team) {
+    /*public TreeItem<IEmployee> teamAsTreeItem(IMember team) {
         Employee emp = new Employee();
         emp.setName(team.getName());
-        return new TreeItem<>(new TeamMember(team, emp));
+        return new TreeItem<>(new MemberMember(team, emp));
+    }*/
+
+    @FXML
+    private void handleRemoveMemberAction() {
+        IEmployee item = membersTable.getSelectionModel().getSelectedItem();
+        project.removeMember(item);
+        updateData();
     }
 
     @FXML
-    private void handleRemoveTeamAction() {
-        TreeItem<ITeamMember> item = membersTable.getSelectionModel().getSelectedItem();
-        if (item.getParent().equals(root)) {
-            ITeam toDelete = item.getValue().getTeam();
-            project.removeTeam(toDelete);
-        }
+    private void handleAddMemberAction() throws IOException {
 
-    }
-
-    @FXML
-    private void handleAddTeamAction() throws IOException {
-
-        presenter.onAddTeam(project);
-        loadTreeItems(project.getTeams());
+        presenter.onAddMember(project);
+        updateData();
 
     }
 

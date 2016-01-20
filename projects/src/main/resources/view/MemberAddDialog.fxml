@@ -6,11 +6,12 @@
 <?import javafx.scene.layout.*?>
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <TableView fx:id="teamsTable" BorderPane.alignment="CENTER">
+        <TableView fx:id="membersTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="teamColumn" prefWidth="200.0" text="Team"/>
-                <TableColumn fx:id="numberColumn" prefWidth="200.0" text="Members Count"/>
-                <TableColumn fx:id="costColumn" prefWidth="200.0" text="Month Cost"/>
+                <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name"/>
+                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name"/>
+                <TableColumn fx:id="occupationColumn" prefWidth="75.0" text="Occupation"/>
+                <TableColumn fx:id="salaryColumn" prefWidth="75.0" text="Salary"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

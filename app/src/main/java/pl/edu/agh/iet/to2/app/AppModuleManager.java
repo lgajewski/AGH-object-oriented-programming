@@ -18,6 +18,7 @@ public class AppModuleManager implements ModuleManager {
     }
 
     private IProjectsModule initProjectsModule() {
+
         return new ProjectsModuleImpl();
     }
 

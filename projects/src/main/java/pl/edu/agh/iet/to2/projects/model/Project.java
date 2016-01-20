@@ -6,9 +6,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.projects.IProject;
-import pl.edu.agh.iet.to2.teams.ITeam;
-import pl.edu.agh.iet.to2.teams.ITeamMember;
+//import pl.edu.agh.iet.to2.teams.ITeam;
+//import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,8 +22,8 @@ public class Project implements IProject {
 
     private long id;
     private StringProperty name;
-    private ObservableList<ITeam> teams;
-    private Map<ITeamMember, String> memberRoleMap;
+    private ObservableList<IEmployee> members;
+    //private Map<ITeamMember, String> memberRoleMap;
     private ObjectProperty<Date> startDate;
     private ObjectProperty<Date> endDate;
     private ObjectProperty<BigDecimal> budget;
@@ -33,8 +34,8 @@ public class Project implements IProject {
 
     public Project(String name, Date startDate, Date endDate, BigDecimal budget) {
         this.name = new SimpleStringProperty(name);
-        this.teams = FXCollections.observableArrayList();
-        this.memberRoleMap = new HashMap<>();
+        this.members = FXCollections.observableArrayList();
+        //this.memberRoleMap = new HashMap<>();
         this.startDate = new SimpleObjectProperty<>(startDate);
         this.endDate = new SimpleObjectProperty<>(endDate);
         this.budget = new SimpleObjectProperty<>(budget);
@@ -63,21 +64,21 @@ public class Project implements IProject {
     }
 
 
-    public List<ITeam> getTeams() {
-        return teams;
+    public List<IEmployee> getMembers() {
+        return members;
     }
 
-    public void setTeams(List<ITeam> teams) {
-        this.teams = FXCollections.observableArrayList(teams);
+    public void setMembers(List<IEmployee> members) {
+        this.members = FXCollections.observableArrayList(members);
     }
 
-    public Map<ITeamMember, String> getMemberRoleMap() {
+   /* public Map<ITeamMember, String> getMemberRoleMap() {
         return memberRoleMap;
-    }
+    }*/
 
-    public void setMemberRoleMap(Map<ITeamMember, String> memberRoleMap) {
+    /*public void setMemberRoleMap(Map<ITeamMember, String> memberRoleMap) {
         this.memberRoleMap = memberRoleMap;
-    }
+    }*/
 
     public Date getStartDate() {
         return startDate.getValue();
@@ -115,17 +116,17 @@ public class Project implements IProject {
         return budget;
     }
 
-    public void addTeam(ITeam team) {
-        teams.add(team);
+    public void addMember(IEmployee member) {
+        members.add(member);
     }
 
-    public void removeTeam(ITeam team) {
-        teams.remove(team);
+    public void removeMember(IEmployee member) {
+        members.remove(member);
     }
 
-    public void addRole(ITeamMember teamMember, String role) {
+    /*public void addRole(ITeamMember teamMember, String role) {
         memberRoleMap.put(teamMember, role);
-    }
+    }*/
 
     public static Project newProject() {
         return new Project();

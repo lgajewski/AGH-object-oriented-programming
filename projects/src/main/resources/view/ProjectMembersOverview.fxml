@@ -6,13 +6,17 @@
 <?import javafx.scene.layout.*?>
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <TreeTableView fx:id="membersTable" BorderPane.alignment="CENTER">
+        <TableView fx:id="membersTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TreeTableColumn fx:id="firstNameColumn" prefWidth="200.0" text="First Name"/>
-                <TreeTableColumn fx:id="lastNameColumn" prefWidth="200.0" text="Last Name"/>
-                <TreeTableColumn fx:id="occupationColumn" prefWidth="200.0" text="Occupation"/>
+                <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name"/>
+                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name"/>
+                <TableColumn fx:id="occupationColumn" prefWidth="75.0" text="Occupation"/>
+                <TableColumn fx:id="salaryColumn" prefWidth="75.0" text="Salary"/>
             </columns>
-        </TreeTableView>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
     </center>
     <bottom>
         <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="150.0" BorderPane.alignment="CENTER">
@@ -20,20 +24,20 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </opaqueInsets>
             <children>
-                <Button fx:id="projectMembersButton" alignment="TOP_LEFT" maxWidth="100" mnemonicParsing="false"
+                <Button fx:id="backButton" alignment="TOP_LEFT" maxWidth="100" mnemonicParsing="false"
                         onAction="#handleBackAction" text="Back">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
-                <Button fx:id="addTeamButton" alignment="TOP_CENTER" maxWidth="100" mnemonicParsing="false"
-                        onAction="#handleAddTeamAction" text="Add Team">
+                <Button fx:id="addMemberButton" alignment="TOP_CENTER" maxWidth="100" mnemonicParsing="false"
+                        onAction="#handleAddMemberAction" text="Add Team">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
-                <Button fx:id="removeTeamButton" alignment="TOP_CENTER" maxWidth="150" mnemonicParsing="false"
-                        onAction="#handleRemoveTeamAction" text="Remove Team">
+                <Button fx:id="removeMemberButton" alignment="TOP_CENTER" maxWidth="150" mnemonicParsing="false"
+                        onAction="#handleRemoveMemberAction" text="Remove Team">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>

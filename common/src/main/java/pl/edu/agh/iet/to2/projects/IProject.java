@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.to2.projects;
 
+import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.teams.ITeam;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public interface IProject {
 
     String getName();
 
-    List<ITeam> getTeams();
+    List<IEmployee> getMembers();
 
     Date getStartDate();
 
