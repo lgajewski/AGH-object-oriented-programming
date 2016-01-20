@@ -22,7 +22,7 @@ public class Employee implements IEmployee {
     public Employee() {
         this.name = new SimpleStringProperty("");
         this.surname = new SimpleStringProperty("");
-        this.avatarPath = new SimpleStringProperty("avatar1.png");
+        this.avatarPath = new SimpleStringProperty("default.png");
         this.details = new EmployeeDetails("", BigDecimal.ZERO);
     }
 
@@ -68,7 +68,7 @@ public class Employee implements IEmployee {
         return getName() + " " + getSurname();
     }
 
-    public String getAvatarPath() {
+    public String getAvatarName() {
         return avatarPath.get();
     }
 

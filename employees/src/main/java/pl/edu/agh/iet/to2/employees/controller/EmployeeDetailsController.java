@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -19,17 +18,17 @@ public class EmployeeDetailsController {
 
     private final Employee employee;
     private final Presenter presenter;
-    private final EmployeeCellController controller;
 
-    public EmployeeDetailsController(EmployeeCellController controller, Presenter presenter) {
-        this(controller, presenter, new Employee());
+    public EmployeeDetailsController(Presenter presenter) {
+        this(presenter, new Employee());
     }
 
-    public EmployeeDetailsController(EmployeeCellController controller, Presenter presenter, Employee employee) {
-        this.controller = controller;
+    public EmployeeDetailsController(Presenter presenter, Employee employee) {
         this.presenter = presenter;
         this.employee = employee;
     }
+
+    private boolean submitted = false;
 
     @FXML
     private ImageView avatarImageView;
@@ -65,7 +64,10 @@ public class EmployeeDetailsController {
 
         historyButton.setOnMouseClicked(event -> showHistoryStage());
 
-        submitButton.setOnMouseClicked(event -> presenter.closeCurrentStage());
+        submitButton.setOnMouseClicked(event -> {
+            presenter.closeCurrentStage();
+            submitted = true;
+        });
 
         changeAvatar.setOnMouseClicked(event -> showChangeAvatarStage());
 
@@ -74,17 +76,13 @@ public class EmployeeDetailsController {
 
     private void showChangeAvatarStage() {
         FileChooser fileChooser = new FileChooser();
-        File initialDirectory = new File(getClass().getResource(EmployeeCell.INITIAL_DIRECTORY).getFile());
+        File initialDirectory = new File(getClass().getResource(EmployeeUtils.INITIAL_DIRECTORY).getFile());
         fileChooser.setInitialDirectory(initialDirectory);
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
             String relativePath = initialDirectory.toURI().relativize(selectedFile.toURI()).getPath();
             employee.setAvatarPath(relativePath);
-            updateAvatar();
-            if (controller != null) {
-                controller.updateAvatar();
-            }
         } else {
             System.out.println("File selection cancelled.");
         }
@@ -101,15 +99,13 @@ public class EmployeeDetailsController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public Employee getEmployee() {
-        return employee;
+        return submitted ? employee : null;
     }
 
-
     public void updateAvatar() {
-        avatarImageView.setImage(new Image(EmployeeCell.INITIAL_DIRECTORY + employee.getAvatarPath()));
+        avatarImageView.setImage(EmployeeUtils.getAvatar(employee.getAvatarName()));
     }
 }

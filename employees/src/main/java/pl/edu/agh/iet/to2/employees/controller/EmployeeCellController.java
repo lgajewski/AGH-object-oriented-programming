@@ -1,12 +1,10 @@
 package pl.edu.agh.iet.to2.employees.controller;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.app.Presenter;
@@ -56,15 +54,18 @@ public class EmployeeCellController {
 
         delete.setOnMouseClicked(event -> employeeDao.deleteEmployee(employee.getId()));
 
-        // set employee avatar
-        updateAvatar();
+        // set employee avatar listener
+        updateAvatar(employee.getAvatarName());
+        employee.getAvatarPathProperty().addListener((observable, oldValue, newValue) -> {
+            updateAvatar(newValue);
+        });
     }
 
     private void showEmployeeDetails(Employee employee) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
-            loader.setController(new EmployeeDetailsController(this, presenter, employee));
+            loader.setController(new EmployeeDetailsController(presenter, employee));
             Pane pane = loader.load();
 
             presenter.showAndWait("Employee - " + employee, new Scene(pane));
@@ -76,8 +77,8 @@ public class EmployeeCellController {
         }
     }
 
-    public  void updateAvatar() {
-        employeeAvatar.setImage(new Image(getClass().getResourceAsStream(EmployeeCell.INITIAL_DIRECTORY + employee.getAvatarPath())));
+    public void updateAvatar(String avatarPath) {
+        employeeAvatar.setImage(EmployeeUtils.getAvatar(avatarPath));
     }
 
 

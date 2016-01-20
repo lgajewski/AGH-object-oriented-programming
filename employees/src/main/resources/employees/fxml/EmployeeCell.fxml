@@ -10,7 +10,7 @@
             prefHeight="150.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/2.2">
     <ImageView fx:id="employeeAvatar" fitHeight="83.0" fitWidth="83.0" layoutX="26.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@/employees/images/person.png"/>
+        <Image url="@/employees/images/avatars/default.png"/>
     </ImageView>
     <Separator layoutX="130.0" layoutY="0.0" orientation="VERTICAL" prefHeight="150.0"/>
     <ImageView fitHeight="20.0" fitWidth="100.0" layoutX="17.0" layoutY="116.0" pickOnBounds="true"
