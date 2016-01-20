@@ -6,34 +6,29 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import pl.edu.agh.iet.to2.app.ModuleManager;
-import pl.edu.agh.iet.to2.app.Presenter;
-import pl.edu.agh.iet.to2.employees.EmployeesModule;
+import pl.edu.agh.iet.to2.ModuleManager;
+import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.Employee;
 import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
+import pl.edu.agh.iet.to2.employees.persistence.EmployeeUpdater;
 
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 public class EmployeeTabController {
 
-    private EmployeeDao employeeDao;
     private Presenter presenter;
     private ObservableList<Employee> employeeList;
 
 
-    public EmployeeTabController(Presenter presenter, ModuleManager moduleManager) {
+    public EmployeeTabController(Presenter presenter) {
         this.presenter = presenter;
-
-        EmployeesModule employeesModule = (EmployeesModule) moduleManager.getEmployeesModule();
-        this.employeeDao = employeesModule.getEmployeeDao();
     }
 
     @FXML
@@ -46,58 +41,53 @@ public class EmployeeTabController {
     private ComboBox<String> filterComboBox;
 
     @FXML
-    private ImageView addButton;
+    private Button addButton;
 
     @FXML
     private void initialize() {
         // create and update employee list
         employeeList = FXCollections.observableArrayList();
-        employeeList.addAll(employeeDao.getEmployees());
+        updateEmployeeList();
+        EmployeeUpdater.update();
 
         // set custom cell factory and bind to employeeList
         employeeListView.setItems(employeeList);
-        employeeListView.setCellFactory(param -> new EmployeeCell(presenter, employeeDao));
+        employeeListView.setCellFactory(param -> new EmployeeCell(presenter));
 
         // register listeners
         filterComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             handleSortEvent(newValue);
         });
-
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearchEvent(newValue);
         });
-
         addButton.setOnMouseClicked(event -> {
             try {
                 Employee employee = showEmployeeAddDialog();
 
-                // save and update employee list
-                employeeDao.addEmployee(employee);
+                // persist
+                persistAndUpdate(employee);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+    }
 
-        // handle add employee event
-        employeeDao.addOnEmployeeAddedListener(employee -> employeeList.add((Employee) employee));
+    private void persistAndUpdate(Employee employee) {
+        EmployeeDao.saveEmployee(employee);
+        EmployeeUpdater.update();
 
-        // handle update event
-        employeeDao.addOnEmployeeUpdatedListener((oldEmployee, newEmployee) -> {
-            Employee employee = (Employee) newEmployee;
-            employee.update();
-        });
+        updateEmployeeList();
+    }
 
-        // handle remove employee event
-        employeeDao.addOnEmployeeDeletedListener(iEmployee -> employeeList.removeAll(
-                employeeList.stream()
-                        .filter(employee -> employee.getId() == iEmployee.getId())
-                        .collect(Collectors.toList())));
-
+    private void updateEmployeeList() {
+        employeeList.clear();
+        employeeList.addAll(EmployeeDao.getEmployees());
     }
 
     private Employee showEmployeeAddDialog() throws IOException {
         // Load the fxml file and create a new stage for the dialog
-        EmployeeDetailsController controller = new EmployeeDetailsController(presenter);
+        EmployeeDetailsController controller = new EmployeeDetailsController();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
@@ -112,6 +102,7 @@ public class EmployeeTabController {
     }
 
     private void handleSortEvent(String newValue) {
+        System.out.println("Selected: " + newValue);
         Comparator<IEmployee> comparator = getComparatorForField(newValue);
         employeeList.sort(comparator);
     }
