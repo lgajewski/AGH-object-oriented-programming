@@ -7,7 +7,7 @@ import pl.edu.agh.iet.to2.teams.view.TeamView;
 /**
  * Created by Pan Ciemnosci on 2015-12-15.
  */
-public class TeamOverviewController {
+public class TeamController implements Controller{
 
     private Team team;
     private AnchorPane pane;
@@ -46,6 +46,14 @@ public class TeamOverviewController {
     public void initialize(){ // - invoke this method via FXML file (or manually in some application's main method (not recommended))
         team.getManagerProperty().addListener((o, oldVal, newVal) -> {
             // code to describe what happens after Manager property has changed
+        /*    if(oldVal != null)
+                System.out.println("old: " + oldVal);
+            else
+                System.out.println("old: null");
+            if(newVal != null)
+                System.out.println("new: " + newVal);
+            else
+                System.out.println("new: null");*/
         });
 
         team.getProjectProperty().addListener((o, oldVal, newVal) -> {
@@ -55,22 +63,25 @@ public class TeamOverviewController {
         team.getMembers().getMembersProperty().addListener((o, oldVal, newVal) -> {
            // code to describe what happens after Members property has changed
             // (so if some members are added/removed this is invoked)
-
+            view.redrawTeam(view.tree.getRoot(), team.hashCode(), team);
             System.out.print("member changed\n");
-            System.out.print(team.hashCode()+"\n");
-            System.out.print(oldVal+"\n");
-            System.out.print(newVal+"\n");
+          //  System.out.print(team.hashCode()+"\n");
+         //   System.out.print(oldVal+"\n");
+         //   System.out.print(newVal+"\n");
         });
 
     }
 
-    private TeamOverviewController(Team team, AnchorPane pane){
+    private TeamController(Team team, AnchorPane pane, TeamView view){
         this.pane = pane;
         this.team = team;
+        this.view = view;
     }
 
-    public static TeamOverviewController createControllerOn(Team team, AnchorPane pane){
-        return new TeamOverviewController(team, pane);
+    public static TeamController createControllerOn(Team team, AnchorPane pane, TeamView view){
+        TeamController tc = new TeamController(team, pane, view);
+        tc.initialize();
+        return tc;
     }
 
 

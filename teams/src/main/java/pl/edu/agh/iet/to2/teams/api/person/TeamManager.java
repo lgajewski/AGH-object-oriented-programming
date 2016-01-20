@@ -1,5 +1,7 @@
 package pl.edu.agh.iet.to2.teams.api.person;
 
+import javafx.beans.property.SimpleSetProperty;
+import javafx.collections.FXCollections;
 import pl.edu.agh.iet.to2.teams.api.team.Members;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 
@@ -17,22 +19,31 @@ public class TeamManager implements Manager {
     private Members subordinates;
     private Manager superior;
 
-    private Set<Team> teams;
-    private Set<Manager> managers;
+    private SimpleSetProperty<Team> teams;
+    private SimpleSetProperty<Manager> managers;
 
     public TeamManager(long id, String name, String occupation) {
         this.id = id;
         this.name = name;
         this.occupation = occupation;
+        teams = new SimpleSetProperty<Team>(FXCollections.observableSet());
+        managers = new SimpleSetProperty<Manager>(FXCollections.observableSet());
     }
 
     public Set<Manager> getManagers() {
-        return managers;
+        return managers.get();
     }
 
-    public void setManagers(Set<Manager> managers) {
-        this.managers = managers;
+    public SimpleSetProperty<Manager> getManagersProperty() { return this.managers; }
+
+    public Set<Team> getTeams() {
+        return this.teams.get();
     }
+
+    public SimpleSetProperty<Team> getTeamsProperty() {
+        return this.teams;
+    }
+
 
     @Override
     public long getId() {
@@ -68,7 +79,7 @@ public class TeamManager implements Manager {
     }
 
     public void setOccupation(String position) {
-        this.occupation = occupation;
+        this.occupation = position;
     }
 
     public Members getSubordinates() {
@@ -87,13 +98,8 @@ public class TeamManager implements Manager {
         this.superior = superior;
     }
 
-    public Set<Team> getTeams() {
-        return teams;
-    }
 
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
-    }
+
 
     /**
      operations on teams added here
@@ -109,10 +115,17 @@ public class TeamManager implements Manager {
         teams.remove(t);
     }
 
+    public void addManager(TeamManager m) {
+        managers.add(m);
+    }
+
+    public void removeManager(TeamManager m){
+        managers.remove(m);
+    }
+
     public String toString(){
         return "Name: " + getName()
-                + "Occupation: " + getOccupation()
-                    + "Superior: " + superior.getName() + " " + superior.getSurname();
+                + ", Occupation: " + getOccupation();
     }
 
 

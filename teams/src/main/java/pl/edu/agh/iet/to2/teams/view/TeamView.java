@@ -8,6 +8,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import pl.edu.agh.iet.to2.teams.api.person.Manager;
+import pl.edu.agh.iet.to2.teams.api.person.Person;
+import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import pl.edu.agh.iet.to2.teams.api.team.Team;
 
 public class TeamView {
 
@@ -19,6 +23,10 @@ public class TeamView {
         this.tree = new TreeView<CustomTreeObject> (new TreeItem<CustomTreeObject>(new CustomTreeObject(0, "Root")));
         this.tree.setEditable(false);
         this.tree.setShowRoot(true);
+        this.tree.setMinSize(200, 400);
+        this.tree.setPrefSize(500, 500);
+        this.tree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
         this.tree.setCellFactory(new Callback<TreeView<CustomTreeObject>,TreeCell<CustomTreeObject>>(){
             @Override
             public TreeCell<CustomTreeObject> call(TreeView<CustomTreeObject> p) {
@@ -28,6 +36,43 @@ public class TeamView {
         pane.getChildren().add(this.tree);
 
     }
+
+    public void redrawTeam(TreeItem<CustomTreeObject> item, int oldHashcode, Team team)
+    {
+        if(item.getValue().getHashcode() == oldHashcode){
+            item.getChildren().clear();
+            for(Person p : team.getMembers().getMembers())
+            {
+                item.getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(p.hashCode(), p.toString())));
+            }
+            return;
+        }
+
+        for(TreeItem<CustomTreeObject> i : item.getChildren()){
+           redrawTeam(i, oldHashcode, team);
+        }
+    }
+
+    public void redrawManager(TreeItem<CustomTreeObject> item, int oldHashcode, TeamManager manager)
+    {
+        if(item.getValue().getHashcode() == oldHashcode){
+            item.getChildren().clear();
+            for(Manager m : manager.getManagers())
+            {
+                item.getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(m.hashCode(), m.toString())));
+            }
+            for(Team t : manager.getTeams())
+            {
+                item.getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(t.hashCode(), t.toString())));
+            }
+            return;
+        }
+
+        for(TreeItem<CustomTreeObject> i : item.getChildren()){
+            redrawManager(i, oldHashcode, manager);
+        }
+    }
+
 
     public void changeNode(TreeItem<CustomTreeObject> item, int oldHashcode, int newHashcode, String content){
         if(item.getValue().getHashcode() == oldHashcode){

@@ -1,47 +1,59 @@
 package pl.edu.agh.iet.to2.teams;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 import pl.edu.agh.iet.to2.app.ModuleManager;
 import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.app.TabInitializer;
+import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.person.TesterPerson;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
-import pl.edu.agh.iet.to2.teams.controller.TeamOverviewController;
-import pl.edu.agh.iet.to2.teams.view.CustomTreeCellImpl;
+import pl.edu.agh.iet.to2.teams.controller.Controller;
+import pl.edu.agh.iet.to2.teams.controller.TeamController;
+import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
+import pl.edu.agh.iet.to2.teams.view.CustomTreeObject;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class TeamsTabInitializer implements TabInitializer {
 
-    TeamOverviewController controller;
+  //  TeamManagerController controller;
+    public AnchorPane pane;
+    public Set<Controller> controllers;
     TeamView view;
 
     @Override
     public Pane initialize(Presenter presenter, ModuleManager moduleManager) throws IOException {
-        AnchorPane pane = new AnchorPane();
+
+        pane = new AnchorPane();
+        controllers = new HashSet<Controller>();
 
         this.view = new TeamView(pane);
         this.view.initialize();
 
+        TeamManager Boss = new TeamManager(0, "Jan Kowalski", "CEO");
+        this.view.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(Boss.hashCode(), Boss.toString())));
+
+        controllers.add(TeamManagerController.createControllerOn(Boss, pane, this.view));
+
         Team RootTeam = Team.createTeam();
-        System.out.println("1: " + RootTeam.hashCode());
-        System.out.println("2: " + RootTeam.getMembers().hashCode());
-        System.out.println("3: " + RootTeam.getMembers().getMembers().hashCode());
-        System.out.println("4: " + RootTeam.getMembers().getMembersProperty().hashCode());
+        controllers.add(TeamController.createControllerOn(RootTeam, pane, this.view));
+        Boss.addTeam(RootTeam);
 
-        controller = TeamOverviewController.createControllerOn(RootTeam, pane);
-        controller.setView(this.view);
-        controller.initialize();
+        TesterPerson mac1 = new TesterPerson(1, "Maciek0");
+        RootTeam.getMembers().add(mac1);
+        RootTeam.getMembers().add(new TesterPerson(2, "Maciek1"));
 
-        RootTeam.getMembers().add(new TesterPerson(0, "Maciek0"));
-        RootTeam.getMembers().add(new TesterPerson(1, "Maciek1"));
+        TeamManager man1 = new TeamManager(3, "Manager0", "asd");
+        controllers.add(TeamManagerController.createControllerOn(man1, pane, this.view));
+        Boss.addManager(man1);
+
+        RootTeam.getMembers().remove(mac1);
 
         return pane;
     }

@@ -13,7 +13,6 @@ public class Team {
     private long id;
     private String name;
     private Members members;
-
     private SimpleObjectProperty<TeamManager> manager;
     private SimpleObjectProperty<TeamProject> project;
 

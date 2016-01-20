@@ -54,7 +54,7 @@ public class TesterPerson implements Member {
 
     public String toString(){
         return "Name: " + getName()
-                + "Occupation: " + getOccupation();
+                + ", Occupation: " + getOccupation();
     }
 
 
