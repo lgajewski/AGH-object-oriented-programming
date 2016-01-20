@@ -55,9 +55,13 @@ public class ProjectPresenter {
         loader.setLocation(getClass().getResource("/view/ProjectMembersOverview.fxml"));
         loader.setController(controller);
 
-//        TODO: see comment above
-//        presenter.setProjectsTabContent(loader.load());
+        for(Long id : project.getMembersIds()){
+            project.addMember(moduleManager.getEmployeesModule().getEmployeeId(id));
+        }
+
         controller.setProject(project);
+//        TODO: see comment above
+        presenter.setProjectsTabContent(loader.load());
     }
 
     public void onProjectFinancialOverview(Project project) throws IOException {
@@ -68,7 +72,7 @@ public class ProjectPresenter {
         loader.setController(controller);
 
 //        TODO: see comment above
-//        presenter.setProjectsTabContent(loader.load());
+        presenter.setProjectsTabContent(loader.load());
         controller.setProject(project);
     }
 
@@ -88,8 +92,10 @@ public class ProjectPresenter {
 
     public void onProjectOverview() throws IOException {
 //        TODO: see comment above
-//        presenter.setProjectsTabContent(initRootLayout());
+        presenter.setProjectsTabContent(initRootLayout());
     }
+
+
 
     public void onCloseDialog() {
         presenter.closeCurrentStage();

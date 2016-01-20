@@ -12,15 +12,13 @@ import pl.edu.agh.iet.to2.projects.IProject;
 //import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Project implements IProject {
 
     private long id;
+    private Set<Long> membersIds;
     private StringProperty name;
     private ObservableList<IEmployee> members;
     //private Map<ITeamMember, String> memberRoleMap;
@@ -39,6 +37,7 @@ public class Project implements IProject {
         this.startDate = new SimpleObjectProperty<>(startDate);
         this.endDate = new SimpleObjectProperty<>(endDate);
         this.budget = new SimpleObjectProperty<>(budget);
+        this.membersIds = new HashSet<>();
     }
 
 
@@ -70,6 +69,18 @@ public class Project implements IProject {
 
     public void setMembers(List<IEmployee> members) {
         this.members = FXCollections.observableArrayList(members);
+        membersIds.clear();
+        for(IEmployee member: members){
+            membersIds.add(member.getId());
+        }
+    }
+
+    public Set<Long> getMembersIds() {
+        return membersIds;
+    }
+
+    public void setMembersIds(Set<Long> membersIds) {
+        this.membersIds = membersIds;
     }
 
    /* public Map<ITeamMember, String> getMemberRoleMap() {
@@ -118,6 +129,7 @@ public class Project implements IProject {
 
     public void addMember(IEmployee member) {
         members.add(member);
+        membersIds.add(member.getId());
     }
 
     public void removeMember(IEmployee member) {

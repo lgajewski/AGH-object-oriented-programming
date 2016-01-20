@@ -74,6 +74,11 @@ public class AppPresenter implements Presenter {
         stageStack.pop().close();
     }
 
+    @Override
+    public void setProjectsTabContent(Pane content) {
+        setTabContent(AppTab.PROJECTS, content);
+    }
+
     public void stop() {
         onStopListeners.forEach(Presenter.OnStopListener::handle);
     }
