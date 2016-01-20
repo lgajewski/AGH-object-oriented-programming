@@ -6,9 +6,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.employees.model.Employee;
-import pl.edu.agh.iet.to2.employees.model.Operation;
+import pl.edu.agh.iet.to2.employees.model.operation.IOperation;
+import pl.edu.agh.iet.to2.employees.model.operation.OccupationOperation;
+import pl.edu.agh.iet.to2.employees.model.operation.SalaryOperation;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -18,10 +19,10 @@ public class EmployeeHistoryController {
     private final Employee employee;
 
     @FXML
-    private ListView<Operation<String>> occupationListView;
+    private ListView<OccupationOperation> occupationListView;
 
     @FXML
-    private ListView<Operation<BigDecimal>> salaryListView;
+    private ListView<SalaryOperation> salaryListView;
 
     @FXML
     private ImageView closeButton;
@@ -42,15 +43,15 @@ public class EmployeeHistoryController {
         closeButton.setOnMouseClicked(event -> presenter.closeCurrentStage());
     }
 
-    private <T> String createText(Operation<T> operation) {
+    private <T> String createText(IOperation<T> operation) {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         String date = df.format(operation.getDate());
         return date + " ->  '" + operation.getValue() + "'";
     }
 
-    class SimpleListCell<T> extends ListCell<Operation<T>> {
+    class SimpleListCell<T> extends ListCell<IOperation<T>> {
         @Override
-        protected void updateItem(Operation<T> item, boolean empty) {
+        protected void updateItem(IOperation<T> item, boolean empty) {
             super.updateItem(item, empty);
 
             if (!empty) {

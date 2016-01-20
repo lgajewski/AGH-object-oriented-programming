@@ -11,6 +11,8 @@ import java.io.IOException;
 
 class EmployeeCell extends ListCell<Employee> {
 
+    public static final String INITIAL_DIRECTORY = "/employees/images/avatars/";
+
     private final Presenter presenter;
 
     private EmployeeDao employeeDao;

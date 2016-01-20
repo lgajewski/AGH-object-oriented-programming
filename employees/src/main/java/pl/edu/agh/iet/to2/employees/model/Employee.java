@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import pl.edu.agh.iet.to2.employees.IEmployee;
+import pl.edu.agh.iet.to2.employees.model.operation.OccupationOperation;
+import pl.edu.agh.iet.to2.employees.model.operation.SalaryOperation;
 
 import java.math.BigDecimal;
 
@@ -108,11 +110,11 @@ public class Employee implements IEmployee {
         return details.getSalaryProperty();
     }
 
-    public ObservableList<Operation<String>> getOccupationHistory() {
+    public ObservableList<OccupationOperation> getOccupationHistory() {
         return details.getOccupationHistory();
     }
 
-    public ObservableList<Operation<BigDecimal>> getSalaryHistory() {
+    public ObservableList<SalaryOperation> getSalaryHistory() {
         return details.getSalaryHistory();
     }
 

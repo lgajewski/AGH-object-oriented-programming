@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -69,14 +70,19 @@ public class EmployeeDetailsController {
             submitted = true;
         });
 
+        // avatar - listener for file chooser
         changeAvatar.setOnMouseClicked(event -> showChangeAvatarStage());
 
-        updateAvatar();
+        // bind listener to update
+        employee.getAvatarPathProperty().addListener((observable, oldValue, newValue) -> updateAvatar(newValue));
+
+        // update with current value
+        updateAvatar(employee.getAvatarName());
     }
 
     private void showChangeAvatarStage() {
         FileChooser fileChooser = new FileChooser();
-        File initialDirectory = new File(getClass().getResource(EmployeeUtils.INITIAL_DIRECTORY).getFile());
+        File initialDirectory = new File(getClass().getResource(EmployeeCell.INITIAL_DIRECTORY).getFile());
         fileChooser.setInitialDirectory(initialDirectory);
         File selectedFile = fileChooser.showOpenDialog(null);
 
@@ -105,7 +111,8 @@ public class EmployeeDetailsController {
         return submitted ? employee : null;
     }
 
-    public void updateAvatar() {
-        avatarImageView.setImage(EmployeeUtils.getAvatar(employee.getAvatarName()));
+    public void updateAvatar(String avatarName) {
+        Image image = new Image(getClass().getResourceAsStream(EmployeeCell.INITIAL_DIRECTORY + avatarName));
+        avatarImageView.setImage(image);
     }
 }

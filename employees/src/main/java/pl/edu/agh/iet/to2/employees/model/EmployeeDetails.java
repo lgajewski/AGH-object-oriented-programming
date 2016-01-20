@@ -6,15 +6,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import pl.edu.agh.iet.to2.employees.model.operation.IOperation;
+import pl.edu.agh.iet.to2.employees.model.operation.OccupationOperation;
+import pl.edu.agh.iet.to2.employees.model.operation.SalaryOperation;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 public class EmployeeDetails {
 
-    private ObservableList<Operation<String>> occupationHistory;
-    private ObservableList<Operation<BigDecimal>> salaryHistory;
+    private ObservableList<OccupationOperation> occupationHistory;
+    private ObservableList<SalaryOperation> salaryHistory;
 
     private StringProperty occupation;
     private ObjectProperty<BigDecimal> salary;
@@ -51,27 +53,33 @@ public class EmployeeDetails {
         return occupation;
     }
 
-    public ObservableList<Operation<String>> getOccupationHistory() {
+    public ObservableList<OccupationOperation> getOccupationHistory() {
         return occupationHistory;
     }
 
-    public ObservableList<Operation<BigDecimal>> getSalaryHistory() {
+    public ObservableList<SalaryOperation> getSalaryHistory() {
         return salaryHistory;
     }
 
-    private <T> void update(List<Operation<T>> operations, T actualValue) {
-        if (operations.size() > 0) {
-            Operation<T> lastOp = operations.get(operations.size() - 1);
-            if (!lastOp.getValue().equals(actualValue)) {
-                operations.add(new Operation<>(actualValue, new Date()));
-            }
+    private <T> boolean isUpdateNeeded(ObservableList<? extends IOperation> operations, Object actualValue) {
+        if (operations.isEmpty()) {
+            return true;
         } else {
-            operations.add(new Operation<>(actualValue, new Date()));
+            IOperation lastOp = operations.get(operations.size() - 1);
+            if (!lastOp.getValue().equals(actualValue)) {
+                return true;
+            }
         }
+        return false;
     }
 
     public void update() {
-        update(occupationHistory, getOccupation());
-        update(salaryHistory, getSalary());
+        if (isUpdateNeeded(occupationHistory, getOccupation())) {
+            occupationHistory.add(new OccupationOperation<>(getOccupation(), new Date()));
+        }
+
+        if (isUpdateNeeded(salaryHistory, getSalary())) {
+            salaryHistory.add(new SalaryOperation<>(getSalary(), new Date()));
+        }
     }
 }
