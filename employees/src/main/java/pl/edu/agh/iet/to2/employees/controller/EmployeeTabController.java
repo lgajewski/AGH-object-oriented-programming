@@ -97,7 +97,7 @@ public class EmployeeTabController {
 
     private Employee showEmployeeAddDialog() throws IOException {
         // Load the fxml file and create a new stage for the dialog
-        EmployeeDetailsController controller = new EmployeeDetailsController(presenter);
+        EmployeeDetailsController controller = new EmployeeDetailsController(null, presenter);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));

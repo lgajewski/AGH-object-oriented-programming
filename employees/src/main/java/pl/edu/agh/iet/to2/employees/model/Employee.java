@@ -17,9 +17,12 @@ public class Employee implements IEmployee {
 
     private EmployeeDetails details;
 
+    private StringProperty avatarPath;
+
     public Employee() {
         this.name = new SimpleStringProperty("");
         this.surname = new SimpleStringProperty("");
+        this.avatarPath = new SimpleStringProperty("avatar1.png");
         this.details = new EmployeeDetails("", BigDecimal.ZERO);
     }
 
@@ -63,6 +66,18 @@ public class Employee implements IEmployee {
     @Override
     public String toString() {
         return getName() + " " + getSurname();
+    }
+
+    public String getAvatarPath() {
+        return avatarPath.get();
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath.set(avatarPath);
+    }
+
+    public StringProperty getAvatarPathProperty() {
+        return avatarPath;
     }
 
     public void setSalary(BigDecimal salary) {

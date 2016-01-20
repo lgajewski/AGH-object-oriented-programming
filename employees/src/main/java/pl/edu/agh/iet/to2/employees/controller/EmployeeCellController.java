@@ -1,10 +1,12 @@
 package pl.edu.agh.iet.to2.employees.controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.iet.to2.app.Presenter;
@@ -42,6 +44,9 @@ public class EmployeeCellController {
     private ImageView delete;
 
     @FXML
+    private ImageView employeeAvatar;
+
+    @FXML
     private void initialize() {
         employeeName.textProperty().bind(employee.getNameProperty());
         employeeSurname.textProperty().bind(employee.getSurnameProperty());
@@ -50,13 +55,16 @@ public class EmployeeCellController {
         showDetails.setOnMouseClicked(event -> showEmployeeDetails(employee));
 
         delete.setOnMouseClicked(event -> employeeDao.deleteEmployee(employee.getId()));
+
+        // set employee avatar
+        updateAvatar();
     }
 
     private void showEmployeeDetails(Employee employee) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/employees/fxml/EmployeeDetails.fxml"));
-            loader.setController(new EmployeeDetailsController(presenter, employee));
+            loader.setController(new EmployeeDetailsController(this, presenter, employee));
             Pane pane = loader.load();
 
             presenter.showAndWait("Employee - " + employee, new Scene(pane));
@@ -66,6 +74,10 @@ public class EmployeeCellController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public  void updateAvatar() {
+        employeeAvatar.setImage(new Image(getClass().getResourceAsStream(EmployeeCell.INITIAL_DIRECTORY + employee.getAvatarPath())));
     }
 
 
