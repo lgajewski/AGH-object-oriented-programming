@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import pl.edu.agh.iet.to2.ModuleManager;
 import pl.edu.agh.iet.to2.Presenter;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.model.Employee;
@@ -47,6 +48,7 @@ public class EmployeeTabController {
         // create and update employee list
         employeeList = FXCollections.observableArrayList();
         updateEmployeeList();
+        EmployeeUpdater.update();
 
         // set custom cell factory and bind to employeeList
         employeeListView.setItems(employeeList);

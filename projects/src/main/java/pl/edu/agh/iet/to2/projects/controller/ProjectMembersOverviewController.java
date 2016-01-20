@@ -123,6 +123,7 @@ public class ProjectMembersOverviewController {
     private void handleAddTeamAction() throws IOException {
 
         presenter.onAddTeam(project);
+        loadTreeItems(project.getTeams());
 
     }
 

@@ -10,7 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import pl.edu.agh.iet.to2.ModuleManager;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 import pl.edu.agh.iet.to2.teams.ITeam;
 
@@ -54,6 +56,10 @@ public class TeamAddDialogController {
     private Button cancelButton;
 
     public void initialize() {
+        if(ModuleManager.getTeamsModule().getTeams().size() == 0) {
+            ModuleManager.getTeamsModule().init();
+            teams = ModuleManager.getTeamsModule().getTeams();
+        }
         teamsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         teamColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
         numberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Long>((long)dataValue.getValue().getTeamMembers().size()));
@@ -65,6 +71,7 @@ public class TeamAddDialogController {
     private void handleOkAction(ActionEvent event) {
         ObservableList<ITeam> selectedTeams = teamsTable.getSelectionModel().getSelectedItems();
         if(selectedTeams != null) updateModel(selectedTeams);
+        ProjectDao.saveProject(project);
         presenter.onCloseDialog();
     }
 
