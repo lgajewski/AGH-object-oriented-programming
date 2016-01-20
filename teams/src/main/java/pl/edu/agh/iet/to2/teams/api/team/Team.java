@@ -75,5 +75,7 @@ public class Team {
         this.id = id;
     }
 
-
+    public String toString(){
+        return "Team: " + getName();
+    }
 }
