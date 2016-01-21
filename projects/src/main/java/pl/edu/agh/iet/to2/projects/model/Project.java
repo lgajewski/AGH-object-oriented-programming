@@ -138,6 +138,14 @@ public class Project implements IProject {
         }
     }
 
+    public BigDecimal getCost() {
+        BigDecimal result = new BigDecimal(0);
+        for(IEmployee e : members) {
+            result.add(e.getSalary());
+        }
+        return result;
+    }
+
     /*public void addRole(ITeamMember teamMember, String role) {
         memberRoleMap.put(teamMember, role);
     }*/
@@ -165,4 +173,5 @@ public class Project implements IProject {
         result = 31 * result + name.hashCode();
         return result;
     }
+
 }

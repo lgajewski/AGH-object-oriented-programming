@@ -8,9 +8,9 @@
     <center>
         <TableView fx:id="membersTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Employee"/>
-                <TableColumn fx:id="roleColumn" prefWidth="75.0" text="Role"/>
-                <TableColumn fx:id="teamColumn" prefWidth="75.0" text="Team"/>
+                <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name"/>
+                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name"/>
+                <TableColumn fx:id="occupationColumn" prefWidth="75.0" text="Occupation"/>
                 <TableColumn fx:id="salaryColumn" prefWidth="75.0" text="Salary"/>
             </columns>
             <columnResizePolicy>

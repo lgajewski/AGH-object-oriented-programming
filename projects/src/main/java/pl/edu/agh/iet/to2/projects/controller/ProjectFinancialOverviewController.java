@@ -12,6 +12,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pl.edu.agh.iet.to2.employees.IEmployee;
+import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 import pl.edu.agh.iet.to2.teams.ITeam;
@@ -28,6 +29,8 @@ public class ProjectFinancialOverviewController {
     private ProjectPresenter presenter;
 
     ObservableList<IEmployee> members = FXCollections.observableArrayList();
+
+    private IEmployeesModule employeesModule;
 
     public ProjectFinancialOverviewController(ProjectPresenter presenter) {
         this.presenter = presenter;
@@ -54,13 +57,16 @@ public class ProjectFinancialOverviewController {
         this.project = project;
     }
 
-    private void updateData() {
+    public void updateData() {
         members.clear();
-        members.addAll(project.getMembers());
+        for(Long id : project.getMembersIds()) {
+            members.add(employeesModule.getEmployeeId(id));
+        }
         membersTable.setItems(members);
     }
 
     public void initialize() {
+        employeesModule = presenter.getModuleManager().getEmployeesModule();
         membersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         firstNameColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
@@ -70,7 +76,7 @@ public class ProjectFinancialOverviewController {
         occupationColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getOccupation()));
 
-        occupationColumn.setCellValueFactory(
+        salaryColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getSalary().toString()));
         updateData();
     }

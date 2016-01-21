@@ -66,6 +66,7 @@ public class ProjectPresenter {
 
     public void onProjectFinancialOverview(Project project) throws IOException {
         ProjectFinancialOverviewController controller = new ProjectFinancialOverviewController(this);
+        controller.setProject(project);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/ProjectFinancialOverview.fxml"));
@@ -73,7 +74,6 @@ public class ProjectPresenter {
 
 //        TODO: see comment above
         presenter.setProjectsTabContent(loader.load());
-        controller.setProject(project);
     }
 
     public void onAddMember(Project project) throws IOException {

@@ -71,7 +71,7 @@ public class ProjectMembersOverviewController {
         occupationColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getOccupation()));
 
-        occupationColumn.setCellValueFactory(
+        salaryColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getSalary().toString()));
 
         removeMemberButton.disableProperty().bind(
