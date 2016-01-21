@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.edu.agh.iet.to2.employees.IEmployee;
+import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 import pl.edu.agh.iet.to2.projects.model.Employee;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
@@ -23,6 +24,7 @@ public class ProjectMembersOverviewController {
     private Project project;
     private ProjectPresenter presenter;
     private ObservableList<IEmployee> data = FXCollections.observableArrayList();
+    private IEmployeesModule employeesModule;
 
 
     //TreeItem<IEmployee> root;
@@ -59,6 +61,7 @@ public class ProjectMembersOverviewController {
     @FXML
     private void initialize() {
 
+        employeesModule = presenter.getModuleManager().getEmployeesModule();
         membersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         firstNameColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
@@ -86,7 +89,9 @@ public class ProjectMembersOverviewController {
 
     public void updateData() {
         data.clear();
-        data.addAll(project.getMembers());
+        for(Long id : project.getMembersIds()) {
+            data.add(employeesModule.getEmployeeId(id));
+        }
         membersTable.setItems(data);
     }
 
@@ -122,6 +127,7 @@ public class ProjectMembersOverviewController {
     private void handleRemoveMemberAction() {
         IEmployee item = membersTable.getSelectionModel().getSelectedItem();
         project.removeMember(item);
+        ProjectDao.saveProject(project);
         updateData();
     }
 
@@ -129,6 +135,7 @@ public class ProjectMembersOverviewController {
     private void handleAddMemberAction() throws IOException {
 
         presenter.onAddMember(project);
+        ProjectDao.saveProject(project);
         updateData();
 
     }
@@ -137,7 +144,6 @@ public class ProjectMembersOverviewController {
     @FXML
     private void handleBackAction() throws IOException {
 
-        ProjectDao.saveProject(project);
         presenter.onProjectOverview();
 
     }
