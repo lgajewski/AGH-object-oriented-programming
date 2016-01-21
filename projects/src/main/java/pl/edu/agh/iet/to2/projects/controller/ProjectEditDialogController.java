@@ -2,9 +2,11 @@ package pl.edu.agh.iet.to2.projects.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
+import pl.edu.agh.iet.to2.utils.Utils;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -25,10 +27,10 @@ public class ProjectEditDialogController {
     private TextField nameTextField;
 
     @FXML
-    private TextField startDateTextField;
+    private DatePicker startDate;
 
     @FXML
-    private TextField endDateTextField;
+    private DatePicker endDate;
 
     @FXML
     private TextField budgetTextField;
@@ -82,10 +84,10 @@ public class ProjectEditDialogController {
 
     private void updateModel() {
         try {
-            project.setStartDate(format.parse(startDateTextField.getText()));
-            project.setEndDate(format.parse(endDateTextField.getText()));
+            project.setStartDate(Utils.convertLocalDateToDate(startDate.getValue()));
+            project.setEndDate(Utils.convertLocalDateToDate(endDate.getValue()));
             project.setName(nameTextField.getText());
-            project.setBudget(new BigDecimal(Integer.parseInt(budgetTextField.getText())));
+            project.setBudget(Utils.convertStringToBigDecimal(budgetTextField.getText()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -93,8 +95,8 @@ public class ProjectEditDialogController {
 
     private void updateControls() {
         nameTextField.setText(project.getName());
-        startDateTextField.setText(project.getStartDate().toString());
-        endDateTextField.setText(project.getEndDate().toString());
+        startDate.setValue(Utils.convertDateToLocalDate(project.getStartDate()));
+        endDate.setValue(Utils.convertDateToLocalDate(project.getEndDate()));
         budgetTextField.setText(project.getBudget().toString());
     }
 
