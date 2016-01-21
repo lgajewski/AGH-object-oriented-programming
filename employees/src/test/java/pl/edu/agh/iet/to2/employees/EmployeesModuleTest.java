@@ -10,7 +10,7 @@ import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class EmployeesModuleTest {
