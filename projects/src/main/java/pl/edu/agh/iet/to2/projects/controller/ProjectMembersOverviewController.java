@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.projects.model.Employee;
 import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.io.IOException;
@@ -136,7 +137,7 @@ public class ProjectMembersOverviewController {
     @FXML
     private void handleBackAction() throws IOException {
 
-        //ProjectDao.saveProject(project);
+        ProjectDao.saveProject(project);
         presenter.onProjectOverview();
 
     }

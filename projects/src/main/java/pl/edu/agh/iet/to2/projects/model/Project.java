@@ -133,7 +133,9 @@ public class Project implements IProject {
     }
 
     public void removeMember(IEmployee member) {
-        members.remove(member);
+        if(membersIds.remove(member.getId())) {
+            members.remove(member);
+        }
     }
 
     /*public void addRole(ITeamMember teamMember, String role) {
