@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.projects.IProject;
+import pl.edu.agh.iet.to2.utils.Utils;
 //import pl.edu.agh.iet.to2.teams.ITeam;
 //import pl.edu.agh.iet.to2.teams.ITeamMember;
 
@@ -142,8 +143,9 @@ public class Project implements IProject {
         BigDecimal result = new BigDecimal(0);
         for(IEmployee e : members) {
             result.add(e.getSalary());
+            System.out.println(e.getSalary());
         }
-        return result;
+        return result.multiply(new BigDecimal(Utils.diffInMonths(startDate.get(), endDate.get())));
     }
 
     /*public void addRole(ITeamMember teamMember, String role) {

@@ -7,10 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 import pl.edu.agh.iet.to2.projects.model.Project;
@@ -40,6 +37,9 @@ public class ProjectFinancialOverviewController {
     private TableView<IEmployee> membersTable;
 
     @FXML
+    private Label cost;
+
+    @FXML
     private TableColumn<IEmployee, String> firstNameColumn;
 
     @FXML
@@ -60,9 +60,13 @@ public class ProjectFinancialOverviewController {
     public void updateData() {
         members.clear();
         for(Long id : project.getMembersIds()) {
-            members.add(employeesModule.getEmployeeId(id));
+            IEmployee empl = employeesModule.getEmployeeId(id);
+            members.add(empl);
+            project.addMember(empl);
         }
         membersTable.setItems(members);
+        System.out.println(project.getCost().toString());
+        cost.setText(project.getCost().toString());
     }
 
     public void initialize() {

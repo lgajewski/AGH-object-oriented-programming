@@ -5,10 +5,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Date;
 
 public class Utils {
@@ -32,5 +29,14 @@ public class Utils {
         decimalFormat.setParseBigDecimal(true);
 
         return (BigDecimal) decimalFormat.parse(decimal);
+    }
+
+    public static int diffInMonths(Date startDate, Date endDate){
+        LocalDate start = convertDateToLocalDate(startDate);
+        LocalDate end = convertDateToLocalDate(endDate);
+
+        Period betweenDates = Period.between(start, end);
+
+        return betweenDates.getMonths();
     }
 }
