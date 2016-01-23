@@ -57,8 +57,9 @@ public class SqlHelper {
             c = DriverManager.getConnection(path);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(sqlQuery);
-            return rewriteResultSet(rs, numberOfColumns);
+            allRows = rewriteResultSet(rs, numberOfColumns);
         } catch (Exception e) {
+            System.out.println("Wyjatek w sql helper");
             e.printStackTrace();
         } finally {
             try {
@@ -67,7 +68,7 @@ public class SqlHelper {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return null;
+            return allRows;
         }
     }
 

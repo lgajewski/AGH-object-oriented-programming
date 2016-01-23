@@ -119,8 +119,10 @@ public class TeamData {
         SqlHelper.executeQuery(insertPerson);
 
         List<List> personId = SqlHelper.getResultSet(getPersonId, 4);
-        if(personId.size()!=0)
-            return (long) personId.get(0).get(0);
+        if(personId.size()!=0){
+            Object a = personId.get(0).get(0);
+            return ((Number) a).longValue();
+        }
         return -1;
     }
 
@@ -131,8 +133,10 @@ public class TeamData {
 
         SqlHelper.executeQuery(addTeam);
         List<List> teams = SqlHelper.getResultSet(getTeam, 3);
-        if(teams.size()!=0)
-            return (long) teams.get(0).get(0);
+        if(teams.size()!=0){
+            Object a = teams.get(0).get(0);
+            return ((Number) a).longValue();
+        }
         return -3;
     }
 
