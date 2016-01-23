@@ -1,4 +1,3 @@
-/*
 package pl.edu.agh.iet.to2.teams.common;
 
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
@@ -79,4 +78,4 @@ public class TeamData {
     //i do samego dołu
 
 }
-*/
+
