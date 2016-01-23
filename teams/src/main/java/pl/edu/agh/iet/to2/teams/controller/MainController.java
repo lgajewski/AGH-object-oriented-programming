@@ -2,7 +2,6 @@ package pl.edu.agh.iet.to2.teams.controller;
 
 import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.util.HashSet;
 
