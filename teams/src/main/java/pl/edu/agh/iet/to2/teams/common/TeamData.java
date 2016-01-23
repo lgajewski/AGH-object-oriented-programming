@@ -70,7 +70,7 @@ public class TeamData {
     }
 
     private void createMember(TeamsModelManipulator teamsModelManipulator, long teamId, long personId) {
-
+        //String getMember = "SELECT * FROM "
     }
 
     //najpierw managerow
