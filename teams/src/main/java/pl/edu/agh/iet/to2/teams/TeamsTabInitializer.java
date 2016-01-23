@@ -19,11 +19,13 @@ import pl.edu.agh.iet.to2.teams.controller.TeamController;
 import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
 import pl.edu.agh.iet.to2.teams.view.ButtonView;
+import pl.edu.agh.iet.to2.teams.view.ComponentView;
 import pl.edu.agh.iet.to2.teams.view.CustomTreeObject;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
 
-import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class TeamsTabInitializer implements TabInitializer {
 
@@ -39,15 +41,18 @@ public class TeamsTabInitializer implements TabInitializer {
     public Pane initialize(Presenter presenter, ModuleManager moduleManager) throws IOException {
 
         this.pane = new AnchorPane();
+
         this.teamView = new TeamView(pane);
-        this.teamView.initialize();
-
         this.buttonView = new ButtonView(pane);
-        this.buttonView.initialize();
 
-        mainController = new MainController(this.teamView, this.pane);
+        HashMap<String, ComponentView> allViews = new HashMap<>();
+        allViews.put("TeamView", teamView);
+        allViews.put("ButtonView", buttonView);
+
+        mainController = new MainController(allViews, this.pane);
         teamsTree = new TeamsTree();
-        manipulator = new TeamsModelManipulator(teamsTree, mainController, this.teamView);
+
+        manipulator = new TeamsModelManipulator(teamsTree, mainController, (TeamView) allViews.get("TeamView"));
 
        // manipulator.addTeam(this.teamsTree.find())
 

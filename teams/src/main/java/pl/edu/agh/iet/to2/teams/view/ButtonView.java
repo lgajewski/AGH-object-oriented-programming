@@ -1,7 +1,5 @@
 package pl.edu.agh.iet.to2.teams.view;
 
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -9,12 +7,10 @@ import javafx.scene.layout.VBox;
 /**
  * Created by Pan Ciemnosci on 2016-01-23.
  */
-public class ButtonView {
+public class ButtonView implements ComponentView{
 
     public AnchorPane pane;
     public VBox buttonPane;
-
-
 
     public Button addTeamButton = new Button("Add team.");
     public Button removeTeamButton = new Button("Remove team.");

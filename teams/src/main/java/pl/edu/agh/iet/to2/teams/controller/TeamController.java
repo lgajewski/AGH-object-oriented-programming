@@ -2,7 +2,10 @@ package pl.edu.agh.iet.to2.teams.controller;
 
 import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
+import pl.edu.agh.iet.to2.teams.view.ComponentView;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
+
+import java.awt.*;
 
 /**
  * Created by Pan Ciemnosci on 2015-12-15.
@@ -36,8 +39,8 @@ public class TeamController implements SubController {
         return view;
     }
 
-    public void setView(TeamView view) {
-        this.view = view;
+    public void setView(ComponentView view) {
+        this.view = (TeamView) view;
     }
 
     public Team getTeam() {
@@ -62,6 +65,7 @@ public class TeamController implements SubController {
       /*  team.getManagerProperty().addListener((o, oldVal, newVal) -> {
 
         });*/
+        view.initialize();
 
         team.getProjectProperty().addListener((o, oldVal, newVal) -> {
 

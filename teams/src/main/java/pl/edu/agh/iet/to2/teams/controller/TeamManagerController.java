@@ -2,6 +2,7 @@ package pl.edu.agh.iet.to2.teams.controller;
 
 import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import pl.edu.agh.iet.to2.teams.view.ComponentView;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
 
 /*
@@ -37,8 +38,8 @@ public class TeamManagerController implements SubController {
         return view;
     }
 
-    public void setView(TeamView view) {
-        this.view = view;
+    public void setView(ComponentView view) {
+        this.view = (TeamView) view;
     }
 
     public TeamManager getManager() {

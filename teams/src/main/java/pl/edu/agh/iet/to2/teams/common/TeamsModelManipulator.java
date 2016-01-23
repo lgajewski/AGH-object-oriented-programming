@@ -35,7 +35,7 @@ public class TeamsModelManipulator {
             if(parent == null)
                 return false;
             else{
-                mainController.addController(TeamController.createControllerOn(team, mainController.getPane(), mainController.getTeamView()));
+                mainController.addController(TeamController.createControllerOn(team, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
                 //team.setManager(parent);
                 parent.addTeam(team);
                 return true;
@@ -82,7 +82,7 @@ public class TeamsModelManipulator {
                 return false;
             }
             else{
-                mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
+                mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
                 teamsTree.setRoot(teamManager);
                 view.redrawRoot(teamManager);
                 return true;
@@ -94,7 +94,7 @@ public class TeamsModelManipulator {
                 return false;
             }
             else{
-                mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
+                mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(),(TeamView) mainController.getView("TeamView")));
               //  teamManager.setSuperior(parent);
                 parent.addManager(teamManager);
                 return true;
@@ -128,7 +128,7 @@ public class TeamsModelManipulator {
     public boolean addMember(long teamId, TesterPerson testerPerson){
         Team team = teamsTree.findTeam(teamId);
         if(team != null){
-            mainController.addController(TesterPersonController.createControllerOn(testerPerson, mainController.getPane(), mainController.getTeamView()));
+            mainController.addController(TesterPersonController.createControllerOn(testerPerson, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
             team.add(testerPerson);
             return true;
         }

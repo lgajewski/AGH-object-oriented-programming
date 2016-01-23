@@ -14,7 +14,7 @@ import pl.edu.agh.iet.to2.teams.api.person.Person;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 
-public class TeamView {
+public class TeamView implements ComponentView{
 
     public AnchorPane pane;
     public TreeView<CustomTreeObject> tree;
