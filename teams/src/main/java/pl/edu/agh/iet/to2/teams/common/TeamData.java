@@ -147,7 +147,11 @@ public class TeamData {
 
         String addMember ="INSERT INTO 'Member'('personId', 'teamId') VALUES (" + personId + "," + teamId + ")";
 
-        List<List> member = SqlHelper.getResultSet(addMember, 3);
+        SqlHelper.executeQuery(addMember);
+
+        String getMember = "SELECT * FROM Member WHERE personId="+personId;
+
+        List<List> member = SqlHelper.getResultSet(getMember, 3);
 
         if(member.size()!=0){
             return personId;
