@@ -1,6 +1,7 @@
 package pl.edu.agh.iet.to2.teams.common;
 
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.db.SqlHelper;
 
 import java.util.List;
@@ -25,12 +26,12 @@ public class TeamData {
         }
     }
 
-    private void createManager(TeamsModelManipulator teamsModelManipulator, long rootId, long personId) {
+    private void createManager(TeamsModelManipulator teamsModelManipulator, long parentId, long personId) {
         String getPerson = "SELECT * FROM Person WHERE personId=" + personId;
         List<List> person =  SqlHelper.getResultSet(getPerson, 4);
         TeamManager tm = new TeamManager(personId, person.get(0).get(1).toString(),person.get(0).get(2).toString() );
 
-        teamsModelManipulator.addTeamManager(rootId, tm);
+        teamsModelManipulator.addTeamManager(parentId, tm);
 
         long managerId = (long) person.get(0).get(0);
 
@@ -51,8 +52,25 @@ public class TeamData {
         //return tm;
     }
 
-    private void createTeam(TeamsModelManipulator teamsModelManipulator, long rootId, long teamId) {
-        //TODO: not implemented
+    private void createTeam(TeamsModelManipulator teamsModelManipulator, long parentId, long teamId) {
+        String getTeam = "SELECT * FROM Team WHERE teamId="+teamId;
+        List<List> teamsList = SqlHelper.getResultSet(getTeam, 3);
+
+        Team team = Team.createTeam(teamId);
+        team.setName(teamsList.get(0).get(1).toString());
+
+        teamsModelManipulator.addTeam(parentId, team);
+
+        String members = "SELECT * FROM Member WHERE teamId="+teamId;
+        List<List> membersList = SqlHelper.getResultSet(getTeam, 3);
+
+        for( List member : membersList){
+            createMember(teamsModelManipulator, teamId, (long) member.get(1));
+        }
+    }
+
+    private void createMember(TeamsModelManipulator teamsModelManipulator, long teamId, long personId) {
+
     }
 
     //najpierw managerow
