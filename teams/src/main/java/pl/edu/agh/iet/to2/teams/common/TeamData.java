@@ -76,15 +76,17 @@ public class TeamData {
         }
         else {
             long id = (long)rs.get(0).get(1);
-            teamsModelManipulator.addTeamManager(0, createManager(teamsModelManipulator, id));
+            createManager(teamsModelManipulator, 0, id);
             return true;
         }
     }
 
-    private TeamManager createManager(TeamsModelManipulator teamsModelManipulator, long personId) {
+    private void createManager(TeamsModelManipulator teamsModelManipulator, long rootId, long personId) {
         String getPerson = "SELECT * FROM Person WHERE personId=" + personId;
         List<List> person =  SqlHelper.getResultSet(getPerson, 4);
         TeamManager tm = new TeamManager(personId, person.get(0).get(1).toString(),person.get(0).get(2).toString() );
+
+        teamsModelManipulator.addTeamManager(rootId, tm);
 
         long managerId = (long) person.get(0).get(0);
 
@@ -92,23 +94,20 @@ public class TeamData {
         List<List> managerSubordinates = SqlHelper.getResultSet(getManagerSubordinates, 3);
 
         for(List manager : managerSubordinates){
-            TeamManager managerToAdd = createManager(teamsModelManipulator, (long) manager.get(1));
-            teamsModelManipulator.addTeamManager(personId, managerToAdd );
+            createManager(teamsModelManipulator, personId, (long) manager.get(1));
         }
 
         String getTeamSubordinates = "SELECT * FROM Team WHERE managerId=" + managerId;
         List<List> teamSubordinates = SqlHelper.getResultSet(getTeamSubordinates, 3);
 
         for(List team : teamSubordinates){
-            Team teamToAdd = createTeam(teamsModelManipulator, (long) team.get(0));
-            teamsModelManipulator.addTeam(personId, teamToAdd);
+            createTeam(teamsModelManipulator, personId, (long) team.get(0));
         }
 
-        return tm;
+        //return tm;
     }
 
-    private Team createTeam(TeamsModelManipulator teamsModelManipulator, long l) {
-        return null;
+    private void createTeam(TeamsModelManipulator teamsModelManipulator, long rootId, long teamId) {
         //TODO: not implemented
     }
 
