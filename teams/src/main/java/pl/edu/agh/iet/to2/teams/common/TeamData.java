@@ -94,9 +94,11 @@ public class TeamData {
 
         String insertManager;
         if(parentManagerId==0)
-            insertManager = "INSERT INTO 'Manager'(  'personId') VALUES ("+personId+")";
+            insertManager = "INSERT INTO 'Manager'('personId') VALUES ("+personId+")";
         else
-            insertManager = "INSERT INTO 'Manager'(  'personId', 'parentManagerId') VALUES ("+personId+", "+parentManagerId+")";
+            insertManager = "INSERT INTO 'Manager'('personId','parentManagerId') VALUES ("+personId+", "+parentManagerId+")";
+
+        SqlHelper.executeQuery(insertManager);
 
         String getManager = "SELECT * FROM Manager WHERE personId="+personId;
 
