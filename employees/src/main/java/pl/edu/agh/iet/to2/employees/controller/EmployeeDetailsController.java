@@ -14,6 +14,7 @@ import pl.edu.agh.iet.to2.app.Presenter;
 import pl.edu.agh.iet.to2.employees.model.Employee;
 
 import java.io.File;
+import java.math.BigDecimal;
 
 public class EmployeeDetailsController {
 
@@ -60,7 +61,7 @@ public class EmployeeDetailsController {
     private void initialize() {
         nameField.textProperty().bindBidirectional(employee.getNameProperty());
         surnameField.textProperty().bindBidirectional(employee.getSurnameProperty());
-        salaryField.textProperty().bindBidirectional(employee.getSalaryProperty(), new BigDecimalStringConverter());
+        salaryField.textProperty().bindBidirectional(employee.getSalaryProperty(), new BigDecimalDefaultZeroConverter());
         occupationField.textProperty().bindBidirectional(employee.getOccupationProperty());
 
         historyButton.setOnMouseClicked(event -> showHistoryStage());
@@ -114,5 +115,17 @@ public class EmployeeDetailsController {
     public void updateAvatar(String avatarName) {
         Image image = new Image(getClass().getResourceAsStream(EmployeeCell.INITIAL_DIRECTORY + avatarName));
         avatarImageView.setImage(image);
+    }
+
+    class BigDecimalDefaultZeroConverter extends BigDecimalStringConverter {
+        @Override
+        public BigDecimal fromString(String value) {
+            try {
+                BigDecimal result = super.fromString(value);
+                return (result == null) ? new BigDecimal(0) : result;
+            } catch (Exception e) {
+                return new BigDecimal(0);
+            }
+        }
     }
 }

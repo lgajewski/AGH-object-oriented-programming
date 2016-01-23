@@ -3,6 +3,7 @@ package pl.edu.agh.iet.to2.employees;
 
 import pl.edu.agh.iet.to2.employees.model.Employee;
 import pl.edu.agh.iet.to2.employees.persistence.EmployeeDao;
+import pl.edu.agh.iet.to2.employees.persistence.EventNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.stream.Collectors;
 public class EmployeesModule implements IEmployeesModule {
 
     private EmployeeDao employeeDao;
+    private EventNotifier eventNotifier;
 
-    public EmployeesModule(EmployeeDao employeeDao) {
+    public EmployeesModule(EmployeeDao employeeDao, EventNotifier eventNotifier) {
         this.employeeDao = employeeDao;
+        this.eventNotifier = eventNotifier;
     }
 
     @Override
@@ -37,17 +40,17 @@ public class EmployeesModule implements IEmployeesModule {
 
     @Override
     public void addOnEmployeeUpdatedListener(OnEmployeeUpdateListener listener) {
-        employeeDao.addOnEmployeeUpdatedListener(listener);
+        eventNotifier.addOnEmployeeUpdatedListener(listener);
     }
 
     @Override
     public void addOnEmployeeAddedListener(OnEmployeeEventListener listener) {
-        employeeDao.addOnEmployeeAddedListener(listener);
+        eventNotifier.addOnEmployeeAddedListener(listener);
     }
 
     @Override
     public void addOnEmployeeDeletedListener(OnEmployeeEventListener listener) {
-        employeeDao.addOnEmployeeDeletedListener(listener);
+        eventNotifier.addOnEmployeeDeletedListener(listener);
     }
 
     public EmployeeDao getEmployeeDao() {

@@ -2,21 +2,21 @@ package pl.edu.agh.iet.to2.projects.controller;
 
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.IEmployeesModule;
-import pl.edu.agh.iet.to2.projects.model.Employee;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
 import java.io.IOException;
-import java.util.List;
 
 
 public class ProjectMembersOverviewController {
@@ -45,7 +45,7 @@ public class ProjectMembersOverviewController {
 
     @FXML
     private TableColumn<IEmployee, String> occupationColumn;
-    
+
     @FXML
     private TableColumn<IEmployee, String> salaryColumn;
 
@@ -89,7 +89,7 @@ public class ProjectMembersOverviewController {
 
     public void updateData() {
         data.clear();
-        for(Long id : project.getMembersIds()) {
+        for (Long id : project.getMembersIds()) {
             data.add(employeesModule.getEmployeeId(id));
         }
         membersTable.setItems(data);

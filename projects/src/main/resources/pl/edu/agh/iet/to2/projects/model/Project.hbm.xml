@@ -11,7 +11,7 @@
         <property name="name" type="text"/>
         <set name="membersIds" table="members" fetch="join" lazy="false">
             <key column="memberId"/>
-            <element column="member" type="long" />
+            <element column="member" type="long"/>
         </set>
         <property name="startDate" type="date"/>
         <property name="endDate" type="date"/>

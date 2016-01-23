@@ -10,12 +10,12 @@ import java.util.Date;
 
 public class Utils {
 
-    public static LocalDate convertDateToLocalDate(Date date){
+    public static LocalDate convertDateToLocalDate(Date date) {
         Instant instant = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
     }
 
-    public static Date convertLocalDateToDate(LocalDate date){
+    public static Date convertLocalDateToDate(LocalDate date) {
         Instant instant = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
     }
@@ -31,7 +31,7 @@ public class Utils {
         return (BigDecimal) decimalFormat.parse(decimal);
     }
 
-    public static int diffInMonths(Date startDate, Date endDate){
+    public static int diffInMonths(Date startDate, Date endDate) {
         LocalDate start = convertDateToLocalDate(startDate);
         LocalDate end = convertDateToLocalDate(endDate);
 

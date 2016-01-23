@@ -9,11 +9,15 @@ import javafx.collections.ObservableList;
 import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.projects.IProject;
 import pl.edu.agh.iet.to2.utils.Utils;
-//import pl.edu.agh.iet.to2.teams.ITeam;
-//import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+//import pl.edu.agh.iet.to2.teams.ITeam;
+//import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 
 public class Project implements IProject {
@@ -71,7 +75,7 @@ public class Project implements IProject {
     public void setMembers(List<IEmployee> members) {
         this.members = FXCollections.observableArrayList(members);
         membersIds.clear();
-        for(IEmployee member: members){
+        for (IEmployee member : members) {
             membersIds.add(member.getId());
         }
     }
@@ -134,14 +138,14 @@ public class Project implements IProject {
     }
 
     public void removeMember(IEmployee member) {
-        if(membersIds.remove(member.getId())) {
+        if (membersIds.remove(member.getId())) {
             members.remove(member);
         }
     }
 
     public BigDecimal getCost() {
         BigDecimal result = new BigDecimal(0);
-        for(IEmployee e : members) {
+        for (IEmployee e : members) {
             result.add(e.getSalary());
             System.out.println(e.getSalary());
         }

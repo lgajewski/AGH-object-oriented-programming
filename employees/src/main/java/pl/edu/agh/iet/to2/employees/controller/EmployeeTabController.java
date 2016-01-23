@@ -24,15 +24,17 @@ import java.util.stream.Collectors;
 
 public class EmployeeTabController {
 
-    private EmployeeDao employeeDao;
     private Presenter presenter;
     private ObservableList<Employee> employeeList;
+
+    private EmployeesModule employeesModule;
+    private EmployeeDao employeeDao;
 
 
     public EmployeeTabController(Presenter presenter, ModuleManager moduleManager) {
         this.presenter = presenter;
 
-        EmployeesModule employeesModule = (EmployeesModule) moduleManager.getEmployeesModule();
+        this.employeesModule = (EmployeesModule) moduleManager.getEmployeesModule();
         this.employeeDao = employeesModule.getEmployeeDao();
     }
 
@@ -79,16 +81,16 @@ public class EmployeeTabController {
         });
 
         // handle add employee event
-        employeeDao.addOnEmployeeAddedListener(employee -> employeeList.add((Employee) employee));
+        employeesModule.addOnEmployeeAddedListener(employee -> employeeList.add((Employee) employee));
 
         // handle update event
-        employeeDao.addOnEmployeeUpdatedListener((oldEmployee, newEmployee) -> {
+        employeesModule.addOnEmployeeUpdatedListener((oldEmployee, newEmployee) -> {
             Employee employee = (Employee) newEmployee;
             employee.update();
         });
 
         // handle remove employee event
-        employeeDao.addOnEmployeeDeletedListener(iEmployee -> employeeList.removeAll(
+        employeesModule.addOnEmployeeDeletedListener(iEmployee -> employeeList.removeAll(
                 employeeList.stream()
                         .filter(employee -> employee.getId() == iEmployee.getId())
                         .collect(Collectors.toList())));

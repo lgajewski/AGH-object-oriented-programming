@@ -1,7 +1,5 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,13 +10,10 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pl.edu.agh.iet.to2.employees.IEmployee;
-import pl.edu.agh.iet.to2.projects.model.Project;
-import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
-import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
-import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.IEmployeesModule;
+import pl.edu.agh.iet.to2.projects.model.Project;
+import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class MemberAddDialogController {

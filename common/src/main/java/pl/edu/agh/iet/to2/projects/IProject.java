@@ -1,7 +1,6 @@
 package pl.edu.agh.iet.to2.projects;
 
 import pl.edu.agh.iet.to2.employees.IEmployee;
-import pl.edu.agh.iet.to2.teams.ITeam;
 
 import java.math.BigDecimal;
 import java.util.Date;

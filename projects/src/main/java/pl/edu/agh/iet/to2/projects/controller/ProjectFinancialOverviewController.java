@@ -1,8 +1,6 @@
 package pl.edu.agh.iet.to2.projects.controller;
 
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,11 +10,8 @@ import pl.edu.agh.iet.to2.employees.IEmployee;
 import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.presenter.ProjectPresenter;
-import pl.edu.agh.iet.to2.teams.ITeam;
-import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 
 public class ProjectFinancialOverviewController {
@@ -59,7 +54,7 @@ public class ProjectFinancialOverviewController {
 
     public void updateData() {
         members.clear();
-        for(Long id : project.getMembersIds()) {
+        for (Long id : project.getMembersIds()) {
             IEmployee empl = employeesModule.getEmployeeId(id);
             members.add(empl);
             project.addMember(empl);

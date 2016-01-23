@@ -1,8 +1,6 @@
 package pl.edu.agh.iet.to2.projects;
 
 import pl.edu.agh.iet.to2.employees.IEmployee;
-import pl.edu.agh.iet.to2.teams.ITeam;
-import pl.edu.agh.iet.to2.teams.ITeamMember;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,8 +36,8 @@ public class ProjectsModuleImpl implements IProjectsModule {
         List<String> result = new ArrayList<String>();
         for (Long ID : projectMap.keySet()) {
             IProject p = projectMap.get(ID);
-            for(IEmployee emp : p.getMembers()) {
-                if(emp.getId() == id) {
+            for (IEmployee emp : p.getMembers()) {
+                if (emp.getId() == id) {
                     result.add(p.getName());
                     break;
                 }

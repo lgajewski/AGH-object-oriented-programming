@@ -10,7 +10,6 @@ import pl.edu.agh.iet.to2.employees.IEmployeesModule;
 import pl.edu.agh.iet.to2.projects.controller.*;
 import pl.edu.agh.iet.to2.projects.model.Project;
 import pl.edu.agh.iet.to2.projects.persistence.ProjectDao;
-import pl.edu.agh.iet.to2.teams.ITeamsModule;
 
 import java.io.IOException;
 
@@ -55,7 +54,7 @@ public class ProjectPresenter {
         loader.setLocation(getClass().getResource("/view/ProjectMembersOverview.fxml"));
         loader.setController(controller);
 
-        for(Long id : project.getMembersIds()){
+        for (Long id : project.getMembersIds()) {
             project.addMember(moduleManager.getEmployeesModule().getEmployeeId(id));
         }
 
@@ -94,7 +93,6 @@ public class ProjectPresenter {
 //        TODO: see comment above
         presenter.setProjectsTabContent(initRootLayout());
     }
-
 
 
     public void onCloseDialog() {
