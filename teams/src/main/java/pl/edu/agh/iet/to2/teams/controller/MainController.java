@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  * Created by maciek on 21.01.16.
@@ -16,8 +17,6 @@ import java.util.LinkedList;
 public class MainController {
 
     private HashSet<SubController> controllers;
-//    private TeamView teamView;
-//    private ButtonView buttonView;
     private AnchorPane pane;
     private HashMap<String, ComponentView> allViews;
 
@@ -28,11 +27,20 @@ public class MainController {
     }
 
     public ComponentView getView(String viewName) {
-        return allViews.get(viewName);
+        if(allViews.containsKey(viewName)){
+            return allViews.get(viewName);
+        } else {
+            throw new NoSuchElementException("There is no View of name: " + viewName);
+        }
+
     }
 
     public void setView(String viewName, ComponentView view) {
-        allViews.replace(viewName, view);
+        if(allViews.containsKey(viewName)){
+            allViews.replace(viewName, view);
+        } else {
+            throw new NoSuchElementException("There is no View of name: " + viewName);
+        }
     }
 
     public AnchorPane getPane() {

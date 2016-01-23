@@ -14,6 +14,9 @@ public class ButtonView implements ComponentView{
 
     public Button addTeamButton = new Button("Add team.");
     public Button removeTeamButton = new Button("Remove team.");
+    public Button addOrRemovePersonButton = new Button("Add/Remove person");
+    public Button showTeamsButton = new Button("Display teams");
+    public Button tellMaciekJavaIsNotC = new Button("Load object oriented approach into Maciek.c");
 
     public ButtonView(AnchorPane pane){
         this.pane = pane;
@@ -25,7 +28,10 @@ public class ButtonView implements ComponentView{
         pane.getChildren().add(buttonPane);
 
         buttonPane.getChildren().addAll(this.addTeamButton,
-                this.removeTeamButton);
+                this.removeTeamButton,
+                this.addOrRemovePersonButton,
+                this.showTeamsButton,
+                this.tellMaciekJavaIsNotC);
 
     }
 
