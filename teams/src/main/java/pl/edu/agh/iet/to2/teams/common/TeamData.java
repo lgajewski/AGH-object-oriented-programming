@@ -4,7 +4,6 @@ import pl.edu.agh.iet.to2.teams.api.person.Manager;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.db.SqlHelper;
-import pl.edu.agh.iet.to2.teams.model.TeamsTree;
 
 import java.util.HashSet;
 import java.util.List;
@@ -68,22 +67,21 @@ public class TeamData {
     //i have created not implemented method below to you, so that you can continue it
     //~Iz
 
-    public TeamsTree getTeamsTree() throws Exception {
+    public boolean getTeamsTree(TeamsModelManipulator teamsModelManipulator) throws Exception {
         String query1 = "SELECT * FROM Manager WHERE parentManagerId=NULL";
         List<List> rs = SqlHelper.getResultSet(query1, 3);
-        if(rs.size()==0) return null;
+        if(rs.size()==0) return false;
         else if(rs.size()>1) {
             throw new Exception("Check db - there are many roots");
         }
         else {
-            TeamsTree teamsTree = new TeamsTree();
             long id = (long)rs.get(0).get(1);
-            teamsTree.setRoot(createManager(id));
-            return teamsTree;
+            teamsModelManipulator.addTeamManager(0, createManager(teamsModelManipulator, id));
+            return true;
         }
     }
 
-    private TeamManager createManager(long personId) {
+    private TeamManager createManager(TeamsModelManipulator teamsModelManipulator, long personId) {
         String getPerson = "SELECT * FROM Person WHERE personId=" + personId;
         List<List> person =  SqlHelper.getResultSet(getPerson, 4);
         TeamManager tm = new TeamManager(personId, person.get(0).get(1).toString(),person.get(0).get(2).toString() );
@@ -94,22 +92,22 @@ public class TeamData {
         List<List> managerSubordinates = SqlHelper.getResultSet(getManagerSubordinates, 3);
 
         for(List manager : managerSubordinates){
-            TeamManager managerToAdd = createManager((long) manager.get(1));
-            tm.addManager(managerToAdd);
+            TeamManager managerToAdd = createManager(teamsModelManipulator, (long) manager.get(1));
+            teamsModelManipulator.addTeamManager(personId, managerToAdd );
         }
 
         String getTeamSubordinates = "SELECT * FROM Team WHERE managerId=" + managerId;
         List<List> teamSubordinates = SqlHelper.getResultSet(getTeamSubordinates, 3);
 
         for(List team : teamSubordinates){
-            Team teamToAdd = createTeam((long) team.get(0)); //teamId
-            tm.addTeam(teamToAdd);
+            Team teamToAdd = createTeam(teamsModelManipulator, (long) team.get(0));
+            teamsModelManipulator.addTeam(personId, teamToAdd);
         }
 
         return tm;
     }
 
-    private Team createTeam(long l) {
+    private Team createTeam(TeamsModelManipulator teamsModelManipulator, long l) {
         return null;
         //TODO: not implemented
     }
