@@ -13,7 +13,7 @@ public class Team {
     private long id;
     private String name;
     private Members members;
-    private SimpleObjectProperty<TeamManager> manager;
+    //private SimpleObjectProperty<TeamManager> manager;
     private SimpleObjectProperty<TeamProject> project;
 
     private Team(){
@@ -25,18 +25,18 @@ public class Team {
     }
 
     private void setDefaults(){
-        this.manager = new SimpleObjectProperty<TeamManager>();
+       // this.manager = new SimpleObjectProperty<TeamManager>();
         this.members = new Members();
         this.project = new SimpleObjectProperty<TeamProject>();
     }
 
-    public Manager getManager(){
+   /* public Manager getManager(){
         return manager.get();
     }
 
     public void setManager(TeamManager manager){
         this.manager.set(manager);
-    }
+    }*/
 
     public Project getProject() {
         return project.get();
@@ -50,9 +50,9 @@ public class Team {
         return members;
     }
 
-    public SimpleObjectProperty<TeamManager> getManagerProperty(){
+   /* public SimpleObjectProperty<TeamManager> getManagerProperty(){
         return manager;
-    }
+    }*/
 
     public SimpleObjectProperty<TeamProject> getProjectProperty(){
         return project;

@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.to2.teams.api.person;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import pl.edu.agh.iet.to2.teams.api.team.Members;
@@ -14,20 +15,24 @@ import java.util.Set;
 public class TeamManager implements Manager {
 
     private long id;
-    private String name;
-    private String occupation;
-    private Members subordinates;
-    private Manager superior;
+    private SimpleObjectProperty<String> name;
+    private SimpleObjectProperty<String> occupation;
+    //private Members subordinates;
+    //private Manager superior;
 
     private SimpleSetProperty<Team> teams;
     private SimpleSetProperty<Manager> managers;
 
     public TeamManager(long id, String name, String occupation) {
         this.id = id;
-        this.name = name;
-        this.occupation = occupation;
+        this.name = new SimpleObjectProperty<String>(name);
+        this.occupation = new SimpleObjectProperty<String>(occupation);
         teams = new SimpleSetProperty<Team>(FXCollections.observableSet());
         managers = new SimpleSetProperty<Manager>(FXCollections.observableSet());
+    }
+
+    public TeamManager getTeamManager(){
+        return this;
     }
 
     public Set<Manager> getManagers() {
@@ -52,7 +57,7 @@ public class TeamManager implements Manager {
 
     @Override
     public String getName() {
-        return name;
+        return name.get();
     }
 
     @Override
@@ -70,19 +75,27 @@ public class TeamManager implements Manager {
         return null;
     }
 
+    public SimpleObjectProperty<String> getOccupationProperty() {
+        return occupation;
+    }
+
+    public SimpleObjectProperty<String> getNameProperty() {
+        return name;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
-    public void setOccupation(String position) {
-        this.occupation = position;
+    public void setOccupation(String occupation) {
+        this.occupation.set(occupation);
     }
 
-    public Members getSubordinates() {
+   /* public Members getSubordinates() {
         return subordinates;
     }
 
@@ -96,7 +109,7 @@ public class TeamManager implements Manager {
 
     public void setSuperior(Manager superior) {
         this.superior = superior;
-    }
+    }*/
 
 
 

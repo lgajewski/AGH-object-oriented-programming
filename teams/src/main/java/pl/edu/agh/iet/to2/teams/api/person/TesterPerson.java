@@ -1,12 +1,14 @@
 package pl.edu.agh.iet.to2.teams.api.person;
 
+import javafx.beans.property.SimpleObjectProperty;
+
 import java.math.BigDecimal;
 
 public class TesterPerson implements Member {
 
 	private long personID;
-	private String name;
-	private String occupation;
+	private SimpleObjectProperty<String> name;
+	private SimpleObjectProperty<String> occupation;
 
 	
 	public TesterPerson(long ID, String name){
@@ -14,8 +16,8 @@ public class TesterPerson implements Member {
 			throw new NullPointerException();
 		
 		this.personID = ID;
-		this.name = name;
-		this.occupation = null;
+		this.name = new SimpleObjectProperty<String>(name);
+		this.occupation = new SimpleObjectProperty<String>(null);
 	}
 	
 	public TesterPerson(long ID, String name, String position){
@@ -23,18 +25,18 @@ public class TesterPerson implements Member {
 			throw new NullPointerException();
 		
 		this.personID = ID;
-		this.name = name;
-		this.name = position;
+		this.name.set(name);
+		this.occupation.set(position);
 	}
 	
 	@Override
 	public long getId() {
-		return personID;
+		return this.personID;
 	}
 
 	@Override
 	public String getName() {
-		return this.name;
+		return this.name.get();
 	}
 
 	@Override
@@ -44,12 +46,28 @@ public class TesterPerson implements Member {
 
 	@Override
 	public String getOccupation() {
-		return null;
+		return this.occupation.get();
 	}
 
 	@Override
 	public BigDecimal getSalary() {
 		return null;
+	}
+
+	public SimpleObjectProperty<String> getOccupationProperty() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation.set(occupation);
+	}
+
+	public SimpleObjectProperty<String> getNameProperty() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name.set(name);
 	}
 
     public String toString(){

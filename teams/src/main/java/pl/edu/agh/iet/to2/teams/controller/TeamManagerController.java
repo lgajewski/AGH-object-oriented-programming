@@ -2,19 +2,27 @@ package pl.edu.agh.iet.to2.teams.controller;
 
 import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
-import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
 
 /*
  /* Created by maciek on 20.01.16.
 /**/
 
-public class TeamManagerController implements Controller{
+public class TeamManagerController implements SubController {
 
+    private int childHashcode;
     private TeamManager manager;
     private AnchorPane pane;
     private TeamView view;
 
+
+    public int getChildHashcode() {
+        return childHashcode;
+    }
+
+    public void setChildHashcode(int childHashcode) {
+        this.childHashcode = childHashcode;
+    }
 
     public TeamView getView() {
         return view;
@@ -73,6 +81,7 @@ public class TeamManagerController implements Controller{
     private TeamManagerController(TeamManager manager, AnchorPane pane, TeamView view){
         this.pane = pane;
         this.manager = manager;
+        this.childHashcode = manager.hashCode();
         this.view = view;
     }
 

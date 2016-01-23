@@ -37,9 +37,9 @@ public class TeamView {
 
     }
 
-    public void redrawTeam(TreeItem<CustomTreeObject> item, int oldHashcode, Team team)
+    public void redrawTeam(TreeItem<CustomTreeObject> item, int hashcode, Team team)
     {
-        if(item.getValue().getHashcode() == oldHashcode){
+        if(item.getValue().getHashcode() == hashcode){
             item.getChildren().clear();
             for(Person p : team.getMembers().getMembers())
             {
@@ -49,13 +49,13 @@ public class TeamView {
         }
 
         for(TreeItem<CustomTreeObject> i : item.getChildren()){
-           redrawTeam(i, oldHashcode, team);
+           redrawTeam(i, hashcode, team);
         }
     }
 
-    public void redrawManager(TreeItem<CustomTreeObject> item, int oldHashcode, TeamManager manager)
+    public void redrawManager(TreeItem<CustomTreeObject> item, int hashcode, TeamManager manager)
     {
-        if(item.getValue().getHashcode() == oldHashcode){
+        if(item.getValue().getHashcode() == hashcode){
             item.getChildren().clear();
             for(Manager m : manager.getManagers())
             {
@@ -69,12 +69,12 @@ public class TeamView {
         }
 
         for(TreeItem<CustomTreeObject> i : item.getChildren()){
-            redrawManager(i, oldHashcode, manager);
+            redrawManager(i, hashcode, manager);
         }
     }
 
 
-    public void changeNode(TreeItem<CustomTreeObject> item, int oldHashcode, int newHashcode, String content){
+    /*public void changeNode(TreeItem<CustomTreeObject> item, int oldHashcode, int newHashcode, String content){
         if(item.getValue().getHashcode() == oldHashcode){
             item.getValue().setHashcode(newHashcode);
             item.getValue().setContent(content);
@@ -116,7 +116,7 @@ public class TeamView {
         for(TreeItem<CustomTreeObject> i : item.getChildren()){
             removeNode(i, item, hashcode);
         }
-    }
+    }*/
 
 
 
