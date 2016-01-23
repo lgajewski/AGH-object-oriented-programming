@@ -1,6 +1,7 @@
 package pl.edu.agh.iet.to2.teams.common;
 
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import pl.edu.agh.iet.to2.teams.api.person.TesterPerson;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.db.SqlHelper;
 
@@ -62,7 +63,7 @@ public class TeamData {
         teamsModelManipulator.addTeam(parentId, team);
 
         String members = "SELECT * FROM Member WHERE teamId="+teamId;
-        List<List> membersList = SqlHelper.getResultSet(getTeam, 3);
+        List<List> membersList = SqlHelper.getResultSet(members, 3);
 
         for( List member : membersList){
             createMember(teamsModelManipulator, teamId, (long) member.get(1));
@@ -70,7 +71,12 @@ public class TeamData {
     }
 
     private void createMember(TeamsModelManipulator teamsModelManipulator, long teamId, long personId) {
-        //String getMember = "SELECT * FROM "
+        String getMember = "SELECT * FROM Person WHERE personId="+personId;
+        List<List> members = SqlHelper.getResultSet(getMember, 3);
+
+        TesterPerson testerPerson = new TesterPerson((long) members.get(0).get(0), members.get(0).get(1).toString(), members.get(0).get(2).toString());
+
+        teamsModelManipulator.addMember(teamId,testerPerson );
     }
 
     //najpierw managerow
