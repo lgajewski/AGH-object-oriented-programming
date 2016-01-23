@@ -128,12 +128,40 @@ public class TeamManager implements Manager {
         teams.remove(t);
     }
 
+    public void removeTeam(long id){
+        for(Team t : this.getTeams()){
+            if(t.getId() == id)
+                this.teams.remove(t);
+        }
+    }
+
+    public void removeTeamByHashcode(int hashcode){
+        for(Team t : this.getTeams()){
+            if(t.hashCode() == hashcode)
+                this.teams.remove(t);
+        }
+    }
+
     public void addManager(TeamManager m) {
         managers.add(m);
     }
 
     public void removeManager(TeamManager m){
         managers.remove(m);
+    }
+
+    public void removeManager(long id){
+        for(Manager m : this.getManagers()){
+            if(m.getId() == id)
+                this.managers.remove(m);
+        }
+    }
+
+    public void removeManagerByHashcode(int hashcode){
+        for(Manager m : this.getManagers()){
+            if(m.hashCode() == hashcode)
+                this.managers.remove(m);
+        }
     }
 
     public String toString(){

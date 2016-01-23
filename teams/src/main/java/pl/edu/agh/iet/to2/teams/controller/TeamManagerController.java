@@ -11,10 +11,19 @@ import pl.edu.agh.iet.to2.teams.view.TeamView;
 public class TeamManagerController implements SubController {
 
     private int childHashcode;
+    private long childId;
     private TeamManager manager;
     private AnchorPane pane;
     private TeamView view;
 
+
+    public long getChildId() {
+        return childId;
+    }
+
+    public void setChildId(long childId) {
+        this.childId = childId;
+    }
 
     public int getChildHashcode() {
         return childHashcode;

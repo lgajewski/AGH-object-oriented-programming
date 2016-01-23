@@ -36,14 +36,14 @@ public class TeamsTree {
             return true;
     }
 
-    public TeamManager findTeamManager(int id){
+    public TeamManager findTeamManager(long id){
         if(this.rootExists())
             return innerFindTeamManager(id, this.getRoot());
         else
             return null;
     }
 
-    private TeamManager innerFindTeamManager(int id, TeamManager node) {
+    private TeamManager innerFindTeamManager(long id, TeamManager node) {
         TeamManager result = null;
 
         if(node == null)
@@ -88,14 +88,14 @@ public class TeamsTree {
         }
     }
 
-    public Team findTeam(int id){
+    public Team findTeam(long id){
         if(this.rootExists())
             return innerFindTeam(id, this.getRoot());
         else
             return null;
     }
 
-    private Team innerFindTeam(int id, TeamManager node){
+    private Team innerFindTeam(long id, TeamManager node){
         Team result = null;
 
         if(node == null)
@@ -139,6 +139,114 @@ public class TeamsTree {
                             return result;
                     }
                 }
+            }
+            return result;
+        }
+    }
+
+    public TeamManager findManagerOfTeam(long id){
+        if(this.rootExists())
+            return innerFindManagerOfTeam(id, this.getRoot());
+        else
+            return null;
+    }
+
+    private TeamManager innerFindManagerOfTeam(long id, TeamManager node){
+        TeamManager result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Team t : node.getTeams()){
+                if(t.getId() == id){
+                    return node;
+                }
+            }
+            for(Manager tm : node.getManagers()){
+                result = innerFindManagerOfTeam(id, tm.getTeamManager());
+                if(result != null)
+                    return result;
+            }
+            return result;
+        }
+    }
+
+    public TeamManager findManagerOfTeamByHashcode(int hashcode){
+        if(this.rootExists())
+            return innerFindManagerOfTeamByHashcode(hashcode, this.getRoot());
+        else
+            return null;
+    }
+
+    private TeamManager innerFindManagerOfTeamByHashcode(int hashcode, TeamManager node){
+        TeamManager result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Team t : node.getTeams()){
+                if(t.hashCode() == hashcode){
+                    return node;
+                }
+            }
+            for(Manager tm : node.getManagers()){
+                result = innerFindManagerOfTeamByHashcode(hashcode, tm.getTeamManager());
+                if(result != null)
+                    return result;
+            }
+            return result;
+        }
+    }
+
+    public TeamManager findSuperiorOfManager(long id){
+        if(this.rootExists())
+            return innerFindSuperiorOfManager(id, this.getRoot());
+        else
+            return null;
+    }
+
+    private TeamManager innerFindSuperiorOfManager(long id, TeamManager node){
+        TeamManager result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Manager m : node.getManagers()){
+                if(m.getId() == id){
+                    return node;
+                }
+            }
+            for(Manager tm : node.getManagers()){
+                result = innerFindSuperiorOfManager(id, tm.getTeamManager());
+                if(result != null)
+                    return result;
+            }
+            return result;
+        }
+    }
+
+    public TeamManager findSuperiorOfManagerByHashcode(int hashcode){
+        if(this.rootExists())
+            return innerFindSuperiorOfManagerByHashcode(hashcode, this.getRoot());
+        else
+            return null;
+    }
+
+    private TeamManager innerFindSuperiorOfManagerByHashcode(int hashcode, TeamManager node){
+        TeamManager result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Manager m : node.getManagers()){
+                if(m.hashCode() == hashcode){
+                    return node;
+                }
+            }
+            for(Manager tm : node.getManagers()){
+                result = innerFindSuperiorOfManagerByHashcode(hashcode, tm.getTeamManager());
+                if(result != null)
+                    return result;
             }
             return result;
         }

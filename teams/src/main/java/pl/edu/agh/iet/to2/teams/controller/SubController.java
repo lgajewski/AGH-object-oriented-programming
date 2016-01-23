@@ -12,5 +12,6 @@ public interface SubController {
     void initialize();
     void setView(TeamView view);
     int getChildHashcode();
+    long getChildId();
 
 }

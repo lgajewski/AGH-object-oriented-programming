@@ -53,7 +53,7 @@ public class MainController {
         controllers.remove(controller);
     }
 
-    public void removeController(int childHashcode){
+    public void removeControllerByHashcode(int childHashcode){
         for(SubController sc : controllers){
             if(sc.getChildHashcode() == childHashcode)
                 controllers.remove(sc);

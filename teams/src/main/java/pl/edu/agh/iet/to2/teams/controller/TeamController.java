@@ -10,6 +10,7 @@ import pl.edu.agh.iet.to2.teams.view.TeamView;
 public class TeamController implements SubController {
 
     private int childHashcode;
+    private long childId;
     private Team team;
     private AnchorPane pane;
     private TeamView view;
@@ -21,6 +22,14 @@ public class TeamController implements SubController {
 
     public void setChildHashcode(int childHashcode) {
         this.childHashcode = childHashcode;
+    }
+
+    public long getChildId() {
+        return childId;
+    }
+
+    public void setChildId(long childId) {
+        this.childId = childId;
     }
 
     public TeamView getView() {
@@ -69,6 +78,7 @@ public class TeamController implements SubController {
         this.pane = pane;
         this.team = team;
         this.childHashcode = team.hashCode();
+        this.childId = team.getId();
         this.view = view;
     }
 

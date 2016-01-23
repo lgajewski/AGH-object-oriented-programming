@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.to2.teams.common;
 
+import pl.edu.agh.iet.to2.teams.api.person.Manager;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.controller.MainController;
@@ -20,7 +21,7 @@ public class TeamsModelManipulator {
         this.mainController = mainController;
     }
 
-    public boolean addTeam(int parentId, Team team)
+    public boolean addTeam(long parentId, Team team)
     // parentId = 0 for root
     // if adding team succeeded, returns true
     // if there is no root in teamsTree, returns false
@@ -39,9 +40,8 @@ public class TeamsModelManipulator {
         }
 
         if(teamsTree.rootExists()){
-            if(parent == null){
+            if(parent == null)
                 return false;
-            }
             else{
                 mainController.addController(TeamController.createControllerOn(team, mainController.getPane(), mainController.getTeamView()));
                 //team.setManager(parent);
@@ -53,28 +53,27 @@ public class TeamsModelManipulator {
             return false;
     }
 
-   /* public void removeTeam(int id){
-        Team team = teamsTree.findTeam(id);
-        if(team != null){
-            team.getManager().getTeamManager().getTeams().clear();
-            team.setManager(null);
-        }
+    public void removeTeam(long id){
+        TeamManager teamManager = teamsTree.findManagerOfTeam(id);
+        if(teamManager != null)
+            for(Team t : teamManager.getTeams())
+                if(t.getId() == id){
+                    mainController.removeControllerByHashcode(t.hashCode());
+                    teamManager.removeTeam(id);
+                }
     }
 
     public void removeTeamByHashcode(int hashcode){
-        Team team = teamsTree.findTeamByHashcode(hashcode);
-        if(team != null){
-            team.getManager().getTeamManager().getTeams().clear();
-            team.setManager(null);
+        TeamManager teamManager = teamsTree.findManagerOfTeamByHashcode(hashcode);
+        if(teamManager != null){
+            mainController.removeControllerByHashcode(hashcode);
+            teamManager.removeTeamByHashcode(hashcode);
         }
     }
 
     public void removeTeam(Team team){
-        if(team != null){
-            team.getManager().getTeamManager().getTeams().clear();
-            team.setManager(null);
-        }
-    }*/
+        this.removeTeamByHashcode(team.hashCode());
+    }
 
     public boolean addTeamManager(int parentId, TeamManager teamManager)
     // parentId = 0 for root
@@ -108,6 +107,28 @@ public class TeamsModelManipulator {
                 return true;
             }
         }
+    }
+
+    public void removeTeamManager(long id){
+        TeamManager teamManager = teamsTree.findSuperiorOfManager(id);
+        if(teamManager != null)
+            for(Manager m : teamManager.getManagers())
+                if(m.getId() == id){
+                    mainController.removeControllerByHashcode(m.hashCode());
+                    teamManager.removeManager(id);
+                }
+    }
+
+    public void removeTeamManagerByHashcode(int hashcode){
+        TeamManager teamManager = teamsTree.findSuperiorOfManagerByHashcode(hashcode);
+        if(teamManager != null){
+            mainController.removeControllerByHashcode(hashcode);
+            teamManager.removeManagerByHashcode(hashcode);
+        }
+    }
+
+    public void removeTeamManager(TeamManager teamManager){
+        this.removeTeamManagerByHashcode(teamManager.hashCode());
     }
 
 }
