@@ -1,11 +1,11 @@
 package pl.edu.agh.iet.to2.teams.common;
 
-import pl.edu.agh.iet.to2.teams.api.person.Manager;
-import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import pl.edu.agh.iet.to2.teams.api.person.*;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.controller.MainController;
 import pl.edu.agh.iet.to2.teams.controller.TeamController;
 import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
+import pl.edu.agh.iet.to2.teams.controller.TesterPersonController;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
 
 /**
@@ -66,6 +66,7 @@ public class TeamsModelManipulator {
 
     public boolean addTeamManager(long parentId, TeamManager teamManager)
     // parentId = 0 for root
+    // if root exists and parentId == 0, returns false
     // if adding team manager succeeded, returns true
     // if there is no node with parentId, returns false
     {
@@ -73,10 +74,9 @@ public class TeamsModelManipulator {
 
         if(parentId == 0){
             if(teamsTree.rootExists()) {
-                //parent = teamsTree.getRoot();
-                mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
-                teamsTree.setRoot(teamManager); // new root
-                return true;
+                /*mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
+                teamsTree.setRoot(teamManager); // new root*/
+                return false;
             }
             else{
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
@@ -118,6 +118,17 @@ public class TeamsModelManipulator {
 
     public void removeTeamManager(TeamManager teamManager){
         this.removeTeamManagerByHashcode(teamManager.hashCode());
+    }
+
+    public boolean addMember(long teamId, TesterPerson testerPerson){
+        Team team = teamsTree.findTeam(teamId);
+        if(team != null){
+            mainController.addController(TesterPersonController.createControllerOn(testerPerson, mainController.getPane(), mainController.getTeamView()));
+            team.getMembers().add(testerPerson);
+            return true;
+        }
+        else
+            return false;
     }
 
 }
