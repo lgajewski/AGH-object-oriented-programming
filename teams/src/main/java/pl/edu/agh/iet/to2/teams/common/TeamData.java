@@ -1,13 +1,14 @@
 package pl.edu.agh.iet.to2.teams.common;
 
 import pl.edu.agh.iet.to2.teams.api.person.Manager;
+import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.db.SqlHelper;
+import pl.edu.agh.iet.to2.teams.model.TeamsTree;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 
 public class TeamData {
     Set<Team> teams;
@@ -51,7 +52,6 @@ public class TeamData {
 
         // obtain ids
         for(List row : rs){
-
             manager = new DBManager((long)row.get(1), //personId
                     (long)row.get(2));//parentManagerId
             managers.add(manager);
@@ -61,16 +61,59 @@ public class TeamData {
 
 
         return null;
-
     }
 
-    public TreeMap getAllTeams(){
-        TreeMap k = new TreeMap();
+    //all that matters is below
+    //you can use methods which are over this, but please continue my tree below and after that delete all trashes
+    //i have created not implemented method below to you, so that you can continue it
+    //~Iz
 
+    public TeamsTree getTeamsTree() throws Exception {
+        String query1 = "SELECT * FROM Manager WHERE parentManagerId=NULL";
+        List<List> rs = SqlHelper.getResultSet(query1, 3);
+        if(rs.size()==0) return null;
+        else if(rs.size()>1) {
+            throw new Exception("Check db - there are many roots");
+        }
+        else {
+            TeamsTree teamsTree = new TeamsTree();
+            long id = (long)rs.get(0).get(1);
+            teamsTree.setRoot(createManager(id));
+            return teamsTree;
+        }
+    }
 
+    private TeamManager createManager(long personId) {
+        String getPerson = "SELECT * FROM Person WHERE personId=" + personId;
+        List<List> person =  SqlHelper.getResultSet(getPerson, 4);
+        TeamManager tm = new TeamManager(personId, person.get(0).get(1).toString(),person.get(0).get(2).toString() );
 
+        String getManagerSubordinates = "SELECT * FROM Manager WHERE parentManagerId=" + personId;
+        List<List> managerSubordinates = SqlHelper.getResultSet(getManagerSubordinates, 3);
 
+        for(List manager : managerSubordinates){
+            TeamManager managerToAdd = createManager((long) manager.get(1));
+            tm.addManager(managerToAdd);
+        }
+
+        String getTeamSubordinates = "SELECT * FROM Team WHERE managerId=" + personId;
+        List<List> teamSubordinates = SqlHelper.getResultSet(getTeamSubordinates, 3);
+
+        for(List team : teamSubordinates){
+            Team teamToAdd = createTeam((long) team.get(0)); //teamId
+            tm.addTeam(teamToAdd);
+        }
+
+        return tm;
+    }
+
+    private Team createTeam(long l) {
         return null;
+        //TODO: not implemented
     }
+
+    //najpierw managerow
+    //potem po kolei po nich (przechodzenie po drzewie)
+    //i do samego dołu
 
 }
