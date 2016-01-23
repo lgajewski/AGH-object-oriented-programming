@@ -1,6 +1,7 @@
 package pl.edu.agh.iet.to2.teams.model;
 
 import pl.edu.agh.iet.to2.teams.api.person.Manager;
+import pl.edu.agh.iet.to2.teams.api.person.Member;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 
@@ -270,6 +271,122 @@ public class TeamsTree {
             }
             for(Manager tm : node.getManagers()){
                 result = innerFindSuperiorOfManagerByHashcode(hashcode, tm.getTeamManager());
+                if(result != null)
+                    return result;
+            }
+            return result;
+        }
+    }
+
+    public Member findMember(long id){
+        if(this.rootExists())
+            return innerFindMember(id, this.getRoot());
+        else
+            return null;
+    }
+
+    private Member innerFindMember(long id, TeamManager node){
+        Member result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Team t : node.getTeams()){
+                for(Member p : t.getMembers()){
+                    if(p.getId() == id)
+                        return p;
+                }
+            }
+
+            for(Manager tm : node.getManagers()){
+                result = innerFindMember(id, tm.getTeamManager());
+                if(result != null)
+                    return result;
+            }
+            return result;
+        }
+    }
+
+    public Member findMemberByHashcode(int hashcode){
+        if(this.rootExists())
+            return innerFindMemberByHashcode(hashcode, this.getRoot());
+        else
+            return null;
+    }
+
+    private Member innerFindMemberByHashcode(int hashcode, TeamManager node){
+        Member result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Team t : node.getTeams()){
+                for(Member p : t.getMembers()){
+                    if(p.hashCode() == hashcode)
+                        return p;
+                }
+            }
+
+            for(Manager tm : node.getManagers()){
+                result = innerFindMemberByHashcode(hashcode, tm.getTeamManager());
+                if(result != null)
+                    return result;
+            }
+            return result;
+        }
+    }
+
+    public Team findTeamOfMember(long id){
+        if(this.rootExists())
+            return innerFindTeamOfMember(id, this.getRoot());
+        else
+            return null;
+    }
+
+    private Team innerFindTeamOfMember(long id, TeamManager node){
+        Team result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Team t : node.getTeams()){
+                for(Member p : t.getMembers()){
+                    if(p.getId() == id)
+                        return t;
+                }
+            }
+
+            for(Manager tm : node.getManagers()){
+                result = innerFindTeamOfMember(id, tm.getTeamManager());
+                if(result != null)
+                    return result;
+            }
+            return result;
+        }
+    }
+
+    public Team findTeamOfMemberByHashcode(int hashcode){
+        if(this.rootExists())
+            return innerFindTeamOfMemberByHashcode(hashcode, this.getRoot());
+        else
+            return null;
+    }
+
+    private Team innerFindTeamOfMemberByHashcode(int hashcode, TeamManager node){
+        Team result = null;
+
+        if(node == null)
+            return null;
+        else{
+            for(Team t : node.getTeams()){
+                for(Member p : t.getMembers()){
+                    if(p.hashCode() == hashcode)
+                        return t;
+                }
+            }
+
+            for(Manager tm : node.getManagers()){
+                result = innerFindTeamOfMemberByHashcode(hashcode, tm.getTeamManager());
                 if(result != null)
                     return result;
             }

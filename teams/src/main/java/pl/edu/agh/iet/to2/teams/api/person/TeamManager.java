@@ -94,30 +94,6 @@ public class TeamManager implements Manager {
         this.occupation.set(occupation);
     }
 
-   /* public Members getSubordinates() {
-        return subordinates;
-    }
-
-    public void setSubordinates(Members subordinates) {
-        this.subordinates = subordinates;
-    }
-
-    public Manager getSuperior() {
-        return superior;
-    }
-
-    public void setSuperior(Manager superior) {
-        this.superior = superior;
-    }*/
-
-
-
-
-    /**
-     operations on teams added here
-     would be better to move them outside the class
-     but "meh" for now
-     */
 
     public void addTeam(Team t){
         teams.add(t);

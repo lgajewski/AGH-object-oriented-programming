@@ -84,6 +84,7 @@ public class TeamsTabInitializer implements TabInitializer {
         TeamManager manager0 = new TeamManager(4, "Manager0", "manager");
         manipulator.addTeamManager(boss.getId(), manager0);
 
+        manipulator.removeMember(2);
 
         return pane;
     }

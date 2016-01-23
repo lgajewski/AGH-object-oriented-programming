@@ -136,4 +136,27 @@ public class TeamsModelManipulator {
             return false;
     }
 
+    public void removeMember(long id){
+        Team team = teamsTree.findTeamOfMember(id);
+        if(team != null) {
+            for (Member m : team.getMembers())
+                if (m.getId() == id) {
+                    mainController.removeControllerByHashcode(m.hashCode());
+                    team.remove(id);
+                }
+        }
+    }
+
+    public void removeMemberByHashcode(int hashcode){
+        Team team = teamsTree.findTeamOfMemberByHashcode(hashcode);
+        if(team != null) {
+            mainController.removeControllerByHashcode(hashcode);
+            team.removeByHashcode(hashcode);
+        }
+    }
+
+    public void removeMember(Member member){
+        this.removeMemberByHashcode(member.hashCode());
+    }
+
 }
