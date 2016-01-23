@@ -14,7 +14,7 @@ public class ButtonController implements SubController{
 
     @Override
     public void initialize() {
-        view.initialize();
+//        view.initialize();
     }
 
     @Override

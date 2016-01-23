@@ -65,7 +65,7 @@ public class TeamController implements SubController {
       /*  team.getManagerProperty().addListener((o, oldVal, newVal) -> {
 
         });*/
-        view.initialize();
+//        view.initialize();
 
         team.getProjectProperty().addListener((o, oldVal, newVal) -> {
 
