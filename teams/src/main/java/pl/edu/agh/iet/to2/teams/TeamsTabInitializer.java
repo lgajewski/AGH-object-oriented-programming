@@ -13,6 +13,7 @@ import pl.edu.agh.iet.to2.app.TabInitializer;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.person.TesterPerson;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
+import pl.edu.agh.iet.to2.teams.common.TeamData;
 import pl.edu.agh.iet.to2.teams.common.TeamsModelManipulator;
 import pl.edu.agh.iet.to2.teams.controller.MainController;
 import pl.edu.agh.iet.to2.teams.controller.TeamController;
@@ -29,13 +30,13 @@ import java.util.LinkedList;
 
 public class TeamsTabInitializer implements TabInitializer {
 
-  //  TeamManagerController controller;
     public AnchorPane pane;
     public MainController mainController;
     public TeamsModelManipulator manipulator;
     public TeamsTree teamsTree;
     public TeamView teamView;
     public ButtonView buttonView;
+    public TeamData database;
 
     @Override
     public Pane initialize(Presenter presenter, ModuleManager moduleManager) throws IOException {
@@ -52,7 +53,9 @@ public class TeamsTabInitializer implements TabInitializer {
         mainController = new MainController(allViews, this.pane);
         teamsTree = new TeamsTree();
 
-        manipulator = new TeamsModelManipulator(teamsTree, mainController, (TeamView) allViews.get("TeamView"));
+        manipulator = new TeamsModelManipulator(teamsTree, mainController, (TeamView) allViews.get("TeamView"), null);
+        database = new TeamData(manipulator);
+        manipulator.setDatabase(database);
 
        // manipulator.addTeam(this.teamsTree.find())
 

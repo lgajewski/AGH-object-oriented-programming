@@ -17,11 +17,17 @@ public class TeamsModelManipulator {
     private TeamsTree teamsTree;
     private MainController mainController;
     private TeamView view;
+    private TeamData database;
 
-    public TeamsModelManipulator(TeamsTree teamsTree, MainController mainController, TeamView view){
+    public TeamsModelManipulator(TeamsTree teamsTree, MainController mainController, TeamView view, TeamData database){
         this.teamsTree = teamsTree;
         this.mainController = mainController;
         this.view = view;
+        this.database = database;
+    }
+
+    public void setDatabase(TeamData database){
+        this.database = database;
     }
 
     public boolean addTeam(long parentId, Team team)
@@ -38,6 +44,7 @@ public class TeamsModelManipulator {
                 mainController.addController(TeamController.createControllerOn(team, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
                 //team.setManager(parent);
                 parent.addTeam(team);
+                database.addEmptyTeam(team.getName(), parentId);
                 return true;
             }
         }
@@ -84,6 +91,7 @@ public class TeamsModelManipulator {
             else{
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
                 teamsTree.setRoot(teamManager);
+                database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), 0);
                 view.redrawRoot(teamManager);
                 return true;
             }
@@ -97,6 +105,7 @@ public class TeamsModelManipulator {
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(),(TeamView) mainController.getView("TeamView")));
               //  teamManager.setSuperior(parent);
                 parent.addManager(teamManager);
+                database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), parentId);
                 return true;
             }
         }
@@ -130,6 +139,7 @@ public class TeamsModelManipulator {
         if(team != null){
             mainController.addController(TesterPersonController.createControllerOn(testerPerson, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
             team.add(testerPerson);
+            database.addMember(testerPerson.getName(), testerPerson.getOccupation(), teamId);
             return true;
         }
         else
