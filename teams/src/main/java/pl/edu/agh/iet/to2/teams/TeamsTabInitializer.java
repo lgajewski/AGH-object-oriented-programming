@@ -18,6 +18,7 @@ import pl.edu.agh.iet.to2.teams.controller.MainController;
 import pl.edu.agh.iet.to2.teams.controller.TeamController;
 import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
+import pl.edu.agh.iet.to2.teams.view.ButtonView;
 import pl.edu.agh.iet.to2.teams.view.CustomTreeObject;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
 
@@ -31,18 +32,22 @@ public class TeamsTabInitializer implements TabInitializer {
     public MainController mainController;
     public TeamsModelManipulator manipulator;
     public TeamsTree teamsTree;
-    public TeamView view;
+    public TeamView teamView;
+    public ButtonView buttonView;
 
     @Override
     public Pane initialize(Presenter presenter, ModuleManager moduleManager) throws IOException {
 
         this.pane = new AnchorPane();
-        this.view = new TeamView(pane);
-        this.view.initialize();
+        this.teamView = new TeamView(pane);
+        this.teamView.initialize();
 
-        mainController = new MainController(this.view, this.pane);
+        this.buttonView = new ButtonView(pane);
+        this.buttonView.initialize();
+
+        mainController = new MainController(this.teamView, this.pane);
         teamsTree = new TeamsTree();
-        manipulator = new TeamsModelManipulator(teamsTree, mainController, view);
+        manipulator = new TeamsModelManipulator(teamsTree, mainController, this.teamView);
 
        // manipulator.addTeam(this.teamsTree.find())
 
