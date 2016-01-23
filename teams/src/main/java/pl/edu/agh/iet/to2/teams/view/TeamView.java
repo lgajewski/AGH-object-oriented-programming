@@ -1,6 +1,7 @@
 package pl.edu.agh.iet.to2.teams.view;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;

@@ -1,10 +1,8 @@
 package pl.edu.agh.iet.to2.teams;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import pl.edu.agh.iet.to2.app.ModuleManager;
@@ -18,29 +16,34 @@ import pl.edu.agh.iet.to2.teams.controller.MainController;
 import pl.edu.agh.iet.to2.teams.controller.TeamController;
 import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
+import pl.edu.agh.iet.to2.teams.view.ButtonView;
 import pl.edu.agh.iet.to2.teams.view.CustomTreeObject;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class TeamsTabInitializer implements TabInitializer {
 
   //  TeamManagerController controller;
     public AnchorPane pane;
+
     public MainController mainController;
     public TeamsModelManipulator manipulator;
     public TeamsTree teamsTree;
-    TeamView view;
+    public TeamView teamView;
+    public ButtonView buttonView;
 
     @Override
     public Pane initialize(Presenter presenter, ModuleManager moduleManager) throws IOException {
-
         this.pane = new AnchorPane();
-        this.view = new TeamView(pane);
-        this.view.initialize();
 
-        mainController = new MainController(this.view, this.pane);
+        this.teamView = new TeamView(pane);
+        this.teamView.initialize();
+
+        this.buttonView = new ButtonView(pane);
+        this.buttonView.initialize();
+
+        mainController = new MainController(this.teamView, this.pane);
         teamsTree = new TeamsTree();
         manipulator = new TeamsModelManipulator(teamsTree, mainController);
 
@@ -63,12 +66,12 @@ public class TeamsTabInitializer implements TabInitializer {
 
         TeamManager Boss = new TeamManager(0, "Jan Kowalski", "CEO");
         manipulator.addTeamManager(0, Boss);
-        this.view.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(Boss.hashCode(), Boss.toString())));
+        this.teamView.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(Boss.hashCode(), Boss.toString())));
 
         //mainController.addController(TeamManagerController.createControllerOn(Boss, pane, this.view));
 
         Team RootTeam = Team.createTeam(0);
-        mainController.addController(TeamController.createControllerOn(RootTeam, pane, this.view));
+        mainController.addController(TeamController.createControllerOn(RootTeam, pane, this.teamView));
         Boss.addTeam(RootTeam);
 
         TesterPerson mac1 = new TesterPerson(1, "Maciek0");
@@ -76,7 +79,7 @@ public class TeamsTabInitializer implements TabInitializer {
         RootTeam.getMembers().add(new TesterPerson(2, "Maciek1"));
 
         TeamManager man1 = new TeamManager(3, "Manager0", "asd");
-        mainController.addController(TeamManagerController.createControllerOn(man1, pane, this.view));
+        mainController.addController(TeamManagerController.createControllerOn(man1, pane, this.teamView));
         Boss.addManager(man1);
 
         RootTeam.getMembers().remove(mac1);
