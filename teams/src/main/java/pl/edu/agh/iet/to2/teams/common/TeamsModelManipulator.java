@@ -22,22 +22,11 @@ public class TeamsModelManipulator {
     }
 
     public boolean addTeam(long parentId, Team team)
-    // parentId = 0 for root
     // if adding team succeeded, returns true
     // if there is no root in teamsTree, returns false
     // if there is no node with parentId, returns false
     {
-        TeamManager parent = null;
-
-        if(parentId == 0){
-            if(teamsTree.rootExists())
-                parent = teamsTree.getRoot();
-            else
-                parent = null;
-        }
-        else{
-            parent = teamsTree.findTeamManager(parentId);
-        }
+        TeamManager parent = teamsTree.findTeamManager(parentId);
 
         if(teamsTree.rootExists()){
             if(parent == null)
