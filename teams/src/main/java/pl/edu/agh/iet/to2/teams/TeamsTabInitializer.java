@@ -1,8 +1,10 @@
 package pl.edu.agh.iet.to2.teams;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import pl.edu.agh.iet.to2.app.ModuleManager;
@@ -16,10 +18,10 @@ import pl.edu.agh.iet.to2.teams.controller.MainController;
 import pl.edu.agh.iet.to2.teams.controller.TeamController;
 import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
-import pl.edu.agh.iet.to2.teams.view.ButtonView;
 import pl.edu.agh.iet.to2.teams.view.CustomTreeObject;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class TeamsTabInitializer implements TabInitializer {
@@ -64,25 +66,23 @@ public class TeamsTabInitializer implements TabInitializer {
         pane.getChildren().add(vbox);*/
 
 
-        TeamManager Boss = new TeamManager(0, "Jan Kowalski", "CEO");
-        manipulator.addTeamManager(0, Boss);
-        this.teamView.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(Boss.hashCode(), Boss.toString())));
+        TeamManager boss = new TeamManager(0, "Jan Kowalski", "CEO");
+        manipulator.addTeamManager(0, boss);
+        this.view.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(boss.hashCode(), boss.toString())));
 
         //mainController.addController(TeamManagerController.createControllerOn(Boss, pane, this.view));
 
-        Team RootTeam = Team.createTeam(0);
-        mainController.addController(TeamController.createControllerOn(RootTeam, pane, this.teamView));
-        Boss.addTeam(RootTeam);
+        Team team0 = Team.createTeam(0);
+        manipulator.addTeam(boss.getId(), team0);
 
         TesterPerson mac1 = new TesterPerson(1, "Maciek0");
-        RootTeam.getMembers().add(mac1);
-        RootTeam.getMembers().add(new TesterPerson(2, "Maciek1"));
+        manipulator.addMember(team0.getId(), mac1);
+        manipulator.addMember(team0.getId(), new TesterPerson(2, "Maciek1"));
 
-        TeamManager man1 = new TeamManager(3, "Manager0", "asd");
-        mainController.addController(TeamManagerController.createControllerOn(man1, pane, this.teamView));
-        Boss.addManager(man1);
+        TeamManager manager0 = new TeamManager(3, "Manager0", "asd");
+        manipulator.addTeamManager(boss.getId(), manager0);
 
-        RootTeam.getMembers().remove(mac1);
+        //RootTeam.getMembers().remove(mac1);
 
         return pane;
     }

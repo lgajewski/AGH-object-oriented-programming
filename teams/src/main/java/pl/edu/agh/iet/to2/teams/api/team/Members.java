@@ -1,27 +1,31 @@
+/*
 package pl.edu.agh.iet.to2.teams.api.team;
 
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
+import pl.edu.agh.iet.to2.teams.api.person.Member;
 import pl.edu.agh.iet.to2.teams.api.person.Person;
 
 import java.util.Set;
 
+*/
 /**
  * Created by Pan Ciemnosci on 2015-12-15.
- */
+ *//*
+
 public class Members{
 
-    private SimpleSetProperty<Person> members;
+    private SimpleSetProperty<Member> members;
 
     public Members(){
-        this.members = new SimpleSetProperty<Person>(FXCollections.observableSet());
+        this.members = new SimpleSetProperty<Member>(FXCollections.observableSet());
     }
 
-    public void add(Person p){
+    public void add(Member p){
         members.add(p);
     }
 
-    public void remove(Person p){
+    public void remove(Member p){
         members.remove(p);
     }
 
@@ -33,19 +37,20 @@ public class Members{
         }
     }
 
-    public Set<Person> getMembers() {
+    public Set<Member> getMembers() {
         return members.get();
     }
 
-    public void setMembers(Set<Person> members) {
+    public void setMembers(Set<Member> members) {
         this.members.clear();
-        SimpleSetProperty<Person> newMembers = this.members;
+        SimpleSetProperty<Member> newMembers = this.members;
         newMembers.addAll(members);
         this.members.set(newMembers);
     }
 
-    public SimpleSetProperty<Person> getMembersProperty(){
+    public SimpleSetProperty<Member> getMembersProperty(){
         return members;
     }
 
 }
+*/

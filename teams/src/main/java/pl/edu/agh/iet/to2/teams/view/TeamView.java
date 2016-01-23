@@ -74,6 +74,18 @@ public class TeamView {
         }
     }
 
+    public void redrawPerson(TreeItem<CustomTreeObject> item, int hashcode, Person person)
+    {
+        if(item.getValue().getHashcode() == hashcode){
+            item.getValue().setContent(person.toString());
+            return;
+        }
+
+        for(TreeItem<CustomTreeObject> i : item.getChildren()){
+            redrawPerson(i, hashcode, person);
+        }
+    }
+
 
     /*public void changeNode(TreeItem<CustomTreeObject> item, int oldHashcode, int newHashcode, String content){
         if(item.getValue().getHashcode() == oldHashcode){

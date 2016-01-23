@@ -1,10 +1,14 @@
 package pl.edu.agh.iet.to2.teams.api.team;
 
 import javafx.beans.property.SimpleObjectProperty;
-import pl.edu.agh.iet.to2.teams.api.person.Manager;
-import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
+import javafx.beans.property.SimpleSetProperty;
+import javafx.collections.FXCollections;
+import pl.edu.agh.iet.to2.teams.api.person.Member;
+import pl.edu.agh.iet.to2.teams.api.person.Person;
 import pl.edu.agh.iet.to2.teams.api.project.Project;
 import pl.edu.agh.iet.to2.teams.api.project.TeamProject;
+
+import java.util.Set;
 
 /**
  * Created by Pan Ciemnosci on 2015-12-15.
@@ -12,8 +16,8 @@ import pl.edu.agh.iet.to2.teams.api.project.TeamProject;
 public class Team {
     private long id;
     private String name;
-    private Members members;
-    //private SimpleObjectProperty<TeamManager> manager;
+
+    private SimpleSetProperty<Member> members;
     private SimpleObjectProperty<TeamProject> project;
 
     private Team(long id){
@@ -28,7 +32,7 @@ public class Team {
        // this.manager = new SimpleObjectProperty<TeamManager>();
         this.id = id;
         this.setName("Team " + this.id);
-        this.members = new Members();
+        this.members = new SimpleSetProperty<Member>(FXCollections.observableSet());
         this.project = new SimpleObjectProperty<TeamProject>();
     }
 
@@ -46,10 +50,6 @@ public class Team {
 
     public void setProject(TeamProject project) {
         this.project.set(project);
-    }
-
-    public Members getMembers(){
-        return members;
     }
 
    /* public SimpleObjectProperty<TeamManager> getManagerProperty(){
@@ -78,5 +78,36 @@ public class Team {
 
     public String toString(){
         return "Team: " + getName();
+    }
+
+    public void add(Member p){
+        members.add(p);
+    }
+
+    public void remove(Member p){
+        members.remove(p);
+    }
+
+    public void remove(long id){
+        for(Person p: members){
+            if(p.getId() == id){
+                members.remove(p);
+            }
+        }
+    }
+
+    public Set<Member> getMembers() {
+        return members.get();
+    }
+
+    public void setMembers(Set<Member> members) {
+        this.members.clear();
+        SimpleSetProperty<Member> newMembers = this.members;
+        newMembers.addAll(members);
+        this.members.set(newMembers);
+    }
+
+    public SimpleSetProperty<Member> getMembersProperty(){
+        return members;
     }
 }
