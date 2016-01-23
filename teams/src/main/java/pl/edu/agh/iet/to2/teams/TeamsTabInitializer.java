@@ -31,7 +31,7 @@ public class TeamsTabInitializer implements TabInitializer {
     public MainController mainController;
     public TeamsModelManipulator manipulator;
     public TeamsTree teamsTree;
-    TeamView view;
+    public TeamView view;
 
     @Override
     public Pane initialize(Presenter presenter, ModuleManager moduleManager) throws IOException {
@@ -42,7 +42,7 @@ public class TeamsTabInitializer implements TabInitializer {
 
         mainController = new MainController(this.view, this.pane);
         teamsTree = new TeamsTree();
-        manipulator = new TeamsModelManipulator(teamsTree, mainController);
+        manipulator = new TeamsModelManipulator(teamsTree, mainController, view);
 
        // manipulator.addTeam(this.teamsTree.find())
 
@@ -61,23 +61,19 @@ public class TeamsTabInitializer implements TabInitializer {
         pane.getChildren().add(vbox);*/
 
 
-        TeamManager boss = new TeamManager(0, "Jan Kowalski", "CEO");
+        TeamManager boss = new TeamManager(1, "Jan Kowalski", "CEO");
         manipulator.addTeamManager(0, boss);
-        this.view.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(boss.hashCode(), boss.toString())));
-
-        //mainController.addController(TeamManagerController.createControllerOn(Boss, pane, this.view));
 
         Team team0 = Team.createTeam(0);
         manipulator.addTeam(boss.getId(), team0);
 
-        TesterPerson mac1 = new TesterPerson(1, "Maciek0");
+        TesterPerson mac1 = new TesterPerson(2, "Maciek0", "worker");
         manipulator.addMember(team0.getId(), mac1);
-        manipulator.addMember(team0.getId(), new TesterPerson(2, "Maciek1"));
+        manipulator.addMember(team0.getId(), new TesterPerson(3, "Maciek1", "worker"));
 
-        TeamManager manager0 = new TeamManager(3, "Manager0", "asd");
+        TeamManager manager0 = new TeamManager(4, "Manager0", "manager");
         manipulator.addTeamManager(boss.getId(), manager0);
 
-        //RootTeam.getMembers().remove(mac1);
 
         return pane;
     }

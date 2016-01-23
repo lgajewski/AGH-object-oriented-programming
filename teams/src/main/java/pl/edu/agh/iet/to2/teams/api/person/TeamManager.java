@@ -3,7 +3,6 @@ package pl.edu.agh.iet.to2.teams.api.person;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
-import pl.edu.agh.iet.to2.teams.api.team.Members;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 
 import java.math.BigDecimal;
@@ -52,12 +51,12 @@ public class TeamManager implements Manager {
 
     @Override
     public long getId() {
-        return id;
+        return this.id;
     }
 
     @Override
     public String getName() {
-        return name.get();
+        return this.name.get();
     }
 
     @Override
@@ -67,7 +66,7 @@ public class TeamManager implements Manager {
 
     @Override
     public String getOccupation() {
-        return null;
+        return this.occupation.get();
     }
 
     @Override

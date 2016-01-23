@@ -58,33 +58,17 @@ public class TeamManagerController implements SubController {
     }
 
 
-    //private Members members; // team.getMembers() - because we can't just SimpleProperty<Members> in team since it
-    // wouldn't register add/remove method results... but on the other hand, neither will Set<Person>, which is what Members class
-    // actually wraps. So, that remains to be thought of.
 
-    public void initialize(){ // - invoke this method via FXML file (or manually in some application's main method (not recommended))
+    public void initialize(){
         this.manager.getManagersProperty().addListener((o, oldVal, newVal) -> {
-            // code to describe what happens after Manager property has changed
             view.redrawManager(view.tree.getRoot(), manager.hashCode(), manager);
             System.out.print("Managers changes\n");
         });
 
         this.manager.getTeamsProperty().addListener((o, oldVal, newVal) -> {
-            // code to describe what happens after Project property has changed
             view.redrawManager(view.tree.getRoot(), manager.hashCode(), manager);
             System.out.print("Teams changes\n");
         });
-
-       /* team.getMembers().getMembersProperty().addListener((o, oldVal, newVal) -> {
-            // code to describe what happens after Members property has changed
-            // (so if some members are added/removed this is invoked)
-            view.redrawTeam(view.tree.getRoot(), team.hashCode(), team);
-            System.out.print("member changed\n");
-            //  System.out.print(team.hashCode()+"\n");
-            //   System.out.print(oldVal+"\n");
-            //   System.out.print(newVal+"\n");
-        });*/
-
     }
 
     private TeamManagerController(TeamManager manager, AnchorPane pane, TeamView view){

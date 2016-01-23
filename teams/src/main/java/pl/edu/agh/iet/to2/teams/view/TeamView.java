@@ -22,7 +22,7 @@ public class TeamView {
     public void initialize() {
         this.tree = new TreeView<CustomTreeObject> (new TreeItem<CustomTreeObject>(new CustomTreeObject(0, "Root")));
         this.tree.setEditable(false);
-        this.tree.setShowRoot(true);
+        this.tree.setShowRoot(false);
         this.tree.setMinSize(200, 400);
         this.tree.setPrefSize(500, 500);
         this.tree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -41,7 +41,7 @@ public class TeamView {
     {
         if(item.getValue().getHashcode() == hashcode){
             item.getChildren().clear();
-            for(Person p : team.getMembers().getMembers())
+            for(Person p : team.getMembers())
             {
                 item.getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(p.hashCode(), p.toString())));
             }
@@ -53,17 +53,25 @@ public class TeamView {
         }
     }
 
+    public void redrawRoot(TeamManager root){
+        this.tree.getRoot().getChildren().clear();
+        this.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(root.hashCode(), root.toString())));
+        this.redrawManager(this.tree.getRoot(), root.hashCode(), root);
+    }
+
     public void redrawManager(TreeItem<CustomTreeObject> item, int hashcode, TeamManager manager)
     {
         if(item.getValue().getHashcode() == hashcode){
             item.getChildren().clear();
-            for(Manager m : manager.getManagers())
-            {
-                item.getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(m.hashCode(), m.toString())));
-            }
             for(Team t : manager.getTeams())
             {
                 item.getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(t.hashCode(), t.toString())));
+                this.redrawTeam(item, t.hashCode(), t);
+            }
+            for(Manager m : manager.getManagers())
+            {
+                item.getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(m.hashCode(), m.toString())));
+                this.redrawManager(item, m.hashCode(), m.getTeamManager());
             }
             return;
         }
@@ -84,52 +92,5 @@ public class TeamView {
             redrawPerson(i, hashcode, person);
         }
     }
-
-
-    /*public void changeNode(TreeItem<CustomTreeObject> item, int oldHashcode, int newHashcode, String content){
-        if(item.getValue().getHashcode() == oldHashcode){
-            item.getValue().setHashcode(newHashcode);
-            item.getValue().setContent(content);
-            return;
-        }
-
-        for(TreeItem<CustomTreeObject> i : item.getChildren()){
-            changeNode(i, oldHashcode, newHashcode, content);
-        }
-    }
-
-    public void addNode(TreeItem<CustomTreeObject> item, int oldHashcode, int newHashcode, String content){
-        if(item.getValue().getHashcode() == oldHashcode){
-
-            TreeItem<CustomTreeObject> newNode = new TreeItem<CustomTreeObject>(new CustomTreeObject(newHashcode, content));
-
-            newNode.getChildren().addAll(item.getChildren());
-            item.getChildren().clear();
-            item.getChildren().add(newNode);
-
-            return;
-        }
-
-        for(TreeItem<CustomTreeObject> i : item.getChildren()){
-            addNode(i, oldHashcode, newHashcode, content);
-        }
-    }
-
-    public void removeNode(TreeItem<CustomTreeObject> item, TreeItem<CustomTreeObject> parent, int hashcode){
-        if(item.getValue().getHashcode() == hashcode){
-
-            parent.getChildren().addAll(item.getChildren());
-            item.getChildren().clear();
-            parent.getChildren().remove(item);
-
-            return;
-        }
-
-        for(TreeItem<CustomTreeObject> i : item.getChildren()){
-            removeNode(i, item, hashcode);
-        }
-    }*/
-
-
 
 }

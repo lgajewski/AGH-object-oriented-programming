@@ -7,6 +7,7 @@ import pl.edu.agh.iet.to2.teams.controller.TeamController;
 import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
 import pl.edu.agh.iet.to2.teams.controller.TesterPersonController;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
+import pl.edu.agh.iet.to2.teams.view.TeamView;
 
 /**
  * Created by maciek on 21.01.16.
@@ -15,10 +16,12 @@ public class TeamsModelManipulator {
 
     private TeamsTree teamsTree;
     private MainController mainController;
+    private TeamView view;
 
-    public TeamsModelManipulator(TeamsTree teamsTree, MainController mainController){
+    public TeamsModelManipulator(TeamsTree teamsTree, MainController mainController, TeamView view){
         this.teamsTree = teamsTree;
         this.mainController = mainController;
+        this.view = view;
     }
 
     public boolean addTeam(long parentId, Team team)
@@ -81,6 +84,7 @@ public class TeamsModelManipulator {
             else{
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
                 teamsTree.setRoot(teamManager);
+                view.redrawRoot(teamManager);
                 return true;
             }
         }
@@ -120,11 +124,12 @@ public class TeamsModelManipulator {
         this.removeTeamManagerByHashcode(teamManager.hashCode());
     }
 
+
     public boolean addMember(long teamId, TesterPerson testerPerson){
         Team team = teamsTree.findTeam(teamId);
         if(team != null){
             mainController.addController(TesterPersonController.createControllerOn(testerPerson, mainController.getPane(), mainController.getTeamView()));
-            team.getMembers().add(testerPerson);
+            team.add(testerPerson);
             return true;
         }
         else

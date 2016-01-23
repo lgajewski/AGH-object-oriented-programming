@@ -7,6 +7,7 @@ import pl.edu.agh.iet.to2.teams.api.team.Team;
 /**
  * Created by maciek on 21.01.16.
  */
+
 public class TeamsTree {
 
     private TeamManager root;
@@ -49,6 +50,8 @@ public class TeamsTree {
         if(node == null)
             return null;
         else{
+            if(node.getId() == id)
+                return node;
             for(Manager tm : node.getManagers()){
                 if(tm.getId() == id)
                     return tm.getTeamManager();
@@ -75,6 +78,8 @@ public class TeamsTree {
         if(node == null)
             return null;
         else{
+            if(node.hashCode() == hashcode)
+                return node;
             for(Manager tm : node.getManagers()){
                 if(tm.hashCode() == hashcode)
                     return tm.getTeamManager();
@@ -101,6 +106,16 @@ public class TeamsTree {
         if(node == null)
             return null;
         else{
+            for(Team t : node.getTeams()){
+                if(t.getId() == id)
+                    return t;
+                else{
+                    result = innerFindTeam(id, node);
+                    if(result != null)
+                        return result;
+                }
+            }
+
             for(Manager tm : node.getManagers()){
                 for(Team t : tm.getTeamManager().getTeams()){
                     if(t.getId() == id)
@@ -129,6 +144,16 @@ public class TeamsTree {
         if(node == null)
             return null;
         else{
+            for(Team t : node.getTeams()){
+                if(t.hashCode() == hashcode)
+                    return t;
+                else{
+                    result = innerFindTeamByHashcode(hashcode, node);
+                    if(result != null)
+                        return result;
+                }
+            }
+
             for(Manager tm : node.getManagers()){
                 for(Team t : tm.getTeamManager().getTeams()){
                     if(t.hashCode() == hashcode)

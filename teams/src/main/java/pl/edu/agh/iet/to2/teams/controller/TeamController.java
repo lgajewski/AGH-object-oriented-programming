@@ -67,7 +67,7 @@ public class TeamController implements SubController {
 
         });
 
-        team.getMembers().getMembersProperty().addListener((o, oldVal, newVal) -> {
+        team.getMembersProperty().addListener((o, oldVal, newVal) -> {
             view.redrawTeam(view.tree.getRoot(), team.hashCode(), team);
             System.out.print("member changed\n");
         });

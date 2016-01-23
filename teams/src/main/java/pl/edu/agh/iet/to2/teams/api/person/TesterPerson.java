@@ -25,8 +25,8 @@ public class TesterPerson implements Member {
 			throw new NullPointerException();
 		
 		this.personID = ID;
-		this.name.set(name);
-		this.occupation.set(position);
+		this.name = new SimpleObjectProperty<String>(name);
+		this.occupation = new SimpleObjectProperty<String>(position);
 	}
 	
 	@Override
