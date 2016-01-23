@@ -92,9 +92,13 @@ public class TeamData {
 
         if(personId<0) return personId;
 
-        String insertManager = "INSERT INTO 'Manager'(  'personId', 'parentManagerId') VALUES ("+personId+", "+parentManagerId+")";
+        String insertManager;
+        if(parentManagerId==0)
+            insertManager = "INSERT INTO 'Manager'(  'personId') VALUES ("+personId+")";
+        else
+            insertManager = "INSERT INTO 'Manager'(  'personId', 'parentManagerId') VALUES ("+personId+", "+parentManagerId+")";
 
-        String getManager = "SELECT * FROM Manager WHERE personId="+personId+" AND parentManagerId="+parentManagerId;
+        String getManager = "SELECT * FROM Manager WHERE personId="+personId;
 
         List<List> manager = SqlHelper.getResultSet(getManager, 3);
 
