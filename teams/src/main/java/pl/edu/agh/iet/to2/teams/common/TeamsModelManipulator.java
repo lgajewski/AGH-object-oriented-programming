@@ -75,7 +75,7 @@ public class TeamsModelManipulator {
         this.removeTeamByHashcode(team.hashCode());
     }
 
-    public boolean addTeamManager(int parentId, TeamManager teamManager)
+    public boolean addTeamManager(long parentId, TeamManager teamManager)
     // parentId = 0 for root
     // if adding team manager succeeded, returns true
     // if there is no node with parentId, returns false
@@ -84,7 +84,7 @@ public class TeamsModelManipulator {
 
         if(parentId == 0){
             if(teamsTree.rootExists()) {
-                parent = teamsTree.getRoot();
+                //parent = teamsTree.getRoot();
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
                 teamsTree.setRoot(teamManager); // new root
                 return true;
