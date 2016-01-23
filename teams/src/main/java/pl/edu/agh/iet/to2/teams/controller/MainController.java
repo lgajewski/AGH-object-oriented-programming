@@ -54,8 +54,10 @@ public class MainController {
 
     public void removeControllerByHashcode(int childHashcode){
         for(SubController sc : controllers){
-            if(sc.getChildHashcode() == childHashcode)
+            if(sc.getChildHashcode() == childHashcode) {
                 controllers.remove(sc);
+                return;
+            }
         }
     }
 }

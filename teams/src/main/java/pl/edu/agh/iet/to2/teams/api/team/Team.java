@@ -29,20 +29,12 @@ public class Team {
     }
 
     private void setDefaults(long id){
-       // this.manager = new SimpleObjectProperty<TeamManager>();
         this.id = id;
         this.setName("Team " + this.id);
         this.members = new SimpleSetProperty<Member>(FXCollections.observableSet());
         this.project = new SimpleObjectProperty<TeamProject>();
     }
 
-   /* public Manager getManager(){
-        return manager.get();
-    }
-
-    public void setManager(TeamManager manager){
-        this.manager.set(manager);
-    }*/
 
     public Project getProject() {
         return project.get();
@@ -51,10 +43,6 @@ public class Team {
     public void setProject(TeamProject project) {
         this.project.set(project);
     }
-
-   /* public SimpleObjectProperty<TeamManager> getManagerProperty(){
-        return manager;
-    }*/
 
     public SimpleObjectProperty<TeamProject> getProjectProperty(){
         return project;
@@ -91,6 +79,14 @@ public class Team {
     public void remove(long id){
         for(Person p: members){
             if(p.getId() == id){
+                members.remove(p);
+            }
+        }
+    }
+
+    public void removeByHashcode(int hashcode){
+        for(Person p: members){
+            if(p.hashCode() == hashcode){
                 members.remove(p);
             }
         }
