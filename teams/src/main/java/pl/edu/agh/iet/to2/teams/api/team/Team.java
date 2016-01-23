@@ -16,16 +16,18 @@ public class Team {
     //private SimpleObjectProperty<TeamManager> manager;
     private SimpleObjectProperty<TeamProject> project;
 
-    private Team(){
-        setDefaults();
+    private Team(long id){
+        setDefaults(id);
     }
 
-    public static Team createTeam(){
-        return new Team();
+    public static Team createTeam(long id){
+        return new Team(id);
     }
 
-    private void setDefaults(){
+    private void setDefaults(long id){
        // this.manager = new SimpleObjectProperty<TeamManager>();
+        this.id = id;
+        this.setName("Team " + this.id);
         this.members = new Members();
         this.project = new SimpleObjectProperty<TeamProject>();
     }

@@ -62,11 +62,12 @@ public class TeamsTabInitializer implements TabInitializer {
 
 
         TeamManager Boss = new TeamManager(0, "Jan Kowalski", "CEO");
+        manipulator.addTeamManager(0, Boss);
         this.view.tree.getRoot().getChildren().add(new TreeItem<CustomTreeObject>(new CustomTreeObject(Boss.hashCode(), Boss.toString())));
 
-        mainController.addController(TeamManagerController.createControllerOn(Boss, pane, this.view));
+        //mainController.addController(TeamManagerController.createControllerOn(Boss, pane, this.view));
 
-        Team RootTeam = Team.createTeam();
+        Team RootTeam = Team.createTeam(0);
         mainController.addController(TeamController.createControllerOn(RootTeam, pane, this.view));
         Boss.addTeam(RootTeam);
 
