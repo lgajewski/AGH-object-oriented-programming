@@ -22,7 +22,8 @@ public class SqlHelper {
     private SqlHelper() {
         c = null;
         stmt = null;
-        path = "jdbc:sqlite:teams\\src\\main\\java\\pl.edu.agh.iet.to2.teams\\db\\db2";
+        path = "jdbc:sqlite:teams\\src\\main\\java\\pl\\edu\\agh\\iet\\to2\\teams\\db\\db2";
+        //@"F:\workspace\\teams\\src\\main\\java\\pl\\edu\\agh\\iet\\to2\\teams\\db\\db2"
     }
 
     public static void executeQuery (String sqlQuery){
@@ -41,8 +42,6 @@ public class SqlHelper {
             try {
                 if(c!=null)
                     c.close();
-                if(stmt!=null)
-                    stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -57,15 +56,14 @@ public class SqlHelper {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection(path);
             stmt = c.createStatement();
-            return rewriteResultSet(stmt.executeQuery(sqlQuery), numberOfColumns);
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+            return rewriteResultSet(rs, numberOfColumns);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 if(c!=null)
                     c.close();
-                if(stmt!=null)
-                    stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -73,8 +71,10 @@ public class SqlHelper {
         }
     }
 
-    private static List<List> rewriteResultSet (ResultSet rs, int numberOfColumns) throws SQLException {
+    private static List<List> rewriteResultSet (ResultSet rs, int numberOfColumns) throws Exception {
         List allRows = new ArrayList<List>();
+
+        if(rs==null) throw new Exception ("result is null. it is saaaad :(");
 
         while ( rs.next() ) {
             List row = new ArrayList<>();

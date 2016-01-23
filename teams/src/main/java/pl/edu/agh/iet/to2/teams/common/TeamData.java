@@ -113,7 +113,7 @@ public class TeamData {
 
         String data = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         String insertPerson = "INSERT INTO 'Person' ( 'name','position', 'added') VALUES ('"+name+"', '"+position+"', "+data+")";
-        String getPersonId = "SELECT * FROM Person WHERE name="+name+" AND position="+position+" AND added="+data;
+        String getPersonId = "SELECT * FROM Person WHERE name='"+name+"' AND position='"+position+"' AND added="+data;
         //I dont know if 'and added=data' would work.. pls inform me if not (and fix it by commenting it for that time).
 
         SqlHelper.executeQuery(insertPerson);
@@ -127,7 +127,7 @@ public class TeamData {
     public long addEmptyTeam (String name, long managerId){
         //-3 means that object wasnt added properly into table Team
         String addTeam ="INSERT INTO 'Team'( 'name', 'managerId') VALUES ('"+name+"', "+managerId+")";
-        String getTeam = "SELECT * FROM Team WHERE name="+ name+ " AND managerId="+managerId;
+        String getTeam = "SELECT * FROM Team WHERE name='"+ name+ "' AND managerId="+managerId;
 
         SqlHelper.executeQuery(addTeam);
         List<List> teams = SqlHelper.getResultSet(getTeam, 3);
@@ -141,7 +141,7 @@ public class TeamData {
 
         if(personId<0) return personId;
 
-        String addMember ="INSERT INTO `Member`(`personId`, `teamId`) VALUES (" + personId + "," + teamId + ")";
+        String addMember ="INSERT INTO 'Member'('personId', 'teamId') VALUES (" + personId + "," + teamId + ")";
 
         List<List> member = SqlHelper.getResultSet(addMember, 3);
 
