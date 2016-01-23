@@ -88,7 +88,9 @@ public class TeamData {
         List<List> person =  SqlHelper.getResultSet(getPerson, 4);
         TeamManager tm = new TeamManager(personId, person.get(0).get(1).toString(),person.get(0).get(2).toString() );
 
-        String getManagerSubordinates = "SELECT * FROM Manager WHERE parentManagerId=" + personId;
+        long managerId = (long) person.get(0).get(0);
+
+        String getManagerSubordinates = "SELECT * FROM Manager WHERE parentManagerId=" + managerId;
         List<List> managerSubordinates = SqlHelper.getResultSet(getManagerSubordinates, 3);
 
         for(List manager : managerSubordinates){
@@ -96,7 +98,7 @@ public class TeamData {
             tm.addManager(managerToAdd);
         }
 
-        String getTeamSubordinates = "SELECT * FROM Team WHERE managerId=" + personId;
+        String getTeamSubordinates = "SELECT * FROM Team WHERE managerId=" + managerId;
         List<List> teamSubordinates = SqlHelper.getResultSet(getTeamSubordinates, 3);
 
         for(List team : teamSubordinates){
