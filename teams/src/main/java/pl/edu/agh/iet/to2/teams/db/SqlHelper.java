@@ -1,5 +1,7 @@
 package pl.edu.agh.iet.to2.teams.db;
 
+import pl.edu.agh.iet.to2.teams.db.tables.DbMember;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,6 @@ public class SqlHelper {
     public static void executeQuery (String sqlQuery){
         c  = null;
         stmt = null;
-
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection(path);
@@ -75,14 +76,21 @@ public class SqlHelper {
     private static List<List> rewriteResultSet (ResultSet rs, int numberOfColumns) throws Exception {
         List allRows = new ArrayList<List>();
 
-        if(rs==null) throw new Exception ("result is null. it is saaaad :(");
-
         while ( rs.next() ) {
             List row = new ArrayList<>();
             for(int column = 1; column <= numberOfColumns; column++){
                 row.add(rs.getObject(column));
             }
             allRows.add(row);
+        }
+        return allRows;
+    }
+
+    private static List<DbMember> rewriteAsDbMember (ResultSet rs) throws SQLException {
+        List allRows = new ArrayList<DbMember>();
+
+        while ( rs.next() ){
+            allRows.add(new DbMember(rs.getLong("memberId"), rs.getLong("personId"), rs.getLong("teamId")));
         }
         return allRows;
     }
