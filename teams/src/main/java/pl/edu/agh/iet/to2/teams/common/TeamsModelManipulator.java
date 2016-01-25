@@ -91,7 +91,7 @@ public class TeamsModelManipulator {
             else{
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
                 teamsTree.setRoot(teamManager);
-                database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), 0);
+                //database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), 0); // this line is breaking db
                 view.redrawRoot(teamManager);
                 return true;
             }
@@ -105,7 +105,7 @@ public class TeamsModelManipulator {
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(),(TeamView) mainController.getView("TeamView")));
               //  teamManager.setSuperior(parent);
                 parent.addManager(teamManager);
-                database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), parentId);
+                //database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), parentId); // this line is breaking db, too
                 return true;
             }
         }
