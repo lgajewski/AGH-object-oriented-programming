@@ -57,6 +57,13 @@ public class TeamsTabInitializer implements TabInitializer {
         database = new TeamData(manipulator);
         manipulator.setDatabase(database);
 
+        try{
+            System.out.println(database.getRootManagerFromDb());
+        } catch (Exception e){
+            System.out.println("Wyjątek!");
+            e.printStackTrace();
+        }
+
        // manipulator.addTeam(this.teamsTree.find())
 
 
@@ -74,7 +81,7 @@ public class TeamsTabInitializer implements TabInitializer {
         pane.getChildren().add(vbox);*/
 
 
-        TeamManager boss = new TeamManager(1, "Jan Kowalski", "CEO");
+        /*TeamManager boss = new TeamManager(1, "Jan Kowalski", "CEO");
         manipulator.addTeamManager(0, boss);
 
         Team team0 = Team.createTeam(0);
@@ -85,7 +92,7 @@ public class TeamsTabInitializer implements TabInitializer {
         manipulator.addMember(team0.getId(), new TesterPerson(3, "Maciek1", "worker"));
 
         TeamManager manager0 = new TeamManager(4, "Manager0", "manager");
-        manipulator.addTeamManager(boss.getId(), manager0);
+        manipulator.addTeamManager(boss.getId(), manager0);*/
 
 //        manipulator.removeMember(2);
 

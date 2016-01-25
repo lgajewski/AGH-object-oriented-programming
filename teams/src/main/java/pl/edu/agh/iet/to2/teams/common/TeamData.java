@@ -19,7 +19,7 @@ public class TeamData {
 
 
     public boolean getRootManagerFromDb() throws Exception {
-        String query1 = "SELECT * FROM Manager WHERE parentManagerId=NULL";
+        String query1 = "SELECT * FROM Manager WHERE parentManagerId is null";
         List<List> rs = SqlHelper.getResultSet(query1, 3);
         if(rs.size()==0) return false;
         else if(rs.size()>1) {
