@@ -1,6 +1,9 @@
 package pl.edu.agh.iet.to2.teams.db;
 
+import pl.edu.agh.iet.to2.teams.db.tables.DbManager;
 import pl.edu.agh.iet.to2.teams.db.tables.DbMember;
+import pl.edu.agh.iet.to2.teams.db.tables.DbPerson;
+import pl.edu.agh.iet.to2.teams.db.tables.DbTeam;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -92,7 +95,37 @@ public class SqlHelper {
         while ( rs.next() ){
             allRows.add(new DbMember(rs.getLong("memberId"), rs.getLong("personId"), rs.getLong("teamId")));
         }
+
         return allRows;
     }
 
+    private static List<DbTeam> rewriteAsDbTeam (ResultSet rs) throws SQLException {
+        List allRows = new ArrayList<DbTeam>();
+
+        while ( rs.next() ){
+            allRows.add(new DbTeam(rs.getLong("teamId"), rs.getString("name"), rs.getLong("managerId")));
+        }
+
+        return allRows;
+    }
+
+    private static List<DbManager> rewriteAsDbManager (ResultSet rs) throws SQLException {
+        List allRows = new ArrayList<DbManager>();
+
+        while ( rs.next() ){
+            allRows.add(new DbManager(rs.getLong("managerId"), rs.getLong("personId"), rs.getLong("parentManagerId")));
+        }
+
+        return allRows;
+    }
+
+    private static List<DbPerson> rewriteAsDbPerson (ResultSet rs) throws SQLException {
+        List allRows = new ArrayList<DbManager>();
+
+        while ( rs.next() ){//personId, String name, String position, String date
+            allRows.add(new DbPerson(rs.getLong("personId"), rs.getString("name"), rs.getString("position"), rs.getString("date")));
+        }
+
+        return allRows;
+    }
 }
