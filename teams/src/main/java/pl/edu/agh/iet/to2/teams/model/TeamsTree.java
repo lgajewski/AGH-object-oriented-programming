@@ -110,11 +110,6 @@ public class TeamsTree {
             for(Team t : node.getTeams()){
                 if(t.getId() == id)
                     return t;
-                else{
-                    result = innerFindTeam(id, node);
-                    if(result != null)
-                        return result;
-                }
             }
 
             for(Manager tm : node.getManagers()){
@@ -148,11 +143,6 @@ public class TeamsTree {
             for(Team t : node.getTeams()){
                 if(t.hashCode() == hashcode)
                     return t;
-                else{
-                    result = innerFindTeamByHashcode(hashcode, node);
-                    if(result != null)
-                        return result;
-                }
             }
 
             for(Manager tm : node.getManagers()){
