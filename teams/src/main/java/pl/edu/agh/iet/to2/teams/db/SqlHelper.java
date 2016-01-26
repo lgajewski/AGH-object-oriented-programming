@@ -27,6 +27,7 @@ public class SqlHelper {
     private SqlHelper() {
         c = null;
         stmt = null;
+        //path = "jdbc:sqlite:teams/src/main/java/pl/edu/agh/iet/to2/teams/db/db2";
         path = "jdbc:sqlite:teams\\src\\main\\java\\pl\\edu\\agh\\iet\\to2\\teams\\db\\db2";
         //@"F:\workspace\\teams\\src\\main\\java\\pl\\edu\\agh\\iet\\to2\\teams\\db\\db2"
     }
