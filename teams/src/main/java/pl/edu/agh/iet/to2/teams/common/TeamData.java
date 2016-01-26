@@ -26,7 +26,7 @@ public class TeamData {
             throw new Exception("Check db - there are many roots");
         }
         else {
-            long id = (long)rs.get(0).get(1);
+            long id = ((Number)(rs.get(0).get(1))).longValue();
             getTreeBelowManagerFromDb(0, id);
             return true;
         }
@@ -39,20 +39,20 @@ public class TeamData {
 
         teamsModelManipulator.addTeamManager(parentId, tm);
 
-        long managerId = (long) person.get(0).get(0);
+        long managerId = ((Number) (person.get(0).get(0))).longValue();
 
         String getManagerSubordinates = "SELECT * FROM Manager WHERE parentManagerId=" + managerId;
         List<List> managerSubordinates = SqlHelper.getResultSet(getManagerSubordinates, 3);
 
         for(List manager : managerSubordinates){
-            getTreeBelowManagerFromDb(personId, (long) manager.get(1));
+            getTreeBelowManagerFromDb(personId, ((Number) manager.get(1)).longValue());
         }
 
         String getTeamSubordinates = "SELECT * FROM Team WHERE managerId=" + managerId;
         List<List> teamSubordinates = SqlHelper.getResultSet(getTeamSubordinates, 3);
 
         for(List team : teamSubordinates){
-            getTeamWithMembersFromDb(personId, (long) team.get(0));
+            getTeamWithMembersFromDb(personId, ((Number) team.get(0)).longValue());
         }
 
         //return tm;
@@ -71,7 +71,7 @@ public class TeamData {
         List<List> membersList = SqlHelper.getResultSet(members, 3);
 
         for( List member : membersList){
-            getMemberFromDb(teamId, (long) member.get(1));
+            getMemberFromDb(teamId, ((Number) member.get(1)).longValue());
         }
     }
 
@@ -79,7 +79,7 @@ public class TeamData {
         String getMember = "SELECT * FROM Person WHERE personId="+personId;
         List<List> members = SqlHelper.getResultSet(getMember, 3);
 
-        TesterPerson testerPerson = new TesterPerson((long) members.get(0).get(0), members.get(0).get(1).toString(), members.get(0).get(2).toString());
+        TesterPerson testerPerson = new TesterPerson(((Number) members.get(0).get(0)).longValue(), members.get(0).get(1).toString(), members.get(0).get(2).toString());
 
         teamsModelManipulator.addMember(teamId,testerPerson );
     }
