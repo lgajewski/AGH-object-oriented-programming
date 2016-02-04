@@ -1,5 +1,7 @@
 package pl.edu.agh.iet.to2.teams.api.person;
 
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
@@ -13,7 +15,7 @@ import java.util.Set;
  */
 public class TeamManager implements Manager {
 
-    private long id;
+    private SimpleLongProperty id;
     private SimpleObjectProperty<String> name;
     private SimpleObjectProperty<String> occupation;
     //private Members subordinates;
@@ -23,7 +25,7 @@ public class TeamManager implements Manager {
     private SimpleSetProperty<Manager> managers;
 
     public TeamManager(long id, String name, String occupation) {
-        this.id = id;
+        this.id = new SimpleLongProperty(id);
         this.name = new SimpleObjectProperty<String>(name);
         this.occupation = new SimpleObjectProperty<String>(occupation);
         teams = new SimpleSetProperty<Team>(FXCollections.observableSet());
@@ -48,10 +50,13 @@ public class TeamManager implements Manager {
         return this.teams;
     }
 
+    public SimpleLongProperty getIdProperty(){
+        return this.id;
+    }
 
     @Override
     public long getId() {
-        return this.id;
+        return this.id.get();
     }
 
     @Override
@@ -83,7 +88,7 @@ public class TeamManager implements Manager {
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.id.set(id);
     }
 
     public void setName(String name) {
@@ -105,15 +110,19 @@ public class TeamManager implements Manager {
 
     public void removeTeam(long id){
         for(Team t : this.getTeams()){
-            if(t.getId() == id)
+            if(t.getId() == id){
                 this.teams.remove(t);
+                return;
+            }
         }
     }
 
     public void removeTeamByHashcode(int hashcode){
         for(Team t : this.getTeams()){
-            if(t.hashCode() == hashcode)
+            if(t.hashCode() == hashcode) {
                 this.teams.remove(t);
+                return;
+            }
         }
     }
 
@@ -127,15 +136,19 @@ public class TeamManager implements Manager {
 
     public void removeManager(long id){
         for(Manager m : this.getManagers()){
-            if(m.getId() == id)
+            if(m.getId() == id) {
                 this.managers.remove(m);
+                return;
+            }
         }
     }
 
     public void removeManagerByHashcode(int hashcode){
         for(Manager m : this.getManagers()){
-            if(m.hashCode() == hashcode)
+            if(m.hashCode() == hashcode) {
                 this.managers.remove(m);
+                return;
+            }
         }
     }
 

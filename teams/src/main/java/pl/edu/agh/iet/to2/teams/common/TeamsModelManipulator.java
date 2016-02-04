@@ -52,26 +52,32 @@ public class TeamsModelManipulator {
             return false;
     }
 
-    public void removeTeam(long id){
+    public boolean removeTeam(long id){
         TeamManager teamManager = teamsTree.findManagerOfTeam(id);
         if(teamManager != null)
             for(Team t : teamManager.getTeams())
                 if(t.getId() == id){
                     mainController.removeControllerByHashcode(t.hashCode());
                     teamManager.removeTeam(id);
+                    return true;
                 }
+
+        return false;
     }
 
-    public void removeTeamByHashcode(int hashcode){
+    public boolean removeTeamByHashcode(int hashcode){
         TeamManager teamManager = teamsTree.findManagerOfTeamByHashcode(hashcode);
         if(teamManager != null){
             mainController.removeControllerByHashcode(hashcode);
             teamManager.removeTeamByHashcode(hashcode);
+            return true;
         }
+
+        return false;
     }
 
-    public void removeTeam(Team team){
-        this.removeTeamByHashcode(team.hashCode());
+    public boolean removeTeam(Team team){
+        return this.removeTeamByHashcode(team.hashCode());
     }
 
     public boolean addTeamManager(long parentId, TeamManager teamManager)
@@ -111,26 +117,44 @@ public class TeamsModelManipulator {
         }
     }
 
-    public void removeTeamManager(long id){
+    public boolean removeTeamManager(long id){
+        if(teamsTree.rootExists() && teamsTree.getRoot().getId() == id){
+            mainController.removeControllerByHashcode(teamsTree.getRoot().hashCode());
+            teamsTree.deleteRoot();
+            return true;
+        }
+
         TeamManager teamManager = teamsTree.findSuperiorOfManager(id);
         if(teamManager != null)
             for(Manager m : teamManager.getManagers())
                 if(m.getId() == id){
                     mainController.removeControllerByHashcode(m.hashCode());
                     teamManager.removeManager(id);
+                    return true;
                 }
+
+        return false;
     }
 
-    public void removeTeamManagerByHashcode(int hashcode){
+    public boolean removeTeamManagerByHashcode(int hashcode){
+        if(teamsTree.rootExists() && teamsTree.getRoot().hashCode() == hashcode){
+            mainController.removeControllerByHashcode(teamsTree.getRoot().hashCode());
+            teamsTree.deleteRoot();
+            return true;
+        }
+
         TeamManager teamManager = teamsTree.findSuperiorOfManagerByHashcode(hashcode);
         if(teamManager != null){
             mainController.removeControllerByHashcode(hashcode);
             teamManager.removeManagerByHashcode(hashcode);
+            return true;
         }
+
+        return false;
     }
 
-    public void removeTeamManager(TeamManager teamManager){
-        this.removeTeamManagerByHashcode(teamManager.hashCode());
+    public boolean removeTeamManager(TeamManager teamManager){
+        return this.removeTeamManagerByHashcode(teamManager.hashCode());
     }
 
 
@@ -146,27 +170,33 @@ public class TeamsModelManipulator {
             return false;
     }
 
-    public void removeMember(long id){
+    public boolean removeMember(long id){
         Team team = teamsTree.findTeamOfMember(id);
         if(team != null) {
             for (Member m : team.getMembers())
                 if (m.getId() == id) {
                     mainController.removeControllerByHashcode(m.hashCode());
                     team.remove(id);
+                    return true;
                 }
         }
+
+        return false;
     }
 
-    public void removeMemberByHashcode(int hashcode){
+    public boolean removeMemberByHashcode(int hashcode){
         Team team = teamsTree.findTeamOfMemberByHashcode(hashcode);
         if(team != null) {
             mainController.removeControllerByHashcode(hashcode);
             team.removeByHashcode(hashcode);
+            return true;
         }
+
+        return false;
     }
 
-    public void removeMember(Member member){
-        this.removeMemberByHashcode(member.hashCode());
+    public boolean removeMember(Member member){
+        return this.removeMemberByHashcode(member.hashCode());
     }
 
 }

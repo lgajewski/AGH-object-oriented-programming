@@ -65,6 +65,10 @@ public class TesterPersonController implements SubController{
 
 
     public void initialize(){
+        this.testerPerson.getIdProperty().addListener((o, oldVal, newVal) -> {
+            view.redrawPerson(view.tree.getRoot(), this.testerPerson.hashCode(), this.testerPerson);
+        });
+
         this.testerPerson.getNameProperty().addListener((o, oldVal, newVal) -> {
             view.redrawPerson(view.tree.getRoot(), this.testerPerson.hashCode(), this.testerPerson);
         });

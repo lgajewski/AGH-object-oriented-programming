@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.to2.teams.api.team;
 
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
@@ -14,8 +15,8 @@ import java.util.Set;
  * Created by Pan Ciemnosci on 2015-12-15.
  */
 public class Team {
-    private long id;
-    private String name;
+    private SimpleLongProperty id;
+    private SimpleObjectProperty<String> name;
 
     private SimpleSetProperty<Member> members;
     private SimpleObjectProperty<TeamProject> project;
@@ -24,13 +25,22 @@ public class Team {
         setDefaults(id);
     }
 
+    private Team(long id, String name){
+        setDefaults(id);
+        this.name.set(name);
+    }
+
     public static Team createTeam(long id){
         return new Team(id);
     }
 
+    public static Team createTeam(long id, String name){
+        return new Team(id, name);
+    }
+
     private void setDefaults(long id){
-        this.id = id;
-        this.setName("Team " + this.id);
+        this.id = new SimpleLongProperty(id);
+        this.name = new SimpleObjectProperty<String>("Team " + this.id);
         this.members = new SimpleSetProperty<Member>(FXCollections.observableSet());
         this.project = new SimpleObjectProperty<TeamProject>();
     }
@@ -49,19 +59,27 @@ public class Team {
     }
 
     public String getName() {
+        return name.get();
+    }
+
+    public SimpleObjectProperty<String> getNameProperty(){
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public long getId() {
+        return id.get();
+    }
+
+    public SimpleLongProperty getIdProperty(){
         return id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.id.set(id);
     }
 
     public String toString(){
@@ -80,6 +98,7 @@ public class Team {
         for(Person p: members){
             if(p.getId() == id){
                 members.remove(p);
+                return;
             }
         }
     }
@@ -88,6 +107,7 @@ public class Team {
         for(Person p: members){
             if(p.hashCode() == hashcode){
                 members.remove(p);
+                return;
             }
         }
     }

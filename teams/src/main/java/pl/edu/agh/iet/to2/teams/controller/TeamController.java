@@ -61,19 +61,18 @@ public class TeamController implements SubController {
 
 
 
-    public void initialize(){ //
-      /*  team.getManagerProperty().addListener((o, oldVal, newVal) -> {
+    public void initialize(){
 
-        });*/
-//        view.initialize();
+        team.getIdProperty().addListener((o, oldVal, newVal) -> {
+            view.redrawTeam(view.tree.getRoot(), team.hashCode(), team);
+        });
 
-        team.getProjectProperty().addListener((o, oldVal, newVal) -> {
-
+        team.getNameProperty().addListener((o, oldVal, newVal) -> {
+            view.redrawTeam(view.tree.getRoot(), team.hashCode(), team);
         });
 
         team.getMembersProperty().addListener((o, oldVal, newVal) -> {
             view.redrawTeam(view.tree.getRoot(), team.hashCode(), team);
-            System.out.print("member changed\n");
         });
 
     }

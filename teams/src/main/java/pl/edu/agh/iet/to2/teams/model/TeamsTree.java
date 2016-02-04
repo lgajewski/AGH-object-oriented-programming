@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.to2.teams.model;
 
+import javafx.beans.property.SimpleObjectProperty;
 import pl.edu.agh.iet.to2.teams.api.person.Manager;
 import pl.edu.agh.iet.to2.teams.api.person.Member;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
@@ -11,28 +12,35 @@ import pl.edu.agh.iet.to2.teams.api.team.Team;
 
 public class TeamsTree {
 
-    private TeamManager root;
+    private SimpleObjectProperty<TeamManager> root;
+
+    public TeamsTree(){
+        root = new SimpleObjectProperty<TeamManager>(null);
+    }
 
     public void setRoot(TeamManager teamManager){
         if(rootExists()){
-            //root.setSuperior(teamManager);
-            teamManager.addManager(root);
-            root = teamManager;
+            teamManager.addManager(root.getValue());
+            root.setValue(teamManager);
         }
         else
-            root = teamManager;
+            root.setValue(teamManager);
     }
 
-    public void deleteRoot(TeamManager teamManager){
-        root = null;
+    public void deleteRoot(){
+        root.setValue(null);
     }
 
     public TeamManager getRoot(){
-        return root;
+        return root.get();
+    }
+
+    public SimpleObjectProperty<TeamManager> getRootProperty(){
+        return this.root;
     }
 
     public boolean rootExists(){
-        if(root == null)
+        if(root.get() == null)
             return false;
         else
             return true;
@@ -381,6 +389,66 @@ public class TeamsTree {
                     return result;
             }
             return result;
+        }
+    }
+
+    public long maxMemberId(){
+
+        return innerMaxMemberId(0, this.getRoot());
+    }
+
+    private long innerMaxMemberId(long maxId, TeamManager node){
+        long m = maxId;
+
+        if(node == null)
+            return maxId;
+        else{
+            for(Team t : node.getTeams())
+                for(Member p : t.getMembers())
+                    m = Math.max(m, p.getId());
+
+            for(Manager tm : node.getManagers())
+                m = Math.max(m, innerMaxMemberId(maxId, tm.getTeamManager()));
+
+            return m;
+        }
+    }
+
+    public long maxTeamId(){
+        return innerMaxTeamId(0, this.getRoot());
+    }
+
+    private long innerMaxTeamId(long maxId, TeamManager node){
+        long m = maxId;
+
+        if(node == null)
+            return maxId;
+        else{
+            for(Team t : node.getTeams())
+                m = Math.max(m, t.getId());
+
+            for(Manager tm : node.getManagers())
+                m = Math.max(m, innerMaxTeamId(maxId, tm.getTeamManager()));
+
+            return m;
+        }
+    }
+
+    public long maxManagerId(){
+        return innerMaxManagerId(0, this.getRoot());
+    }
+
+    private long innerMaxManagerId(long maxId, TeamManager node){
+        long m = maxId;
+
+        if(node == null)
+            return maxId;
+        else{
+            m = Math.max(m, node.getId());
+            for(Manager tm : node.getManagers()){
+                m = Math.max(m, innerMaxManagerId(maxId, tm.getTeamManager()));
+            }
+            return m;
         }
     }
 }

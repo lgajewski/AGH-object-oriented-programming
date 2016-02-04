@@ -1,12 +1,13 @@
 package pl.edu.agh.iet.to2.teams.api.person;
 
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.math.BigDecimal;
 
 public class TesterPerson implements Member {
 
-	private long personID;
+	private SimpleLongProperty personID;
 	private SimpleObjectProperty<String> name;
 	private SimpleObjectProperty<String> occupation;
 
@@ -15,7 +16,7 @@ public class TesterPerson implements Member {
 		if(name == null)
 			throw new NullPointerException();
 		
-		this.personID = ID;
+		this.personID = new SimpleLongProperty(ID);
 		this.name = new SimpleObjectProperty<String>(name);
 		this.occupation = new SimpleObjectProperty<String>(null);
 	}
@@ -24,14 +25,14 @@ public class TesterPerson implements Member {
 		if(name == null)
 			throw new NullPointerException();
 		
-		this.personID = ID;
+		this.personID = new SimpleLongProperty(ID);
 		this.name = new SimpleObjectProperty<String>(name);
 		this.occupation = new SimpleObjectProperty<String>(position);
 	}
 	
 	@Override
 	public long getId() {
-		return this.personID;
+		return this.personID.get();
 	}
 
 	@Override
@@ -68,6 +69,10 @@ public class TesterPerson implements Member {
 
 	public void setName(String name) {
 		this.name.set(name);
+	}
+
+	public SimpleLongProperty getIdProperty(){
+		return this.personID;
 	}
 
     public String toString(){

@@ -23,7 +23,8 @@ public class AppController {
     private void initialize() throws IOException {
 
 
-        for (AppTab appTab : AppTab.values()) {
+      //  for (AppTab appTab : AppTab.values()) {
+        AppTab appTab = AppTab.TEAMS;
             try {
                 TabInitializer initializer = appTab.getTabInitializer();
 
@@ -33,6 +34,6 @@ public class AppController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+     //   }
     }
 }

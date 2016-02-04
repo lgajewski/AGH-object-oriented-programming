@@ -15,14 +15,9 @@ import pl.edu.agh.iet.to2.teams.api.person.TesterPerson;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.common.TeamData;
 import pl.edu.agh.iet.to2.teams.common.TeamsModelManipulator;
-import pl.edu.agh.iet.to2.teams.controller.MainController;
-import pl.edu.agh.iet.to2.teams.controller.TeamController;
-import pl.edu.agh.iet.to2.teams.controller.TeamManagerController;
+import pl.edu.agh.iet.to2.teams.controller.*;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
-import pl.edu.agh.iet.to2.teams.view.ButtonView;
-import pl.edu.agh.iet.to2.teams.view.ComponentView;
-import pl.edu.agh.iet.to2.teams.view.CustomTreeObject;
-import pl.edu.agh.iet.to2.teams.view.TeamView;
+import pl.edu.agh.iet.to2.teams.view.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,7 +30,7 @@ public class TeamsTabInitializer implements TabInitializer {
     public TeamsModelManipulator manipulator;
     public TeamsTree teamsTree;
     public TeamView teamView;
-    public ButtonView buttonView;
+    public DialogView dialogView;
     public TeamData database;
 
     @Override
@@ -43,12 +38,12 @@ public class TeamsTabInitializer implements TabInitializer {
 
         this.pane = new AnchorPane();
 
-        this.teamView = new TeamView(pane);
-        this.buttonView = new ButtonView(pane);
+        this.dialogView = new DialogView();
+        this.teamView = new TeamView(this.pane, this.dialogView);
 
         HashMap<String, ComponentView> allViews = new HashMap<>();
         allViews.put("TeamView", teamView);
-        allViews.put("ButtonView", buttonView);
+        allViews.put("DialogView", dialogView);
 
         mainController = new MainController(allViews, this.pane);
         teamsTree = new TeamsTree();
@@ -56,6 +51,9 @@ public class TeamsTabInitializer implements TabInitializer {
         manipulator = new TeamsModelManipulator(teamsTree, mainController, (TeamView) allViews.get("TeamView"), null);
         database = new TeamData(manipulator);
         manipulator.setDatabase(database);
+
+        mainController.addController(TeamViewController.createControllerOn(pane, (TeamView) allViews.get("TeamView"), manipulator, teamsTree));
+        mainController.addController(RootController.createControllerOn(teamsTree, pane, (TeamView) allViews.get("TeamView")));
 
         try{
             System.out.println(database.getRootManagerFromDb());

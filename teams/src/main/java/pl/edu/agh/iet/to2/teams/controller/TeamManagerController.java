@@ -61,14 +61,24 @@ public class TeamManagerController implements SubController {
 
 
     public void initialize(){
+        this.manager.getIdProperty().addListener((o, oldVal, newVal) -> {
+            view.redrawManager(view.tree.getRoot(), manager.hashCode(), manager);
+        });
+
+        this.manager.getNameProperty().addListener((o, oldVal, newVal) -> {
+            view.redrawManager(view.tree.getRoot(), manager.hashCode(), manager);
+        });
+
+        this.manager.getOccupationProperty().addListener((o, oldVal, newVal) -> {
+            view.redrawManager(view.tree.getRoot(), manager.hashCode(), manager);
+        });
+
         this.manager.getManagersProperty().addListener((o, oldVal, newVal) -> {
             view.redrawManager(view.tree.getRoot(), manager.hashCode(), manager);
-            System.out.print("Managers changes\n");
         });
 
         this.manager.getTeamsProperty().addListener((o, oldVal, newVal) -> {
             view.redrawManager(view.tree.getRoot(), manager.hashCode(), manager);
-            System.out.print("Teams changes\n");
         });
     }
 
@@ -84,7 +94,5 @@ public class TeamManagerController implements SubController {
         tmc.initialize();
         return tmc;
     }
-
-
 
 }
