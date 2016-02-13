@@ -7,5 +7,6 @@ public enum TableType {
     MANAGER,
     MEMBER,
     PERSON,
-    TEAM
+    TEAM,
+    OTHER
 }

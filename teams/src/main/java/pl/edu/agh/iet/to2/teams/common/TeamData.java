@@ -4,7 +4,10 @@ import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.person.TesterPerson;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
 import pl.edu.agh.iet.to2.teams.db.SqlHelper;
+import pl.edu.agh.iet.to2.teams.db.objectsFromDb.DbMemberAccess;
+import pl.edu.agh.iet.to2.teams.db.tables.DbMember;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -159,6 +162,40 @@ public class TeamData {
             return personId;
         }
         return -4;
+    }
+
+    public void delManager (long personId){ // TODO niedokonczone - usuwam managera to i wszystkich pod nim.
+        String query1 = "DELETE FROM `Manager` WHERE personId="+personId;
+        String query2 = "DELETE FROM `Person` WHERE personId="+personId;
+
+        SqlHelper.executeQuery(query1);
+        SqlHelper.executeQuery(query2);
+    }
+
+    public void delMember (long personId){
+        String query1 = "DELETE FROM `Member` WHERE personId="+personId;
+        String query2 = "DELETE FROM `Person` WHERE personId="+personId;
+
+        SqlHelper.executeQuery(query1);
+        SqlHelper.executeQuery(query2);
+    }
+
+    public boolean deleteTeam (long teamId) {
+        try {
+            List<DbMember> members = DbMemberAccess.getMemberByTeamId(teamId);
+
+            for(DbMember member : members){
+                delMember(member.getPersonId());
+            }
+
+            //TODO jeszcze teama
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }
 
