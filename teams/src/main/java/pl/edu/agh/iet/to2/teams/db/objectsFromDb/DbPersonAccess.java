@@ -11,4 +11,20 @@ public class DbPersonAccess {
 
         SqlHelper.executeQuery(query1);
     }
+
+    public static void updatePersonNameByPersonId(long personId, String name){
+        String query =  "UPDATE Person\n" +
+                        "SET name='"+name+"'\n" +
+                        "WHERE personId='"+personId+"'";
+
+        SqlHelper.executeQuery(query);
+    }
+
+    public static void updatePersonPositionByPersonId(long personId, String position){
+        String query =  "UPDATE Person\n" +
+                "SET position='"+position+"'\n" +
+                "WHERE personId='"+personId+"'";
+
+        SqlHelper.executeQuery(query);
+    }
 }
