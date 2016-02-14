@@ -168,7 +168,7 @@ public class TeamData {
         return -4;
     }
 
-    public void deleteManager(long personId){ // TODO niedokonczone - usuwam managera to i wszystkich pod nim.
+    public void deleteManager(long personId){
         long managerId = DbManagerAccess.getManagerIdByPersonId(personId);
 
         List<DbManager> managers = DbManagerAccess.getManagerByParentManagerId(managerId);
