@@ -18,4 +18,12 @@ public class DbTeamAccess {
     public static List<DbTeam> getTeamByManagerId(long managerId) {
         return null;
     }
+
+    public static void updateTeamNameByTeamId (long teamId, String name){
+        String query =  "UPDATE Team\n" +
+                "SET name='"+name+"'\n" +
+                "WHERE teamId='"+teamId+"'";
+
+        SqlHelper.executeQuery(query);
+    }
 }

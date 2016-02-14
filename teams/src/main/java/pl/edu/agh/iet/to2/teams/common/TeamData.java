@@ -200,5 +200,25 @@ public class TeamData {
         DbTeamAccess.deleteTeamByTeamId(teamId);
         }
     }
+
+    public void editMemberName(long personId, String name){ //AAA You can merge this two methods or even more - i dont know what you expect
+        DbPersonAccess.updatePersonNameByPersonId(personId, name);
+    }
+
+    public void editMemberPosition(long personId, String position){// AAA
+        DbPersonAccess.updatePersonPositionByPersonId(personId, position);
+    }
+
+    public void editManagerName(long personId, String name){ //BBB
+        DbPersonAccess.updatePersonNameByPersonId(personId, name);
+    }
+
+    public void editManagerPosition(long personId, String position){// BBB
+        DbPersonAccess.updatePersonPositionByPersonId(personId, position);
+    }
+
+    public void editTeamName (long teamId, String name){
+        DbTeamAccess.updateTeamNameByTeamId(teamId, name);
+    }
 }
 
