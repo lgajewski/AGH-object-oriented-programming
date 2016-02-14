@@ -34,17 +34,17 @@ public class ObjectRewriter {
         return allRows;
     }
 
-    private static List<DbManager> rewriteAsDbManager (ResultSet rs) throws SQLException {
+    public static List<DbManager> rewriteAsDbManager (List<List> allTable){
         List allRows = new ArrayList<DbManager>();
 
-        while ( rs.next() ){
-            allRows.add(new DbManager(rs.getLong("managerId"), rs.getLong("personId"), rs.getLong("parentManagerId")));
+        for(List rs : allTable ){
+            allRows.add(new DbManager(((Number) rs.get(0)).longValue(), ((Number) rs.get(1)).longValue(), ((Number) rs.get(2)).longValue()));
         }
 
         return allRows;
     }
 
-    private static List<DbPerson> rewriteAsDbPerson (ResultSet rs) throws SQLException {
+    public static List<DbPerson> rewriteAsDbPerson (ResultSet rs) throws SQLException {
         List allRows = new ArrayList<DbManager>();
 
         while ( rs.next() ){//personId, String name, String position, String date

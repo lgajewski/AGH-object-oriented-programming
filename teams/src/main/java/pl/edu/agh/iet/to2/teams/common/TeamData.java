@@ -8,7 +8,9 @@ import pl.edu.agh.iet.to2.teams.db.objectsFromDb.DbManagerAccess;
 import pl.edu.agh.iet.to2.teams.db.objectsFromDb.DbMemberAccess;
 import pl.edu.agh.iet.to2.teams.db.objectsFromDb.DbPersonAccess;
 import pl.edu.agh.iet.to2.teams.db.objectsFromDb.DbTeamAccess;
+import pl.edu.agh.iet.to2.teams.db.tables.DbManager;
 import pl.edu.agh.iet.to2.teams.db.tables.DbMember;
+import pl.edu.agh.iet.to2.teams.db.tables.DbTeam;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -167,8 +169,18 @@ public class TeamData {
     }
 
     public void deleteManager(long personId){ // TODO niedokonczone - usuwam managera to i wszystkich pod nim.
+        long managerId = DbManagerAccess.getManagerIdByPersonId(personId);
 
-        //tutaj dla kazdego elementu pod tym managerem (team, manager) usuwam
+        List<DbManager> managers = DbManagerAccess.getManagerByParentManagerId(managerId);
+        List<DbTeam> teams = DbTeamAccess.getTeamByManagerId(managerId);
+
+        for(DbManager manager : managers){
+            deleteManager(manager.getPersonId());
+        }
+
+        for(DbTeam team : teams){
+            deleteTeam(team.getTeamId());
+        }
 
         DbManagerAccess.deleteManagerByPersonId(personId);
         DbPersonAccess.deletePersonByPersonId(personId);
@@ -176,9 +188,7 @@ public class TeamData {
 
     public void deleteMember(long personId){
         DbMemberAccess.deleteMemberByPersonId(personId);
-
-        String query2 = "DELETE FROM `Person` WHERE personId="+personId;
-        SqlHelper.executeQuery(query2);
+        DbPersonAccess.deletePersonByPersonId(personId);
     }
 
     public void deleteTeam (long teamId) {
