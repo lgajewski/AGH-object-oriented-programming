@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Iza on 13-02-2016.
  */
 public class ObjectRewriter {
-    public static List<DbMember> rewriteAsDbMember (List<List> allTable) throws SQLException {
+    public static List<DbMember> rewriteAsDbMember (List<List> allTable){
         List allRows = new ArrayList<DbMember>();
 
         for(List rs : allTable ){
@@ -24,7 +24,7 @@ public class ObjectRewriter {
         return allRows;
     }
 
-    public static List<DbTeam> rewriteAsDbTeam (List<List> allTable) throws SQLException {
+    public static List<DbTeam> rewriteAsDbTeam (List<List> allTable){
         List allRows = new ArrayList<DbTeam>();
 
         for(List rs : allTable ){

@@ -3,7 +3,6 @@ package pl.edu.agh.iet.to2.teams.db.objectsFromDb;
 import pl.edu.agh.iet.to2.teams.db.SqlHelper;
 import pl.edu.agh.iet.to2.teams.db.tables.DbMember;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,13 +10,13 @@ import java.util.List;
  */
 public class DbMemberAccess {
 
-    public static List<DbMember> getMemberByTeamId (long teamId) throws SQLException {
+    public static List<DbMember> getMemberByTeamId (long teamId){
         String query = "select from 'Member' where teamId=" + teamId;
 
         return ObjectRewriter.rewriteAsDbMember(SqlHelper.getResultSet(query, 3));
     }
 
-    public static DbMember getMemberByPersonId (long personId) throws SQLException {
+    public static DbMember getMemberByPersonId (long personId){
         String query = "select from 'Member' where personId=" + personId;
 
         List<DbMember> result = ObjectRewriter.rewriteAsDbMember(SqlHelper.getResultSet(query, 3));
@@ -31,5 +30,11 @@ public class DbMemberAccess {
         }
 
         return result.get(0);
+    }
+
+    public static void deleteMemberByPersonId(long personId){
+        String query1 = "DELETE FROM `Member` WHERE personId="+personId;
+
+        SqlHelper.executeQuery(query1);
     }
 }
