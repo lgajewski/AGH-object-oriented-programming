@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,6 +20,9 @@ import javafx.stage.WindowEvent;
 public class DialogView implements ComponentView {
 
     private Stage dialog;
+    private VBox allVBox;
+    private HBox tipHBox;
+    private Label tip;
     private HBox dialogHBox;
     private VBox labelVBox;
     private VBox textFieldVBox;
@@ -54,7 +58,17 @@ public class DialogView implements ComponentView {
         dialogHBox.getChildren().addAll(labelVBox, textFieldVBox);
         dialogHBox.setAlignment(Pos.CENTER);
 
-        dialogScene = new Scene(dialogHBox, 300, 200);
+        tipHBox = new HBox(20);
+        tip = new Label("Close dialog to submit");
+        tip.setStyle("-fx-font-weight: bold");
+        tipHBox.getChildren().add(tip);
+        tipHBox.setAlignment(Pos.CENTER);
+
+        allVBox = new VBox(20);
+        allVBox.getChildren().addAll(dialogHBox, tipHBox);
+        allVBox.setAlignment(Pos.CENTER);
+
+        dialogScene = new Scene(allVBox, 300, 200);
         dialog.setScene(dialogScene);
 
         dialog.setOnHiding(new EventHandler<WindowEvent>() {

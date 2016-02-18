@@ -37,7 +37,7 @@ public class TeamView implements ComponentView{
         this.tree.setEditable(false);
         this.tree.setShowRoot(false);
         this.tree.setMinSize(200, 400);
-        this.tree.setPrefSize(500, 500);
+        this.tree.setPrefSize(699, 599);
         this.tree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         this.tree.setCellFactory(new Callback<TreeView<CustomTreeObject>, TreeCell<CustomTreeObject>>() {
