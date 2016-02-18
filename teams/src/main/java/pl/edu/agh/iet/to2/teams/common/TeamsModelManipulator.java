@@ -42,9 +42,9 @@ public class TeamsModelManipulator {
                 return false;
             else{
                 mainController.addController(TeamController.createControllerOn(team, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
-                //team.setManager(parent);
+
                 parent.addTeam(team);
-               // database.addEmptyTeam(team.getName(), parentId);
+
                 return true;
             }
         }
@@ -96,14 +96,12 @@ public class TeamsModelManipulator {
 
         if(parentId == 0){
             if(teamsTree.rootExists()) {
-                /*mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), mainController.getTeamView()));
-                teamsTree.setRoot(teamManager); // new root*/
                 return false;
             }
             else{
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
                 teamsTree.setRoot(teamManager);
-               // database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), 0);
+
                 view.redrawRoot(teamManager);
                 return true;
             }
@@ -115,9 +113,7 @@ public class TeamsModelManipulator {
             }
             else{
                 mainController.addController(TeamManagerController.createControllerOn(teamManager, mainController.getPane(),(TeamView) mainController.getView("TeamView")));
-              //  teamManager.setSuperior(parent);
                 parent.addManager(teamManager);
-               // database.addManagerInDb(teamManager.getName(), teamManager.getOccupation(), parentId);
                 return true;
             }
         }
@@ -176,7 +172,6 @@ public class TeamsModelManipulator {
         if(team != null){
             mainController.addController(TesterPersonController.createControllerOn(testerPerson, mainController.getPane(), (TeamView) mainController.getView("TeamView")));
             team.add(testerPerson);
-           // database.addMember(testerPerson.getName(), testerPerson.getOccupation(), teamId);
             return true;
         }
         else

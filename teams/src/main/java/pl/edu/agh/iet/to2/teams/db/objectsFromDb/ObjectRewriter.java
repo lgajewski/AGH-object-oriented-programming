@@ -50,7 +50,7 @@ public class ObjectRewriter {
     public static List<DbPerson> rewriteAsDbPerson (ResultSet rs) throws SQLException {
         List allRows = new ArrayList<DbManager>();
 
-        while ( rs.next() ){//personId, String name, String position, String date
+        while ( rs.next() ){
             allRows.add(new DbPerson(rs.getLong("personId"), rs.getString("name"), rs.getString("position"), rs.getString("date")));
         }
 

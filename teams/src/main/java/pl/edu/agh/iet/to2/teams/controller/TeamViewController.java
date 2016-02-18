@@ -1,19 +1,13 @@
 package pl.edu.agh.iet.to2.teams.controller;
 
-import javafx.beans.binding.Binding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import pl.edu.agh.iet.to2.teams.api.person.Member;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
@@ -25,8 +19,6 @@ import pl.edu.agh.iet.to2.teams.model.TeamsTree;
 import pl.edu.agh.iet.to2.teams.view.ComponentView;
 import pl.edu.agh.iet.to2.teams.view.CustomTreeObject;
 import pl.edu.agh.iet.to2.teams.view.TeamView;
-
-import java.util.Random;
 
 /**
  * Created by maciek on 02.02.16.
@@ -74,7 +66,6 @@ public class TeamViewController implements SubController{
             @Override
             public void changed(ObservableValue<? extends TreeItem<CustomTreeObject>> observable, TreeItem<CustomTreeObject> oldValue, TreeItem<CustomTreeObject> newValue) {
                 if(observable != null && observable.getValue() != null && observable.getValue().getValue() != null){
-                    //System.out.println(observable.getValue().getValue().getContent());
 
                     if(teamsTree.findTeamManagerByHashcode(observable.getValue().getValue().getHashcode()) != null){
                         // team manager is selected

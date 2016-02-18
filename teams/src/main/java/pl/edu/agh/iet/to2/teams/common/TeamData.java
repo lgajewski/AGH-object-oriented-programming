@@ -46,8 +46,6 @@ public class TeamData {
 
         teamsModelManipulator.addTeamManager(parentId, tm);
 
-       // long managerId = ((Number) (person.get(0).get(0))).longValue();
-
         String getManagerSubordinates = "SELECT * FROM Manager WHERE parentManagerPersonId=" + personId;
         List<List> managerSubordinates = SqlHelper.getResultSet(getManagerSubordinates, 3);
 
@@ -61,8 +59,6 @@ public class TeamData {
         for(List team : teamSubordinates){
             getTeamWithMembersFromDb(personId, ((Number) team.get(0)).longValue());
         }
-
-        //return tm;
     }
 
     private void getTeamWithMembersFromDb(long parentId, long teamId) {
@@ -123,7 +119,6 @@ public class TeamData {
         String data = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         String insertPerson = "INSERT INTO 'Person' ( 'name','position', 'added') VALUES ('"+name+"', '"+position+"', "+data+")";
         String getPersonId = "SELECT * FROM Person WHERE name='"+name+"' AND position='"+position+"' AND added="+data;
-        //I dont know if 'and added=data' would work.. pls inform me if not (and fix it by commenting it for that time).
 
         SqlHelper.executeQuery(insertPerson);
 
@@ -169,8 +164,6 @@ public class TeamData {
     }
 
     public void deleteManager(long personId){
-       // long managerId = DbManagerAccess.getManagerIdByPersonId(personId);
-
         List<DbManager> managers = DbManagerAccess.getManagerByParentManagerPersonId(personId);
         List<DbTeam> teams = DbTeamAccess.getTeamByManagerPersonId(personId);
 
@@ -202,19 +195,19 @@ public class TeamData {
 
     }
 
-    public void editMemberName(long personId, String name){ //AAA You can merge this two methods or even more - i dont know what you expect
+    public void editMemberName(long personId, String name){
         DbPersonAccess.updatePersonNameByPersonId(personId, name);
     }
 
-    public void editMemberPosition(long personId, String position){// AAA
+    public void editMemberPosition(long personId, String position){
         DbPersonAccess.updatePersonPositionByPersonId(personId, position);
     }
 
-    public void editManagerName(long personId, String name){ //BBB
+    public void editManagerName(long personId, String name){
         DbPersonAccess.updatePersonNameByPersonId(personId, name);
     }
 
-    public void editManagerPosition(long personId, String position){// BBB
+    public void editManagerPosition(long personId, String position){
         DbPersonAccess.updatePersonPositionByPersonId(personId, position);
     }
 
