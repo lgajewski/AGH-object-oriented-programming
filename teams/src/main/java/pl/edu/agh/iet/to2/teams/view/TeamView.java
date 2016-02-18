@@ -54,6 +54,8 @@ public class TeamView implements ComponentView{
             public void handle(MouseEvent event) {
                 contextMenu.hide();
                 if (event.getButton() == MouseButton.SECONDARY) {
+                    if(tree.getRoot().getChildren().isEmpty())
+                        contextMenu.getItems().get(0).setVisible(true); // add manager
                     contextMenu.show(tree, event.getScreenX(), event.getScreenY());
                 }
             }

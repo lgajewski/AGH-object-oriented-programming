@@ -62,13 +62,9 @@ public class TeamsTree {
             if(node.getId() == id)
                 return node;
             for(Manager tm : node.getManagers()){
-                if(tm.getId() == id)
-                    return tm.getTeamManager();
-                else{
                     result = innerFindTeamManager(id, tm.getTeamManager());
                     if(result != null)
                         return result;
-                }
             }
             return result;
         }
@@ -90,13 +86,9 @@ public class TeamsTree {
             if(node.hashCode() == hashcode)
                 return node;
             for(Manager tm : node.getManagers()){
-                if(tm.hashCode() == hashcode)
-                    return tm.getTeamManager();
-                else{
-                    result = innerFindTeamManagerByHashcode(hashcode, tm.getTeamManager());
-                    if(result != null)
-                        return result;
-                }
+                result = innerFindTeamManagerByHashcode(hashcode, tm.getTeamManager());
+                if(result != null)
+                    return result;
             }
             return result;
         }
@@ -121,15 +113,9 @@ public class TeamsTree {
             }
 
             for(Manager tm : node.getManagers()){
-                for(Team t : tm.getTeamManager().getTeams()){
-                    if(t.getId() == id)
-                        return t;
-                    else{
-                        result = innerFindTeam(id, tm.getTeamManager());
-                        if(result != null)
-                            return result;
-                    }
-                }
+                result = innerFindTeam(id, tm.getTeamManager());
+                if(result != null)
+                    return result;
             }
             return result;
         }
@@ -154,15 +140,9 @@ public class TeamsTree {
             }
 
             for(Manager tm : node.getManagers()){
-                for(Team t : tm.getTeamManager().getTeams()){
-                    if(t.hashCode() == hashcode)
-                        return t;
-                    else{
-                        result = innerFindTeamByHashcode(hashcode, tm.getTeamManager());
-                        if(result != null)
-                            return result;
-                    }
-                }
+                result = innerFindTeamByHashcode(hashcode, tm.getTeamManager());
+                if(result != null)
+                    return result;
             }
             return result;
         }

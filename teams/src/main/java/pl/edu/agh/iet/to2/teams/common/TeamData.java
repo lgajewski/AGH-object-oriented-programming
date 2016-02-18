@@ -26,7 +26,7 @@ public class TeamData {
 
 
     public boolean getRootManagerFromDb() throws Exception {
-        String query1 = "SELECT * FROM Manager WHERE parentManagerId is null";
+        String query1 = "SELECT * FROM Manager WHERE parentManagerPersonId is null";
         List<List> rs = SqlHelper.getResultSet(query1, 3);
         if(rs.size()==0) return false;
         else if(rs.size()>1) {
@@ -46,16 +46,16 @@ public class TeamData {
 
         teamsModelManipulator.addTeamManager(parentId, tm);
 
-        long managerId = ((Number) (person.get(0).get(0))).longValue();
+       // long managerId = ((Number) (person.get(0).get(0))).longValue();
 
-        String getManagerSubordinates = "SELECT * FROM Manager WHERE parentManagerId=" + managerId;
+        String getManagerSubordinates = "SELECT * FROM Manager WHERE parentManagerPersonId=" + personId;
         List<List> managerSubordinates = SqlHelper.getResultSet(getManagerSubordinates, 3);
 
         for(List manager : managerSubordinates){
             getTreeBelowManagerFromDb(personId, ((Number) manager.get(1)).longValue());
         }
 
-        String getTeamSubordinates = "SELECT * FROM Team WHERE managerId=" + managerId;
+        String getTeamSubordinates = "SELECT * FROM Team WHERE managerPersonId=" + personId;
         List<List> teamSubordinates = SqlHelper.getResultSet(getTeamSubordinates, 3);
 
         for(List team : teamSubordinates){
@@ -103,7 +103,7 @@ public class TeamData {
         if(parentManagerId==0)
             insertManager = "INSERT INTO 'Manager'('personId') VALUES ("+personId+")";
         else
-            insertManager = "INSERT INTO 'Manager'('personId','parentManagerId') VALUES ("+personId+", "+parentManagerId+")";
+            insertManager = "INSERT INTO 'Manager'('personId','parentManagerPersonId') VALUES ("+personId+", "+parentManagerId+")";
 
         SqlHelper.executeQuery(insertManager);
 
@@ -135,10 +135,10 @@ public class TeamData {
         return -1;
     }
 
-    public long addEmptyTeam (String name, long managerId){
+    public long addEmptyTeam (String name, long managerPersonId){
         //-3 means that object wasnt added properly into table Team
-        String addTeam ="INSERT INTO 'Team'( 'name', 'managerId') VALUES ('"+name+"', "+managerId+")";
-        String getTeam = "SELECT * FROM Team WHERE name='"+ name+ "' AND managerId="+managerId;
+        String addTeam ="INSERT INTO 'Team'( 'name', 'managerPersonId') VALUES ('"+name+"', "+managerPersonId+")";
+        String getTeam = "SELECT * FROM Team WHERE name='"+ name+ "' AND managerPersonId="+managerPersonId;
 
         SqlHelper.executeQuery(addTeam);
         List<List> teams = SqlHelper.getResultSet(getTeam, 3);
@@ -169,10 +169,10 @@ public class TeamData {
     }
 
     public void deleteManager(long personId){
-        long managerId = DbManagerAccess.getManagerIdByPersonId(personId);
+       // long managerId = DbManagerAccess.getManagerIdByPersonId(personId);
 
-        List<DbManager> managers = DbManagerAccess.getManagerByParentManagerId(managerId);
-        List<DbTeam> teams = DbTeamAccess.getTeamByManagerId(managerId);
+        List<DbManager> managers = DbManagerAccess.getManagerByParentManagerPersonId(personId);
+        List<DbTeam> teams = DbTeamAccess.getTeamByManagerPersonId(personId);
 
         for(DbManager manager : managers){
             deleteManager(manager.getPersonId());
@@ -194,11 +194,12 @@ public class TeamData {
     public void deleteTeam (long teamId) {
         List<DbMember> members = DbMemberAccess.getMemberByTeamId(teamId);
 
-        for(DbMember member : members){
+        for(DbMember member : members) {
             deleteMember(member.getPersonId());
+        }
 
         DbTeamAccess.deleteTeamByTeamId(teamId);
-        }
+
     }
 
     public void editMemberName(long personId, String name){ //AAA You can merge this two methods or even more - i dont know what you expect

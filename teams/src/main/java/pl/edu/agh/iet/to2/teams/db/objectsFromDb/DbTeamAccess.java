@@ -10,13 +10,15 @@ import java.util.List;
  */
 public class DbTeamAccess {
     public static void deleteTeamByTeamId(long teamId){
-        String query1 = "DELETE FROM `Team` WHERE personId="+teamId;
+        String query1 = "DELETE FROM `Team` WHERE teamId="+teamId;
 
         SqlHelper.executeQuery(query1);
     }
 
-    public static List<DbTeam> getTeamByManagerId(long managerId) {
-        return null;
+    public static List<DbTeam> getTeamByManagerPersonId(long managerPersonId) {
+        String query = "select * from 'Team' where managerPersonId=" + managerPersonId;
+
+        return ObjectRewriter.rewriteAsDbTeam(SqlHelper.getResultSet(query, 3));
     }
 
     public static void updateTeamNameByTeamId (long teamId, String name){

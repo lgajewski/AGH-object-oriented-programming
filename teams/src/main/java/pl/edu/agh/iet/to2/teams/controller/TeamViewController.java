@@ -19,6 +19,7 @@ import pl.edu.agh.iet.to2.teams.api.person.Member;
 import pl.edu.agh.iet.to2.teams.api.person.TeamManager;
 import pl.edu.agh.iet.to2.teams.api.person.TesterPerson;
 import pl.edu.agh.iet.to2.teams.api.team.Team;
+import pl.edu.agh.iet.to2.teams.common.TeamData;
 import pl.edu.agh.iet.to2.teams.common.TeamsModelManipulator;
 import pl.edu.agh.iet.to2.teams.model.TeamsTree;
 import pl.edu.agh.iet.to2.teams.view.ComponentView;
@@ -37,6 +38,7 @@ public class TeamViewController implements SubController{
     private TeamView view;
     private TeamsModelManipulator manipulator;
     private TeamsTree teamsTree;
+    private TeamData database;
 
 
     public int getChildHashcode() {
@@ -98,6 +100,8 @@ public class TeamViewController implements SubController{
                         view.contextMenu.getItems().get(3).setVisible(true);    // edit
                         view.contextMenu.getItems().get(4).setVisible(true);    // remove
                     }
+                    else
+                        System.out.println("Brak elementu o danym hashcode: " + observable.getValue().getValue().getHashcode());
                 }
                 else{
                     // no items in tree
@@ -120,7 +124,7 @@ public class TeamViewController implements SubController{
                     TeamManager tm = teamsTree.findTeamManagerByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode());
                     if(tm != null){
                         view.getDialogView().setTitle("Add manager");
-                        view.getDialogView().enableId();
+                        view.getDialogView().disableId();
                         view.getDialogView().enableName();
                         view.getDialogView().enableOccupation();
                         view.getDialogView().getIdFieldTextProperty().set(String.valueOf(teamsTree.maxManagerId()+1));
@@ -130,15 +134,20 @@ public class TeamViewController implements SubController{
                         view.getDialogView().setOnHiding(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent event) {
-                                manipulator.addTeamManager(tm.getId(), new TeamManager(Math.max(teamsTree.maxManagerId() + 1, Integer.parseInt(view.getDialogView().getIdFieldTextProperty().getValue())), view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get()));
+                                long id = database.addManagerInDb(view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get(), tm.getId());
+                                if(id < 0)
+                                    throw new NullPointerException("invalid ID");
+                                else
+                                    manipulator.addTeamManager(tm.getId(), new TeamManager(id, view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get()));
+
                             }
                         });
                         view.getDialogView().show();
                     }
                 }
-                else{
+                else{   // no selection
                     view.getDialogView().setTitle("Add manager");
-                    view.getDialogView().enableId();
+                    view.getDialogView().disableId();
                     view.getDialogView().enableName();
                     view.getDialogView().enableOccupation();
                     view.getDialogView().getIdFieldTextProperty().set(String.valueOf(teamsTree.maxManagerId()+1));
@@ -148,7 +157,11 @@ public class TeamViewController implements SubController{
                     view.getDialogView().setOnHiding(new EventHandler<WindowEvent>() {
                         @Override
                         public void handle(WindowEvent event) {
-                            manipulator.addTeamManager(0, new TeamManager(Math.max(teamsTree.maxManagerId() + 1, Integer.parseInt(view.getDialogView().getIdFieldTextProperty().getValue())), view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get()));
+                            long id = database.addManagerInDb(view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get(), 0);
+                            if(id < 0)
+                                throw new NullPointerException("invalid ID");
+                            else
+                            manipulator.addTeamManager(0, new TeamManager(id, view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get()));
                         }
                     });
                     view.getDialogView().show();
@@ -165,7 +178,7 @@ public class TeamViewController implements SubController{
                     TeamManager tm = teamsTree.findTeamManagerByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode());
                     if(tm != null){
                         view.getDialogView().setTitle("Add team");
-                        view.getDialogView().enableId();
+                        view.getDialogView().disableId();
                         view.getDialogView().enableName();
                         view.getDialogView().disableOccupation();
                         view.getDialogView().getIdFieldTextProperty().set(String.valueOf(teamsTree.maxTeamId()+1));
@@ -175,7 +188,11 @@ public class TeamViewController implements SubController{
                         view.getDialogView().setOnHiding(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent event) {
-                                manipulator.addTeam(tm.getId(), Team.createTeam(Math.max(teamsTree.maxTeamId() + 1, Integer.parseInt(view.getDialogView().getIdFieldTextProperty().getValue())), view.getDialogView().getNameFieldTextProperty().get()));
+                                long id = database.addEmptyTeam(view.getDialogView().getNameFieldTextProperty().get(), tm.getId());
+                                if(id < 0)
+                                    throw new NullPointerException("invalid ID");
+                                else
+                                manipulator.addTeam(tm.getId(), Team.createTeam(id, view.getDialogView().getNameFieldTextProperty().get()));
                             }
                         });
                         view.getDialogView().show();
@@ -193,7 +210,7 @@ public class TeamViewController implements SubController{
                     Team t = teamsTree.findTeamByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode());
                     if(t != null){
                         view.getDialogView().setTitle("Add member");
-                        view.getDialogView().enableId();
+                        view.getDialogView().disableId();
                         view.getDialogView().enableName();
                         view.getDialogView().enableOccupation();
                         view.getDialogView().getIdFieldTextProperty().set(String.valueOf(teamsTree.maxMemberId()+1));
@@ -203,7 +220,11 @@ public class TeamViewController implements SubController{
                         view.getDialogView().setOnHiding(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent event) {
-                                manipulator.addMember(t.getId(), new TesterPerson(Math.max(teamsTree.maxMemberId() + 1, Integer.parseInt(view.getDialogView().getIdFieldTextProperty().getValue())), view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get()));
+                                long id = database.addMember(view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get(), t.getId());
+                                if(id < 0)
+                                    throw new NullPointerException("invalid ID");
+                                else
+                                manipulator.addMember(t.getId(), new TesterPerson(id, view.getDialogView().getNameFieldTextProperty().get(), view.getDialogView().getOccupationFieldTextProperty().get()));
                             }
                         });
                         view.getDialogView().show();
@@ -233,6 +254,8 @@ public class TeamViewController implements SubController{
                         view.getDialogView().setOnHiding(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent event) {
+                                database.editMemberName(m.getId(), m.getName());
+                                database.editMemberPosition(m.getId(), m.getOccupation());
                                 view.getDialogView().getIdFieldTextProperty().unbind();
                                 view.getDialogView().getNameFieldTextProperty().unbindBidirectional(((TesterPerson) m).getNameProperty());
                                 view.getDialogView().getOccupationFieldTextProperty().unbindBidirectional(((TesterPerson) m).getOccupationProperty());
@@ -252,6 +275,7 @@ public class TeamViewController implements SubController{
                         view.getDialogView().setOnHiding(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent event) {
+                                database.editTeamName(t.getId(), t.getName());
                                 view.getDialogView().getIdFieldTextProperty().unbind();
                                 view.getDialogView().getNameFieldTextProperty().unbindBidirectional(t.getNameProperty());
                             }
@@ -270,6 +294,8 @@ public class TeamViewController implements SubController{
                         view.getDialogView().setOnHiding(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent event) {
+                                database.editManagerName(tm.getId(), tm.getName());
+                                database.editManagerPosition(tm.getId(), tm.getOccupation());
                                 view.getDialogView().getIdFieldTextProperty().unbind();
                                 view.getDialogView().getNameFieldTextProperty().unbindBidirectional(tm.getNameProperty());
                                 view.getDialogView().getOccupationFieldTextProperty().unbindBidirectional(tm.getOccupationProperty());
@@ -286,13 +312,24 @@ public class TeamViewController implements SubController{
         itemRemove.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                long id = -1;
+
                 if(view.tree.getSelectionModel().getSelectedItem() != null && view.tree.getSelectionModel().getSelectedItem().getValue() != null){
-                    if(!manipulator.removeMemberByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode()))
-                        if(!manipulator.removeTeamByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode()))
-                            if(manipulator.removeTeamManagerByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode())){
+                    if((id = manipulator.removeMemberByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode())) == -1)
+                        if((id = manipulator.removeTeamByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode())) == -1)
+                            if((id = manipulator.removeTeamManagerByHashcode(view.tree.getSelectionModel().getSelectedItem().getValue().getHashcode())) == -1){
                                 if(view.tree.getRoot().getChildren().isEmpty())
                                     view.tree.getSelectionModel().clearSelection();
                             }
+                            else // manager removed
+                                database.deleteManager(id);
+                        else // team removed
+                            database.deleteTeam(id);
+                    else // member removed
+                        database.deleteMember(id);
+
+                    if(view.tree.getRoot().getChildren().isEmpty())
+                        view.tree.getSelectionModel().clearSelection();
                 }
             }
         });
@@ -305,16 +342,17 @@ public class TeamViewController implements SubController{
         view.contextMenu.getItems().get(4).setVisible(false);   // remove
     }
 
-    private TeamViewController(AnchorPane pane, TeamView view, TeamsModelManipulator manipulator, TeamsTree teamsTree){
+    private TeamViewController(AnchorPane pane, TeamView view, TeamsModelManipulator manipulator, TeamsTree teamsTree, TeamData database){
         this.pane = pane;
         this.manipulator = manipulator;
         this.view = view;
         this.childHashcode = view.hashCode();
         this.teamsTree = teamsTree;
+        this.database = database;
     }
 
-    public static TeamViewController createControllerOn(AnchorPane pane, TeamView view, TeamsModelManipulator manipulator, TeamsTree teamsTree){
-        TeamViewController tvc = new TeamViewController(pane, view, manipulator, teamsTree);
+    public static TeamViewController createControllerOn(AnchorPane pane, TeamView view, TeamsModelManipulator manipulator, TeamsTree teamsTree, TeamData database){
+        TeamViewController tvc = new TeamViewController(pane, view, manipulator, teamsTree, database);
         tvc.initialize();
         return tvc;
     }

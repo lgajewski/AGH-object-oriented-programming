@@ -15,14 +15,14 @@ public class DbManagerAccess {
         SqlHelper.executeQuery(query1);
     }
 
-    public static long getManagerIdByPersonId (long personId) {
+   /* public static long getManagerIdByPersonId (long personId) {
         String query = "select * from Manager where personId="+personId;
 
         return ObjectRewriter.rewriteAsDbManager(SqlHelper.getResultSet(query, 3)).get(0).getManagerId();
-    }
+    }*/
 
-    public static List<DbManager> getManagerByParentManagerId (long parentManagerId){
-        String query = "select * from Manager where parentManagerId="+parentManagerId;
+    public static List<DbManager> getManagerByParentManagerPersonId(long parentManagerPersonId){
+        String query = "select * from Manager where parentManagerPersonId="+parentManagerPersonId;
 
         return ObjectRewriter.rewriteAsDbManager(SqlHelper.getResultSet(query, 3));
     }

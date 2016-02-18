@@ -38,7 +38,10 @@ public class ObjectRewriter {
         List allRows = new ArrayList<DbManager>();
 
         for(List rs : allTable ){
-            allRows.add(new DbManager(((Number) rs.get(0)).longValue(), ((Number) rs.get(1)).longValue(), ((Number) rs.get(2)).longValue()));
+            if(rs.get(2) != null)
+                allRows.add(new DbManager(((Number) rs.get(0)).longValue(), ((Number) rs.get(1)).longValue(), ((Number) rs.get(2)).longValue()));
+            else
+                allRows.add(new DbManager(((Number) rs.get(0)).longValue(), ((Number) rs.get(1)).longValue(), 0));
         }
 
         return allRows;

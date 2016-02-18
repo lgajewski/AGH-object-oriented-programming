@@ -11,7 +11,7 @@ import java.util.List;
 public class DbMemberAccess {
 
     public static List<DbMember> getMemberByTeamId (long teamId){
-        String query = "select from 'Member' where teamId=" + teamId;
+        String query = "select * from 'Member' where teamId=" + teamId;
 
         return ObjectRewriter.rewriteAsDbMember(SqlHelper.getResultSet(query, 3));
     }

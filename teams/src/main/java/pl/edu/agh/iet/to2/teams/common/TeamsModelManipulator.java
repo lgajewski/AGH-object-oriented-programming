@@ -52,31 +52,37 @@ public class TeamsModelManipulator {
             return false;
     }
 
-    public boolean removeTeam(long id){
+    public long removeTeam(long id){
         TeamManager teamManager = teamsTree.findManagerOfTeam(id);
         if(teamManager != null)
             for(Team t : teamManager.getTeams())
                 if(t.getId() == id){
                     mainController.removeControllerByHashcode(t.hashCode());
                     teamManager.removeTeam(id);
-                    return true;
+                    return id;
                 }
 
-        return false;
+        return -1;
     }
 
-    public boolean removeTeamByHashcode(int hashcode){
+    public long removeTeamByHashcode(int hashcode){
+        long id = -1;
+        Team res = null;
+
         TeamManager teamManager = teamsTree.findManagerOfTeamByHashcode(hashcode);
         if(teamManager != null){
+            res = teamsTree.findTeamByHashcode(hashcode);
+            if(res != null)
+                id = res.getId();
             mainController.removeControllerByHashcode(hashcode);
             teamManager.removeTeamByHashcode(hashcode);
-            return true;
+            return id;
         }
 
-        return false;
+        return -1;
     }
 
-    public boolean removeTeam(Team team){
+    public long removeTeam(Team team){
         return this.removeTeamByHashcode(team.hashCode());
     }
 
@@ -117,11 +123,11 @@ public class TeamsModelManipulator {
         }
     }
 
-    public boolean removeTeamManager(long id){
+    public long removeTeamManager(long id){
         if(teamsTree.rootExists() && teamsTree.getRoot().getId() == id){
             mainController.removeControllerByHashcode(teamsTree.getRoot().hashCode());
             teamsTree.deleteRoot();
-            return true;
+            return id;
         }
 
         TeamManager teamManager = teamsTree.findSuperiorOfManager(id);
@@ -130,30 +136,37 @@ public class TeamsModelManipulator {
                 if(m.getId() == id){
                     mainController.removeControllerByHashcode(m.hashCode());
                     teamManager.removeManager(id);
-                    return true;
+                    return id;
                 }
 
-        return false;
+        return -1;
     }
 
-    public boolean removeTeamManagerByHashcode(int hashcode){
+    public long removeTeamManagerByHashcode(int hashcode){
+        long id = -1;
+        TeamManager res = null;
+
         if(teamsTree.rootExists() && teamsTree.getRoot().hashCode() == hashcode){
+            id = teamsTree.getRoot().getId();
             mainController.removeControllerByHashcode(teamsTree.getRoot().hashCode());
             teamsTree.deleteRoot();
-            return true;
+            return id;
         }
 
         TeamManager teamManager = teamsTree.findSuperiorOfManagerByHashcode(hashcode);
         if(teamManager != null){
+            res = teamsTree.findTeamManagerByHashcode(hashcode);
+            if(res != null)
+                id = res.getId();
             mainController.removeControllerByHashcode(hashcode);
             teamManager.removeManagerByHashcode(hashcode);
-            return true;
+            return id;
         }
 
-        return false;
+        return -1;
     }
 
-    public boolean removeTeamManager(TeamManager teamManager){
+    public long removeTeamManager(TeamManager teamManager){
         return this.removeTeamManagerByHashcode(teamManager.hashCode());
     }
 
@@ -170,32 +183,38 @@ public class TeamsModelManipulator {
             return false;
     }
 
-    public boolean removeMember(long id){
+    public long removeMember(long id){
         Team team = teamsTree.findTeamOfMember(id);
         if(team != null) {
             for (Member m : team.getMembers())
                 if (m.getId() == id) {
                     mainController.removeControllerByHashcode(m.hashCode());
                     team.remove(id);
-                    return true;
+                    return id;
                 }
         }
 
-        return false;
+        return -1;
     }
 
-    public boolean removeMemberByHashcode(int hashcode){
+    public long removeMemberByHashcode(int hashcode){
+        long id = -1;
+        Member res = null;
+
         Team team = teamsTree.findTeamOfMemberByHashcode(hashcode);
         if(team != null) {
+            res = teamsTree.findMemberByHashcode(hashcode);
+            if(res != null)
+                id = res.getId();
             mainController.removeControllerByHashcode(hashcode);
             team.removeByHashcode(hashcode);
-            return true;
+            return id;
         }
 
-        return false;
+        return -1;
     }
 
-    public boolean removeMember(Member member){
+    public long removeMember(Member member){
         return this.removeMemberByHashcode(member.hashCode());
     }
 

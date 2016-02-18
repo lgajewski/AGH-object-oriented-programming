@@ -52,11 +52,11 @@ public class TeamsTabInitializer implements TabInitializer {
         database = new TeamData(manipulator);
         manipulator.setDatabase(database);
 
-        mainController.addController(TeamViewController.createControllerOn(pane, (TeamView) allViews.get("TeamView"), manipulator, teamsTree));
+        mainController.addController(TeamViewController.createControllerOn(pane, (TeamView) allViews.get("TeamView"), manipulator, teamsTree, database));
         mainController.addController(RootController.createControllerOn(teamsTree, pane, (TeamView) allViews.get("TeamView")));
 
         try{
-            System.out.println(database.getRootManagerFromDb());
+            database.getRootManagerFromDb();
         } catch (Exception e){
             System.out.println("Wyjątek!");
             e.printStackTrace();
